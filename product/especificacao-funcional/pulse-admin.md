@@ -1,6 +1,6 @@
 # Pulse Admin (backoffice)
 
-> Escopo: operação interna Pulse | Público: `PULSE_ADMIN` | Plataforma: Producer Web `/admin/*` + API `/api/admin/v1` | Última revisão: 2026-05-19
+> Escopo: operação interna Pulse | Público: `PULSE_ADMIN` | Plataforma: Producer Web `/admin/*` + API `/api/admin/v1` | Última revisão: 2026-05-20
 
 ## Legenda de status
 
@@ -105,8 +105,23 @@ Matriz completa: [RBAC.md](../RBAC.md).
 | Alertas SLA latência p95 (sugestão) | [PENDENTE] |
 | Audit log UI freeze/estornos (sugestão) | [PARCIAL] — AuditLogger no backend; sem tela dedicada |
 
-## 7. Referências cruzadas
+## 7. Fluxos detalhados (diagramas)
+
+Cada módulo abaixo segue o padrão **parte 1 (entrada)** · **parte 2 (validação/ações)** · **parte 3 (persistência/efeitos)**, como [criação de evento](./fluxos/criacao-de-evento/).
+
+| Fluxo | Pasta | HU |
+| --- | --- | --- |
+| KYC titular | [fluxos/admin/kyc-aprovacao/](./fluxos/admin/kyc-aprovacao/) | HU02 |
+| Produtoras | [fluxos/admin/produtoras/](./fluxos/admin/produtoras/) | HU02, HU02b |
+| Financeiro repasse | [fluxos/admin/financeiro-repasse/](./fluxos/admin/financeiro-repasse/) | HU04, HU04b |
+| Estornos | [fluxos/admin/estornos/](./fluxos/admin/estornos/) | HU05, HU05b |
+| Compliance termos | [fluxos/admin/compliance-termos/](./fluxos/admin/compliance-termos/) | HU06 |
+
+Índice completo + mock: [fluxos/admin/README.md](./fluxos/admin/README.md) · [fluxos/README.md](./fluxos/README.md)
+
+## 8. Referências cruzadas
 
 - [api-endpoints.md](./api-endpoints.md#2-admin-apadminv1)
 - [producer-web.md](./producer-web.md) — mesmo deploy, rotas distintas
 - [app-produtor.md](./app-produtor.md) — KYC titular espelha fila admin
+- Mock UI: [admin-dashboard-mock.html](../../../producer-web/prototypes/admin/admin-dashboard-mock.html)

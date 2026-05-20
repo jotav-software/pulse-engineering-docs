@@ -85,6 +85,8 @@ Consulte [global-business-rules.md](../policies/global-business-rules.md) e [pay
 
 Detalhes por sistema nos arquivos linkados acima.
 
+**Fluxos em diagrama:** [fluxos/README.md](./fluxos/README.md) (App Produtor + [Pulse Admin](./fluxos/admin/README.md)).
+
 ---
 
 ## Referências canônicas

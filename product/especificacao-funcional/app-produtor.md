@@ -629,13 +629,13 @@ Status do épico: [PARCIAL] Parcial — Fechar a blindagem de RBAC do ecossistem
 - 15. RBAC unificado (referência docs/RBAC.md)
 - Papéis: CLIENT, PRODUCER (Dono), PRODUCER_MANAGER (Gestor), STAFF, PROMOTER, PULSE_ADMIN. Fonte canônica de permissões: docs/RBAC.md (2026-05-19). MUST: permissão validada no backend, nunca só na UI.
 - 15.1 Matriz resumida por aplicação
-- Produtor App: épicos 5–13. Producer Web produtora: paridade parcial; check-in ao vivo [PENDENTE] (atalhos «Em breve» no dashboard). Client Web: vitrine [IMPLEMENTADO]; auth/checkout B2C [PENDENTE] (hoje usa API produtor — migrar para /api/client/v1). Client App: compra, carteira, promoter [IMPLEMENTADO]. Pulse Admin: seção 21.
+- Produtor App: épicos 5–13. Producer Web produtora: paridade parcial; check-in ao vivo [PENDENTE] (atalhos «Em breve» no dashboard). Client Web: vitrine [IMPLEMENTADO]; auth/checkout B2C [PENDENTE] (hoje usa API produtor — migrar para /api/client/v1). Client App: compra, carteira, promoter [IMPLEMENTADO]. Pulse Admin: [pulse-admin.md](./pulse-admin.md) e [fluxos/admin/](./fluxos/admin/README.md).
 - 16. Producer Web — portal da produtora
-- Rotas: /dashboard, /events, /finance/*, /team, /settings, onboarding /onboarding/*, /lists. Check-in operacional ao vivo [PENDENTE] (botão «Em breve» em quick-actions). Listas /lists: consulta participantes [PARCIAL]. Financeiro web: repasse e KPIs [IMPLEMENTADO]; cancelamentos/comissões UI [PENDENTE]. Área admin isolada em /admin/* — ver seção 21 (não confundir com portal produtor).
+- Rotas: /dashboard, /events, /finance/*, /team, /settings, onboarding /onboarding/*, /lists. Check-in operacional ao vivo [PENDENTE] (botão «Em breve» em quick-actions). Listas /lists: consulta participantes [PARCIAL]. Financeiro web: repasse e KPIs [IMPLEMENTADO]; cancelamentos/comissões UI [PENDENTE]. Área admin isolada em `/admin/*` — ver [pulse-admin.md](./pulse-admin.md) (não confundir com portal produtor).
 - 17. Legado — numeração dos épicos produtor
-- Seções 5–13 mantêm HUs do Produtor App. Status atualizados por de/para com código; consulte seções 14–16 para demais plataformas e seção 21 para Pulse Admin.
+- Seções 5–13 mantêm HUs do Produtor App. Status atualizados por de/para com código; consulte seções 14–16 para demais plataformas e [pulse-admin.md](./pulse-admin.md) para Pulse Admin.
 - 18. Evoluções pós-MVP e backlog estratégico
-- Separar o que já existe do backlog. Pulse Admin **core** (seção 21) está [IMPLEMENTADO]; itens abaixo permanecem pós-MVP salvo indicação em contrário.
+- Separar o que já existe do backlog. Pulse Admin **core** ([pulse-admin.md](./pulse-admin.md)) está [IMPLEMENTADO]; itens abaixo permanecem pós-MVP salvo indicação em contrário.
 - 18.1 Já entregue (não tratar como futuro)
 - Pulse Admin: visão, produtoras, financeiro admin (freeze/estornos), compliance/KYC. Promoter no App Cliente. Gestão avançada de lotes no Produtor App. Dashboard e financeiro produtor no App.
 - 18.2 Backlog pós-MVP
@@ -650,23 +650,11 @@ Status do épico: [PARCIAL] Parcial — Fechar a blindagem de RBAC do ecossistem
 - 20. Módulos B2C — mapa de implementação
 - Consolidado para decisão bug vs comportamento esperado. Referência: docs/product/especificacao_funcional_mvp_ingressos.docx.
 - Gatilho de liberação: `ReleaseRetainedPayoutsUseCase` — D+1 (24h após término). Legado «10 check-ins» não implementado — [payout-policies.md](../policies/payout-policies.md).
-- 21. Pulse Admin — especificação operacional
-- Painel interno Pulse para operadores com papel `PULSE_ADMIN` (Operador Pulse). UI: Producer Web em `/admin/*` (layout e sidebar isolados — HU01 isolamento de código). API: `/api/admin/v1/*`. Login unificado em `/login` com ramificação por role após OTP.
-- 21.1 Autenticação e sessão (HU01)
-- MUST: usuário sem role PULSE_ADMIN não acessa `/admin/*` nem API admin (403). Given credenciais válidas When POST /api/admin/v1/auth/login Then requiresOtp=true (sem token). Given OTP válido When POST /api/admin/v1/auth/login/verify-otp Then token Bearer (~7 dias) e sessão admin. Rotas: logout, GET /auth/me. Middleware AdminAuthMiddleware em todas as rotas exceto login/verify-otp.
-- 21.2 Produtoras — onboarding e KYC (HU02)
-- Tela /admin/produtoras: listagem com GMV 30d, busca, drawer criar produtora (CNPJ, taxa pulseFeeBps), reset de senha. API: GET/POST /producers, POST /producers/:id/reset-password. Subfluxo KYC titular: /admin/compliance/kyc — fila, aprovar, rejeitar, download documento. API KYC: GET /kyc/queue, GET /kyc/documents/:id, approve, reject, download.
-- 21.3 Visão geral e saúde do checkout (HU03)
-- Tela /admin/visao: KPIs tráfego checkout 24h, latência p95, health gateways. API: GET /api/admin/v1/metrics/health. [PARCIAL] M1 — métricas em memória (MetricsStore), sem persistência histórica longa.
-- 21.4 Financeiro — repasses e freeze (HU04)
-- Tela /admin/financeiro: abas repasses pendentes, congelados, liberados (30d); KPIs; modais freeze/unfreeze com motivo obrigatório (mín. 10 caracteres). MUST: evento congelado bloqueia saque do produtor (mesma regra do portal produtor). API: GET /payouts, GET /payouts/stats, POST /payouts/events/:eventId/freeze|unfreeze. UI secundária «Exportar extrato» / KPI chargeback [PARCIAL] — marcada «em breve».
-- 21.5 Central de estornos (HU05)
-- Mesma tela financeiro: listagem estornos, busca pedido, validação e processamento via gateway. API: GET /refunds, /refunds/stats, /refunds/producers/:id/events, /refunds/search-orders, POST /refunds/validate, POST /refunds (executar). Detalhe linha e ações extras [PARCIAL] («Detalhes em breve»).
-- 21.6 Compliance e termos legais (HU06)
-- Tela /admin/compliance: documentos versionados, publicar nova versão com forceAcceptance. API: GET /compliance, POST /compliance/documents. Produtor e cliente bloqueados por TermsComplianceMiddleware até aceitar; PULSE_ADMIN isento. Ver docs/CHECKOUT_COMPLIANCE.md.
-- 21.8 Tabela HU × rota × status
-- 21.7 Mapa HU × rota × status
-- Tabela consolidada na seção 21.8 (abaixo). UI «em breve» = [PARCIAL].
+- 21. Pulse Admin (backoffice)
+- Especificação operacional, mapa HU × rota e fluxos em diagrama estão em documentos dedicados — **não duplicar aqui**:
+  - [pulse-admin.md](./pulse-admin.md) — HU01–HU06, RBAC, backlog
+  - [fluxos/admin/](./fluxos/admin/README.md) — KYC, produtoras, financeiro, estornos, compliance (partes 1–3 cada)
+- KYC do titular no App Produtor alimenta a fila admin; matriz de bloqueio: [kyc-blocking-matrix.md](../policies/kyc-blocking-matrix.md).
 - 22. Arquitetura do sistema (visão de alto nível)
 - Ecossistema monorepo com backend único (Elysia/Node), banco MySQL (Prisma), quatro frontends e integrações externas.
 - Diagrama (texto — compatível Mermaid):

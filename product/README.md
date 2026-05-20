@@ -16,7 +16,7 @@ Documentação por plataforma, fluxos e visão transversal do produto.
 | --- | --- |
 | [Por sistema](./especificacao-funcional/README.md#documentos-por-sistema) | Pulse Admin, App Produtor, Producer Web, App Cliente, Client Web |
 | [Transversal](./especificacao-funcional/arquitetura.md) | [Arquitetura funcional](./especificacao-funcional/arquitetura.md) · [API endpoints](./especificacao-funcional/api-endpoints.md) |
-| [Fluxos](./especificacao-funcional/fluxos/README.md) | Fluxos detalhados (ex.: criação de evento) |
+| [Fluxos](./especificacao-funcional/fluxos/README.md) | App Produtor (ex.: criação de evento) · [Pulse Admin](./especificacao-funcional/fluxos/admin/README.md) |
 
 ---
 
