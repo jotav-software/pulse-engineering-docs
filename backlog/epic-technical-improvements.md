@@ -14,6 +14,13 @@
 | 26 | Security hardening | https://github.com/jotav-software/pulse-backend/issues/26 |
 | 27 | Cross-app library alignment | https://github.com/jotav-software/pulse-backend/issues/27 |
 | 28 | CI / Biome enforcement | https://github.com/jotav-software/pulse-backend/issues/28 |
+| 29 | M11 — Hash session tokens no DB | https://github.com/jotav-software/pulse-backend/issues/29 |
+
+## Segurança (backlog detalhado)
+
+| ID | Tema | Doc |
+|----|------|-----|
+| M11 | Session token hashing | [session-token-hashing.md](./session-token-hashing.md) |
 
 ## Implementado na sessão inicial
 
