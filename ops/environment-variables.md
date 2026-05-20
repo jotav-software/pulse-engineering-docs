@@ -77,7 +77,7 @@ Referência local: `backend/.env.example`. Deploy: serviço **pulse-backend**, b
 | Variável | Obrigatória | Valor / onde obter |
 |----------|-------------|-------------------|
 | `BIOMETRIC_ENCRYPTION_KEY` | Prod + enrollment V2 | `openssl rand -hex 32` (64 chars hex). |
-| `BIOMETRIC_HASH_SECRET` | Opcional | Segredo HMAC; se vazio, fallback da encryption key. |
+| `BIOMETRIC_HASH_SECRET` | **Sim (prod)** | Segredo HMAC do hash biométrico. Em `NODE_ENV=production` o backend falha no startup/uso sem esta variável (`resolveBiometricHashSecret`). Dev: fallback `BIOMETRIC_ENCRYPTION_KEY` ou constante local. Gerar: `openssl rand -base64 32`. |
 | `PULSE_FACE_SERVICE_URL` | Extract / identify | `https://pulse-face-production.up.railway.app` |
 | `PULSE_FACE_SERVICE_API_KEY` | Extract / identify | Gerar segredo forte; **igual** no serviço pulse-face (`x-api-key`). |
 | `PULSE_INTERNAL_API_KEY` | Crons `/internal/*` | Segredo forte; header `x-pulse-internal-key`. |
