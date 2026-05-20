@@ -1,8 +1,6 @@
 # Matriz de bloqueios pós-KYC (HU-02)
 
-> Fonte canônica: [pulse-backend/docs/product/kyc-blocking-matrix.md](https://github.com/jotav-software/pulse-backend/blob/develop/docs/product/kyc-blocking-matrix.md)
-
-## Status agregado (`users.producer_kyc_status`)
+Status agregado do titular em `users.producer_kyc_status`:
 
 | Valor | Significado |
 |-------|-------------|
@@ -11,9 +9,22 @@
 | `KYC_APPROVED` | Todos os tipos obrigatórios aprovados |
 | `KYC_REJECTED` | Algum obrigatório rejeitado; reenvio via HU-01 |
 
-## Bloqueios
+Helpers: `backend/src/shared/constants/producerKycBlocks.ts`
 
-Helpers: `src/shared/constants/producerKycBlocks.ts`
+## Bloqueios (código)
 
-- **Repasse / payout:** `shouldBlockPayoutUntilKycApproved` — até `KYC_APPROVED`
-- **Publicar evento:** gate conforme produto
+| Ação | Bloqueado até `KYC_APPROVED`? | Onde |
+|------|-------------------------------|------|
+| **Publicar evento** (`PUBLISH`) | **Sim** | `ChangeProducerEventStatusUseCase`, `GetEventReadinessUseCase` — HTTP 403 com mensagem explícita |
+| **Repasse / saque** | Helper `shouldBlockPayoutUntilKycApproved` definido; **gate ainda não aplicado** nos use cases de payout | Confirmar com produto antes de ligar |
+
+## Fluxos
+
+- **Onboarding produtor:** Producer Web `/onboarding/*` + upload; fila em Pulse Admin `/admin/compliance/kyc`
+- **Rejeição:** reenvio de documentos (HU-01); notificação ao produtor — canal TBD (hoje log estruturado)
+
+## Referências
+
+- [pulse-admin.md](./especificacao-funcional/pulse-admin.md) — HU02 fila KYC
+- [producer-web.md](./especificacao-funcional/producer-web.md) — onboarding
+- [payout-policies.md](./payout-policies.md) — repasse e KYC
