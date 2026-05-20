@@ -1,6 +1,6 @@
 # Pulse — Documentação de Engenharia
 
-Repositório central de arquitetura, padrões, segurança e backlog técnico do ecossistema **Pulse** (JV / jotav-software).
+Repositório central de **arquitetura, padrões, segurança, produto e backlog técnico** do ecossistema **Pulse** (JV / jotav-software). Fonte canônica — os repositórios de código mantêm apenas READMEs e documentação técnica local.
 
 ## Repositórios de código
 
@@ -14,24 +14,93 @@ Repositório central de arquitetura, padrões, segurança e backlog técnico do 
 | [pulse-face](https://github.com/jotav-software/pulse-face) | Microserviço biometria (FastAPI) |
 | [pulse-landing-page](https://github.com/jotav-software/pulse-landing-page) | Landing estática |
 
+## Estrutura
+
+```
+pulse-engineering-docs/
+├── adr/           Architectural Decision Records (1, 2, 3...)
+├── architecture/  Visão técnica, princípios, golden rules, pagamentos, jobs
+├── standards/     Padrões transversais (API, backend, frontend, testes, segurança, comentários, Prisma)
+├── product/       Especificação funcional, regras de negócio, RBAC, facial, compliance
+├── backlog/       Roadmaps e épicos técnicos
+├── brand/         Brand kit, logos, pitch
+├── commercial/    Materiais de apresentação para cliente (HTMLs)
+├── ops/           Credenciais de deploy (App Store API, etc) — sem segredos
+└── scripts/       Automação dos docs (Python)
+```
+
 ## Índice
 
-- [Visão geral da arquitetura](./architecture/overview.md)
-- [Padrões backend](./standards/backend.md)
-- [Contratos de API e tipagem](./standards/api.md)
-- [Padrões frontend](./standards/frontend.md)
+### Architectural Decision Records (ADR)
+- [ADR-001 — Backend stack](./adr/ADR-001-backend-stack.md)
+- [ADR-002 — Authentication strategy](./adr/ADR-002-authentication-strategy.md)
+- [ADR-003 — Implementation rules](./adr/ADR-003-implementation-rules.md)
+
+### Arquitetura
+- [Visão geral](./architecture/overview.md)
+- [Princípios](./architecture/principles.md)
+- [Golden rules](./architecture/golden-rules.md)
+- [Job de repasse (RETAINED → AVAILABLE)](./architecture/job-repasse.md)
+- [Pagamentos — especificação técnica](./architecture/payments/especificacao.md)
+- [Pagamentos — checkout flows](./architecture/payments/checkout-flows.md)
+
+### Padrões
+- [API e contratos](./standards/api.md)
+- [Backend](./standards/backend.md)
+- [Frontend](./standards/frontend.md)
 - [Tratamento de erros](./standards/errors.md)
 - [Testes](./standards/testing.md)
 - [Segurança](./standards/security.md)
-- [ADRs](./adr/README.md)
-- [Backlog e EPIC](./backlog/epic-technical-improvements.md)
+- [Regras técnicas (consolidado)](./standards/technical-rules.md)
+- [Prisma workflow](./standards/prisma-workflow.md)
+- [Backend comments](./standards/backend-comments.md) · [roadmap](./standards/backend-comments-roadmap.md)
+- [Tipagem OpenAPI](./standards/openapi-typing.md)
 
-## EPIC GitHub
+### Produto
+- [Especificação funcional (por sistema)](./product/especificacao-funcional/README.md)
+  - [Pulse Admin](./product/especificacao-funcional/pulse-admin.md)
+  - [App Produtor](./product/especificacao-funcional/app-produtor.md)
+  - [Producer Web](./product/especificacao-funcional/producer-web.md)
+  - [App Cliente](./product/especificacao-funcional/app-client.md)
+  - [Client Web](./product/especificacao-funcional/client-web.md)
+  - [Arquitetura (visão funcional)](./product/especificacao-funcional/arquitetura.md)
+  - [Endpoints](./product/especificacao-funcional/api-endpoints.md)
+  - [Fluxos detalhados](./product/especificacao-funcional/fluxos/README.md)
+- [RBAC](./product/rbac.md) · [Role matrix](./product/role-matrix.md)
+- [Regras globais de negócio](./product/global-business-rules.md)
+- [Políticas de repasse](./product/payout-policies.md)
+- [KYC blocking matrix](./product/kyc-blocking-matrix.md)
+- [Checkout compliance (HU06)](./product/checkout-compliance.md)
+- [Test users](./product/test-users.md)
+- Biometria facial — [como funciona](./product/facial/como-funciona-biometria-facial.md) · [LGPD](./product/facial/lgpd-security.md) · [enrollment MVP](./product/facial/enrollment-mvp.md) · [infra deploy](./product/facial/infra-deploy-checklist.md) · [épico self-hosted](./product/facial/epic-self-hosted.md)
 
-Melhorias técnicas rastreadas no repositório **pulse-backend** — ver [backlog/epic-technical-improvements.md](./backlog/epic-technical-improvements.md) para links atualizados às issues.
+### Backlog
+- [Épico — melhorias técnicas](./backlog/epic-technical-improvements.md)
+- [Roadmap Producer Web](./backlog/roadmap-producer-web.md)
+- [Plano events & ticketing](./backlog/events-ticketing-plan.md)
+- [Membership VIP](./backlog/membership-vip.md) — [PENDENTE]
+
+### Brand & Commercial
+- [Brand kit brief](./brand/brand-kit-brief.md)
+- Brand kit (HTML/assets): `brand/kit/` · `brand/assets/`
+- Apresentações para cliente: `commercial/`
+
+### Ops
+- [App Store Connect API (metadata, sem `.p8`)](./ops/app-store-connect-api.md) — chaves privadas em `~/workspace/keys/`
+
+## Convivência com os repositórios
+
+Cada repo de código mantém:
+
+- `README.md` — visão geral, setup, scripts
+- `CHANGELOG.md` — histórico de versões (onde aplicável)
+- `CLAUDE.md` — instruções para assistentes IA (somente backend)
+- Documentação técnica **estritamente local** (ex.: `src/lib/auth/README.md`) que descreve uma pasta específica do código
+
+Tudo mais é centralizado aqui.
 
 ## Como contribuir
 
-1. Alterações de padrão: PR neste repositório (`docs/`).
-2. Implementação: PR no repositório de código correspondente, referenciando a issue do EPIC.
-3. Não commitar segredos (`.env`, chaves `.p8`, tokens).
+1. Alteração de padrão/produto/ADR: PR neste repositório.
+2. Implementação: PR no repositório de código, referenciando a issue do épico.
+3. Nunca commitar segredos (`.env`, chaves `.p8`, tokens).

@@ -1,0 +1,21 @@
+# Fluxos (App Producer)
+
+Diagramas em [Mermaid](https://mermaid.js.org/) — renderizam no GitHub e em IDEs com suporte.
+
+| Documento | Conteúdo |
+|-----------|----------|
+| [Login e primeiro acesso](login-e-primeiro-acesso/) | Imagem de referência do fluxo épico 1 (PNG). |
+| [Criação de evento — parte 1](criacao-de-evento/parte-1-entrada-e-navegacao.md) | Navegação até abrir a tela de criar evento. |
+| [Criação de evento — parte 2](criacao-de-evento/parte-2-formulario-e-validacao.md) | Validações do formulário antes de enviar. |
+| [Criação de evento — parte 3](criacao-de-evento/parte-3-persistencia-e-comercial.md) | Gravação do rascunho, bifurcação e tela comercial. |
+
+## Lockfiles: Bun vs `package-lock.json`
+
+O repositório mantém **`bun.lock`** e, em alguns momentos, também **`package-lock.json`**.
+
+- **Bun** deve ser a fonte de verdade quando o time instala com `bun install` e o CI/EAS segue o mesmo.
+- **`package-lock.json`** só faz sentido se alguém (ou pipeline antigo) ainda usar **`npm ci` / npm install**. Dois lockfiles paralelos aumentam drift e conflitos: versões diferentes podem ser resolvidas de formas distintas.
+
+**Recomendação pragmática:** padronizar em **só Bun** — versionar apenas `bun.lock`, remover `package-lock.json` do repositório e listar em `.gitignore`; **antes**, confirmar no EAS/host de build qual comando roda (`bun`, `yarn`, `npm`). O `eas.json` não fixa gerenciador; o que vale é o que o servidor de build executa.
+
+Nada foi removido automaticamente deste trabalho para não quebrar quem usa npm hoje.
