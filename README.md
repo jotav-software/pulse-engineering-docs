@@ -25,6 +25,7 @@ pulse-engineering-docs/
 ├── backlog/       Roadmaps e épicos técnicos
 ├── brand/         Brand kit, logos, pitch
 ├── commercial/    Materiais de apresentação para cliente (HTMLs)
+├── prototypes/    Índice central de mocks HTML (ver README)
 ├── ops/           Credenciais de deploy (App Store API, etc) — sem segredos
 └── scripts/       Automação dos docs (Python)
 ```
@@ -84,6 +85,7 @@ pulse-engineering-docs/
 - [Brand kit brief](./brand/brand-kit-brief.md)
 - Brand kit (HTML/assets): `brand/kit/` · `brand/assets/`
 - Apresentações para cliente: `commercial/`
+- **Índice de mocks HTML:** [prototypes/README.md](./prototypes/README.md)
 
 ### Ops
 - [App Store Connect API (metadata, sem `.p8`)](./ops/app-store-connect-api.md) — chaves privadas em `~/workspace/keys/`

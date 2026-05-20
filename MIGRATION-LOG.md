@@ -54,7 +54,7 @@
 | `docs/BRAND-KIT-BRIEF.md` | `brand/brand-kit-brief.md` |
 | `docs/Pulse/pulse-kit/*` (HTMLs + assets) | `brand/kit/` |
 | `docs/Pulse/uploads/logo-pulse-*.{svg,png}` + `app-icon-pulse-*.png` | `brand/assets/` |
-| `docs/apresentacao/pagamentos-pulse-cliente.html` | `commercial/` |
+| `docs/apresentacao/pagamentos-pulse-cliente.html` | `commercial/commercial-payments-client.html` |
 | `app-client/docs/app-store-connect-api.md` | `ops/app-store-connect-api.md` |
 | `docs/scripts/*.py` | `scripts/` |
 
@@ -72,7 +72,7 @@
 | `docs/AuthKey_2UVTMTPQVA.p8` | `~/workspace/keys/` ✅ |
 | `docs/AuthKey_5T734CQ67S.p8` | `~/workspace/keys/` ✅ |
 | `docs/agency-agents/` (361 arquivos) | `~/workspace/agency-agents/` ✅ |
-| `docs/Pulse/Pulse Admin Panel.html` | `producer-web/prototypes/admin/index.html` ✅ |
+| `docs/Pulse/Pulse Admin Panel.html` | `producer-web/prototypes/admin/admin-dashboard-mock.html` ✅ |
 | `docs/app-store-screenshots/` (22 PNGs ipad/mobile) | `app-client/docs/app-store-screenshots/` ✅ |
 | `docs/Pulse/screenshots/app-client/` (7 PNGs marca) | `pulse-engineering-docs/brand/screenshots/app-client/` ✅ |
 
@@ -89,8 +89,8 @@
 ### Estado final dos repos de código
 | Repo | Conteúdo de doc remanescente |
 |---|---|
-| `client-web` | `README.md` |
-| `producer-web` | `README.md` + `src/lib/auth/README.md` + `prototypes/landing-page/README.md` + `prototypes/admin/index.html` (mockup) |
+| `client-web` | `README.md` + `prototypes/README.md` |
+| `producer-web` | `README.md` + `src/lib/auth/README.md` + `prototypes/README.md` + `prototypes/admin/admin-dashboard-mock.html` (mockup) |
 | `app-client` | `CHANGELOG.md` + `docs/app-store-screenshots/` |
 | `app-producer` | `CHANGELOG.md` + `docs/README.md` + `docs/app-store-screenshots/` + `src/infrastructure/auth/README.md` |
 | `pulse-face` | `README.md` + `tests/fixtures/README.md` |
@@ -124,3 +124,49 @@ Conteúdo único integrado em `product/especificacao-funcional/` (app-produtor, 
 
 - `_pendente-conferir/` (pasta inteira)
 - `docs/product/business/` no monorepo pulse (já ausente após migração 20/mai)
+
+## Consolidação mocks HTML (2026-05-20)
+
+Inventário e padronização de protótipos HTML no monorepo.
+
+### Renomeados (`brand/kit/` → kebab-case)
+
+| Antes | Depois |
+|---|---|
+| `Pulse Brand Kit.html` | `brand-kit.html` |
+| `Pitch Produtores.html` | `brand-pitch-producers.html` |
+| `Client Web v2.html` | `brand-client-web-v2.html` |
+| `Instagram Kit.html` | `brand-instagram-kit.html` |
+| `Instagram Kit-print.html` | `brand-instagram-kit-print.html` |
+| `commercial/pagamentos-pulse-cliente.html` | `commercial/commercial-payments-client.html` |
+
+### Producer Web (`prototypes/`)
+
+| Antes | Depois |
+|---|---|
+| `painel-produtor.html` | `producer-dashboard-mock.html` |
+| `criar-vip.html` | `producer-create-vip-mock.html` |
+| `admin/index.html` | `admin/admin-dashboard-mock.html` |
+| `design-proposal.html` (raiz) | `prototypes/producer-design-proposal-mock.html` |
+| `create-event-proposal.html` (raiz) | `prototypes/producer-create-event-mock.html` |
+| `pulse-produtor-novo.html` (raiz) | `prototypes/producer-dashboard-alt-mock.html` |
+| `pulse-produtor-novo-criar-evento.html` (raiz) | `prototypes/producer-create-event-alt-mock.html` |
+
+Removidos (duplicatas de `client-web/prototypes/`): `app.html`, `landing-page.html`.
+
+### Client Web (`prototypes/`)
+
+| Antes | Depois |
+|---|---|
+| `app.html` | `client-app-mock.html` |
+| `landing-page.html` | `client-landing-page-mock.html` |
+| (de `producer-web/index.html`) | `client-home-dark-mock.html` |
+
+### Excluído
+
+- `ui-kit/` na raiz do workspace — duplicata obsoleta de `brand/kit/` (versão canônica com `assets/` e `deck-stage.js`).
+
+### Índice central
+
+- `prototypes/README.md` — catálogo de todos os mocks por produto e status.
+

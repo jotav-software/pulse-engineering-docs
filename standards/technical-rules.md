@@ -174,7 +174,7 @@ Para evitar que a tela "pule" ou oculte inputs:
 
 ## 5. Design System — Tokens
 
-Baseados no protótipo `app.html`:
+Baseados no protótipo `client-web/prototypes/client-app-mock.html`:
 
 ```typescript
 // shared/theme/tokens.ts

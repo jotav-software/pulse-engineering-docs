@@ -136,7 +136,7 @@ producer-web/
 
 ## 3. Inventário extraído dos mockups
 
-Cada item é uma "feature" identificada nos arquivos `painel-produtor.html` e `criar-vip.html`. Marcação:
+Cada item é uma "feature" identificada nos arquivos `producer-dashboard-mock.html` e `producer-create-vip-mock.html`. Marcação:
 - 🟢 = backend pronto (consumível direto)
 - 🟡 = backend parcial (consumível com adaptação cliente-side, ex: agregar dados)
 - 🔴 = backend faltando (bloqueador — entra em "Pendências de Backend" abaixo)
@@ -203,7 +203,7 @@ Cada item é uma "feature" identificada nos arquivos `painel-produtor.html` e `c
 - 🔴 Criar plano (Identidade, Preço/Recorrência, Benefícios nativos + custom, Escassez, Live Preview)
 - **Backend não tem nada** — entra em "Pendências de Backend" como decisão estratégica.
 
-### 3.9 Onboarding (não está no painel-produtor.html mas é pré-requisito)
+### 3.9 Onboarding (não está no producer-dashboard-mock.html mas é pré-requisito)
 - 🟢 Status do onboarding (`/onboarding/status`)
 - 🟢 Perfil básico (`/onboarding/basic-profile`)
 - 🟢 Contato (`/onboarding/contact`)
@@ -290,7 +290,7 @@ Cada item é uma "feature" identificada nos arquivos `painel-produtor.html` e `c
 Itens que **não dá pra fazer 100% sem mexer no backend**. Cada um vira uma decisão estratégica.
 
 ### 5.1 🔴 Membership / VIP (CRÍTICO)
-- **Mockups dependentes:** `criar-vip.html` inteiro, KPI "Assinaturas VIP/MRR" no dashboard, toggle "Desconto VIP" em criar evento, aba "Memberships VIP" do sidebar.
+- **Mockups dependentes:** `producer-create-vip-mock.html` inteiro, KPI "Assinaturas VIP/MRR" no dashboard, toggle "Desconto VIP" em criar evento, aba "Memberships VIP" do sidebar.
 - **Estado atual no backend:** zero. Não há `MembershipPlan`, `MembershipSubscription`, `MembershipBenefit` no schema; nenhum use-case ou rota.
 - **Justificativa pra mexer no backend:** sem isso, a aba VIP fica permanentemente stub e o produto perde um diferencial competitivo importante.
 - **Ação proposta:** PR separado fora deste roadmap, com PRD próprio. Estimativa preliminar: 3-4 sprints só de backend.
@@ -346,7 +346,7 @@ User stories no padrão **Como [persona], quero [ação] para [benefício]** com
 
 #### US-0.5 — Layout shell (Sidebar + Header) (5 SP)
 **Como** produtor, **quero** o layout do painel com sidebar e header, **para** navegar consistentemente.
-- **AC:** Sidebar fixa 256px com 5 itens (Dashboard, Eventos, Check-in, VIP, Financeiro); avatar do produtor com iniciais; Header sticky com título dinâmico, sino e botão "Criar Evento"; paridade visual com `painel-produtor.html`.
+- **AC:** Sidebar fixa 256px com 5 itens (Dashboard, Eventos, Check-in, VIP, Financeiro); avatar do produtor com iniciais; Header sticky com título dinâmico, sino e botão "Criar Evento"; paridade visual com `producer-dashboard-mock.html`.
 
 #### US-0.6 — CI: build + lint + types + test (3 SP)
 **Como** dev, **quero** CI passando, **para** não quebrar a main.
@@ -360,7 +360,7 @@ User stories no padrão **Como [persona], quero [ação] para [benefício]** com
 
 #### US-1.1 — Tela de Login (3 SP)
 **Como** produtor, **quero** logar com e-mail e senha, **para** acessar o painel.
-- **AC:** form RHF + Zod; validação de e-mail e senha mínima; estados de loading/erro; bloqueio após 5 tentativas (mensagem amigável); redirect pra `/dashboard` em sucesso ou `/onboarding/...` se incompleto; layout idêntico ao mockup `app.html` (versão web/desktop).
+- **AC:** form RHF + Zod; validação de e-mail e senha mínima; estados de loading/erro; bloqueio após 5 tentativas (mensagem amigável); redirect pra `/dashboard` em sucesso ou `/onboarding/...` se incompleto; layout idêntico ao mockup `client-app-mock.html` (versão web/desktop).
 
 #### US-1.2 — Esqueci minha senha (OTP) (3 SP)
 **Como** produtor, **quero** recuperar senha por OTP no e-mail, **para** voltar ao painel sem suporte.
