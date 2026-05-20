@@ -1,41 +1,32 @@
 # EPIC: Melhorias técnicas Pulse
 
-**Repositório de rastreamento:** [jotav-software/pulse-backend](https://github.com/jotav-software/pulse-backend)
+**EPIC:** https://github.com/jotav-software/pulse-backend/issues/20
 
-> Atualize os links abaixo após criar as issues (placeholders substituídos na sessão de automação).
+## Issues filhas
 
-## Objetivo
+| # | Tema | URL |
+|---|------|-----|
+| 21 | Backend API typing & validation | https://github.com/jotav-software/pulse-backend/issues/21 |
+| 22 | Error handling standardization | https://github.com/jotav-software/pulse-backend/issues/22 |
+| 23 | Frontend hooks & services | https://github.com/jotav-software/pulse-backend/issues/23 |
+| 24 | Form validation & test strategy | https://github.com/jotav-software/pulse-backend/issues/24 |
+| 25 | Unit/integration test gaps | https://github.com/jotav-software/pulse-backend/issues/25 |
+| 26 | Security hardening | https://github.com/jotav-software/pulse-backend/issues/26 |
+| 27 | Cross-app library alignment | https://github.com/jotav-software/pulse-backend/issues/27 |
+| 28 | CI / Biome enforcement | https://github.com/jotav-software/pulse-backend/issues/28 |
 
-Padronizar tipagem de API, tratamento de erros, hooks frontend, testes e segurança sem quebrar contratos em produção.
+## Implementado na sessão inicial
 
-## Temas e issues filhas
+- Helper `buildApiErrorResponse` no backend + testes
+- `parseApiErrorPayload` no producer-web + testes
+- Repositório de documentação: https://github.com/jotav-software/pulse-engineering-docs
 
-| Tema | Issue | Docs |
-|------|-------|------|
-| Backend API typing & validation | TBD | [standards/api.md](../standards/api.md) |
-| Error handling standardization | TBD | [standards/errors.md](../standards/errors.md) |
-| Frontend hooks & services | TBD | [standards/frontend.md](../standards/frontend.md) |
-| Form validation & test strategy | TBD | [standards/testing.md](../standards/testing.md) |
-| Unit/integration test gaps | TBD | [standards/testing.md](../standards/testing.md) |
-| Security hardening | TBD | [standards/security.md](../standards/security.md) |
-| Cross-app library alignment | TBD | [standards/frontend.md](../standards/frontend.md) |
-| CI / Biome enforcement | TBD | [standards/backend.md](../standards/backend.md) |
+## Ordem sugerida
 
-## Ordem de implementação sugerida
-
-1. Contrato de erro (helper + testes) — baixo risco
-2. Testes de parsing de erro no frontend web
-3. Documentação OpenAPI rotas legadas (não remover rotas)
-4. CORS e rate limit por ambiente
-5. Alinhamento cookies client-web
-6. Error Boundaries React
-7. Testes mobile (treatyErrors, auth store)
-8. Remoção dependências mortas backend
-9. Biome strict incremental por pasta
-
-## Riscos deferidos
-
-- Mudar semântica do campo `error` em 401 legado (breaking)
-- Habilitar Biome error-on-warnings no monólito legado
-- Unificar React 18→19 em web sem regressão visual
-- Remover rotas B2C na raiz antes de migração mobile completa
+1. #22 Erros (continuar migração middlewares)
+2. #25 Testes (corrigir suite pagamentos)
+3. #21 API typing (Swagger rotas críticas)
+4. #26 Segurança (CORS/rate limit)
+5. #23–#24 Frontend
+6. #28 CI
+7. #27 Cross-app (maior risco)
