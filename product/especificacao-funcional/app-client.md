@@ -82,7 +82,7 @@ Detalhe técnico: [architecture/payments/especificacao.md](../../architecture/pa
 - Backend `/api/client/v1/*`, espelho legado raiz
 - Pagar.me quando `PAYMENTS_ENABLED=true`
 - pulse-face para biometria
-- Regras globais: [global-business-rules.md](../global-business-rules.md)
+- Regras globais: [global-business-rules.md](../policies/global-business-rules.md)
 
 ## 6. Backlog / pendências
 

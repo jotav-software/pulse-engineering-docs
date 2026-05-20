@@ -1,7 +1,7 @@
 # Políticas de repasse e cancelamento de evento
 
 > **Canônico (código):** liberação automática `RETAINED` → `AVAILABLE` via job D+1 após o término do evento.  
-> Detalhe técnico: [architecture/job-repasse.md](../architecture/job-repasse.md) · `ReleaseRetainedPayoutsUseCase`.
+> Detalhe técnico: [architecture/job-repasse.md](../../architecture/job-repasse.md) · `ReleaseRetainedPayoutsUseCase`.
 
 **Última revisão:** 2026-05-20
 
@@ -21,7 +21,7 @@
 - **Não depende de check-in** nem de contagem de entradas.
 - Elegibilidade: **24 horas após o término oficial** do evento (`getEventEndAt` → `endDate` ou `date + 24h`).
 - Eventos com `status = CANCELLED` ou `payoutBlocked = true` ficam fora do `findMany`.
-- Variáveis: `ENABLE_PAYOUT_RELEASE_JOB`, `PAYOUT_RELEASE_JOB_INTERVAL_MS` (ver [job-repasse.md](../architecture/job-repasse.md)).
+- Variáveis: `ENABLE_PAYOUT_RELEASE_JOB`, `PAYOUT_RELEASE_JOB_INTERVAL_MS` (ver [job-repasse.md](../../architecture/job-repasse.md)).
 
 ```
 fim do evento ──► +24h ──► elegível ──► job pode setar AVAILABLE
@@ -59,7 +59,7 @@ Independente do gatilho de repasse.
 - Início: `ISSUED`, `isUsed = false`
 - Conclusão: `USED`, `usedAt`, auditoria do staff (`recordOperationCheckinAudit`)
 
-Referência operacional: [especificação App Produtor — Access](./especificacao-funcional/app-produtor.md#37-access-check-in--implementado) · [facial/como-funciona-biometria-facial.md](./facial/como-funciona-biometria-facial.md).
+Referência operacional: [especificação App Produtor — Access](../especificacao-funcional/app-produtor.md#37-access-check-in--implementado) · [facial/como-funciona-biometria-facial.md](../facial/como-funciona-biometria-facial.md).
 
 ---
 
@@ -88,6 +88,6 @@ Alinhar com produto antes de reintroduzir gatilhos por check-in ou alertas autom
 
 ## Referências
 
-- [architecture/payments/especificacao.md](../architecture/payments/especificacao.md) — checkout, multi-PSP, taxas
+- [architecture/payments/especificacao.md](../../architecture/payments/especificacao.md) — checkout, multi-PSP, taxas
 - [global-business-rules.md](./global-business-rules.md) — regras invioláveis transversais
-- [especificacao-funcional/README.md](./especificacao-funcional/README.md) — mapa por sistema
+- [especificacao-funcional/README.md](../especificacao-funcional/README.md) — mapa por sistema

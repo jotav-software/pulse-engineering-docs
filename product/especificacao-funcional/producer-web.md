@@ -46,7 +46,7 @@ Rotas: /dashboard, /events, /finance/*, /team, /settings, onboarding /onboarding
 Fluxo `/onboarding/*` + upload documentos titular; fila revisada no [Pulse Admin](./pulse-admin.md).
 
 - **Publicar evento:** bloqueado no backend até `producerKycStatus = KYC_APPROVED` (mesma regra do App Produtor).
-- Readiness na UI deve refletir bloqueio KYC — ver [kyc-blocking-matrix.md](../kyc-blocking-matrix.md).
+- Readiness na UI deve refletir bloqueio KYC — ver [kyc-blocking-matrix.md](../policies/kyc-blocking-matrix.md).
 
 ### 3.2 Eventos & oferta comercial — [IMPLEMENTADO]
 

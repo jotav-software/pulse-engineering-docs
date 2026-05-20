@@ -27,7 +27,7 @@ Aplicativo móvel para o produtor operar o ciclo do evento: conta, eventos, lote
 | Check-in | Facial 1:N / pós-QR; QR via **`qrCodeHash`**; manual exige **`cpfLast3`**; offline [PARCIAL] |
 | Financeiro | Somente **Dono** na aba Finance global; Gestor vê por evento |
 | Emissão manual | Fluxo auditável separado de venda plataforma |
-| Repasse | Job D+1 após término — [payout-policies.md](../payout-policies.md) |
+| Repasse | Job D+1 após término — [payout-policies.md](../policies/payout-policies.md) |
 
 ## 2. Autenticação e acesso
 
@@ -615,11 +615,11 @@ Status do épico: [PARCIAL] Parcial — Fechar a blindagem de RBAC do ecossistem
 - Área do promoter no app cliente.
 - Sync de vínculo promoter-evento.
 - 14. Ecossistema — Cliente (App Cliente + Client Web)
-- Escopo B2C (comprador e promoter). Referências: [global-business-rules.md](../global-business-rules.md), [checkout-compliance.md](../checkout-compliance.md).
+- Escopo B2C (comprador e promoter). Referências: [global-business-rules.md](../policies/global-business-rules.md), [checkout-compliance.md](../policies/checkout-compliance.md).
 - 14.1 Descoberta e vitrine
 - Client Web: home, feed e detalhe público do evento [IMPLEMENTADO]. Seleção de lotes na web [IMPLEMENTADO]. Checkout integrado na web [PENDENTE] — CTA direciona para App Cliente. App Cliente: feed, busca, detalhe [IMPLEMENTADO]. MUST: vitrine pública não exige login de produtor.
 - 14.2 Checkout, pagamento e carteira (App Cliente)
-- MUST: reserva 10 min; máx. 3 tentativas cartão; ingresso só após `PAID`; taxa **10%** por ingresso no código; Pix −5% sobre taxa; cartão até 4x; `PAYMENT_PROVIDER` pagarme|stripe. App Cliente [PARCIAL] — `PAYMENTS_ENABLED=false` em demo. Client Web checkout [PENDENTE]. Gate HU06: [checkout-compliance.md](../checkout-compliance.md).
+- MUST: reserva 10 min; máx. 3 tentativas cartão; ingresso só após `PAID`; taxa **10%** por ingresso no código; Pix −5% sobre taxa; cartão até 4x; `PAYMENT_PROVIDER` pagarme|stripe. App Cliente [PARCIAL] — `PAYMENTS_ENABLED=false` em demo. Client Web checkout [PENDENTE]. Gate HU06: [checkout-compliance.md](../policies/checkout-compliance.md).
 - 14.3 Ingressos, facial e cancelamento
 - Carteira / meus ingressos no App Cliente [IMPLEMENTADO]. Cadastro facial [IMPLEMENTADO] com flags (FACIAL_ENROLLMENT_V2, PULSE_FACE_EXTRACT). MUST: cancelamento pelo comprador até 24h antes do início do evento, ticket não utilizado (GetCancelEligibilityUseCase — alinhar copy do app que ainda cita 48h). QR como fallback operacional [IMPLEMENTADO]. Client Web carteira [PENDENTE].
 - 14.4 Área Promoter (App Cliente)
@@ -649,7 +649,7 @@ Status do épico: [PARCIAL] Parcial — Fechar a blindagem de RBAC do ecossistem
 - Antes de implementar o módulo financeiro final, é desejável uma revisão técnica do modelo atual do banco para validar: ledger, payout schedule, bloqueios, chargebacks e relacionamento entre tickets, pedidos e settlements.
 - 20. Módulos B2C — mapa de implementação
 - Consolidado para decisão bug vs comportamento esperado. Referência: docs/product/especificacao_funcional_mvp_ingressos.docx.
-- Gatilho de liberação: `ReleaseRetainedPayoutsUseCase` — D+1 (24h após término). Legado «10 check-ins» não implementado — [payout-policies.md](../payout-policies.md).
+- Gatilho de liberação: `ReleaseRetainedPayoutsUseCase` — D+1 (24h após término). Legado «10 check-ins» não implementado — [payout-policies.md](../policies/payout-policies.md).
 - 21. Pulse Admin — especificação operacional
 - Painel interno Pulse para operadores com papel `PULSE_ADMIN` (Operador Pulse). UI: Producer Web em `/admin/*` (layout e sidebar isolados — HU01 isolamento de código). API: `/api/admin/v1/*`. Login unificado em `/login` com ramificação por role após OTP.
 - 21.1 Autenticação e sessão (HU01)
@@ -723,8 +723,8 @@ Resumo (detalhe em [RBAC.md](../RBAC.md)):
 
 - Backend producer + operation (check-in)
 - Câmera / facial / QR offline queue [PARCIAL]
-- Repasse: [payout-policies.md](../payout-policies.md) · [job-repasse.md](../../architecture/job-repasse.md)
-- KYC: [kyc-blocking-matrix.md](../kyc-blocking-matrix.md)
+- Repasse: [payout-policies.md](../policies/payout-policies.md) · [job-repasse.md](../../architecture/job-repasse.md)
+- KYC: [kyc-blocking-matrix.md](../policies/kyc-blocking-matrix.md)
 - Facial: [facial/como-funciona-biometria-facial.md](../facial/como-funciona-biometria-facial.md)
 
 ## 6. Backlog / pendências

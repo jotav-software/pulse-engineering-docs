@@ -1,6 +1,6 @@
 # Regras de negócio globais (Core)
 
-Decisões de negócio transversais ao ecossistema Pulse. Em conflito com requisito pontual, **estas regras prevalecem** — salvo quando o código documentado em [especificacao-funcional](./especificacao-funcional/README.md) ou [architecture/payments](../architecture/payments/especificacao.md) reflete comportamento já entregue (nesse caso, o código + doc técnica são canônicos).
+Decisões de negócio transversais ao ecossistema Pulse. Em conflito com requisito pontual, **estas regras prevalecem** — salvo quando o código documentado em [especificacao-funcional](../especificacao-funcional/README.md) ou [architecture/payments](../../architecture/payments/especificacao.md) reflete comportamento já entregue (nesse caso, o código + doc técnica são canônicos).
 
 **Última revisão:** 2026-05-20
 
@@ -13,7 +13,7 @@ Decisões de negócio transversais ao ecossistema Pulse. Em conflito com requisi
 - Retenção do valor do produtor até elegibilidade de repasse ([payout-policies.md](./payout-policies.md))
 - Ingresso digital (QR dinâmico via `qrCodeHash`) e acesso facial
 - Operação de check-in ágil; painéis financeiros transparentes
-- Fidelização VIP / membership — [PENDENTE](../backlog/membership-vip.md)
+- Fidelização VIP / membership — [PENDENTE](../../backlog/membership-vip.md)
 
 ---
 
@@ -86,7 +86,7 @@ Decisões de negócio transversais ao ecossistema Pulse. Em conflito com requisi
 
 ## Referências
 
-- [especificacao-funcional/README.md](./especificacao-funcional/README.md)
+- [especificacao-funcional/README.md](../especificacao-funcional/README.md)
 - [checkout-compliance.md](./checkout-compliance.md)
 - [kyc-blocking-matrix.md](./kyc-blocking-matrix.md)
-- [architecture/payments/especificacao.md](../architecture/payments/especificacao.md)
+- [architecture/payments/especificacao.md](../../architecture/payments/especificacao.md)

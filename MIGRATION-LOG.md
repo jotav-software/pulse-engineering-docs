@@ -170,3 +170,41 @@ Removidos (duplicatas de `client-web/prototypes/`): `app.html`, `landing-page.ht
 
 - `prototypes/README.md` — catálogo de todos os mocks por produto e status.
 
+## Reorganização `product/` (2026-05-20)
+
+Agrupamento dos documentos soltos na raiz de `product/` em subpastas temáticas. Conteúdo preservado; apenas movimentação e atualização de links.
+
+### Nova estrutura
+
+```
+product/
+├── README.md                 # índice navegável
+├── especificacao-funcional/  # inalterado (specs por plataforma + fluxos)
+├── policies/                 # regras transversais de negócio
+├── access/                   # RBAC e matriz de papéis
+├── facial/                   # inalterado (domínio biometria)
+└── dev/                      # QA e contas de teste
+```
+
+### Movimentações
+
+| Antes | Depois |
+|---|---|
+| `product/global-business-rules.md` | `product/policies/global-business-rules.md` |
+| `product/payout-policies.md` | `product/policies/payout-policies.md` |
+| `product/checkout-compliance.md` | `product/policies/checkout-compliance.md` |
+| `product/kyc-blocking-matrix.md` | `product/policies/kyc-blocking-matrix.md` |
+| `product/rbac.md` | `product/access/rbac.md` |
+| `product/role-matrix.md` | `product/access/role-matrix.md` |
+| `product/test-users.md` | `product/dev/test-users.md` |
+
+### Links atualizados
+
+- `README.md` (raiz), `product/README.md` (novo)
+- `product/especificacao-funcional/**` (refs a policies e access)
+- `product/policies/**` (refs relativas corrigidas)
+- `architecture/payments/**`, `backlog/membership-vip.md`
+- `scripts/build_especificacao_funcional_md.py`, `scripts/update_especificacao_funcional.py`
+
+**Nota:** entradas históricas acima desta seção mantêm caminhos da migração inicial (20/mai); use os caminhos desta tabela como canônicos atuais.
+

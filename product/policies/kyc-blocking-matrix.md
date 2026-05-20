@@ -25,6 +25,6 @@ Helpers: `backend/src/shared/constants/producerKycBlocks.ts`
 
 ## Referências
 
-- [pulse-admin.md](./especificacao-funcional/pulse-admin.md) — HU02 fila KYC
-- [producer-web.md](./especificacao-funcional/producer-web.md) — onboarding
+- [pulse-admin.md](../especificacao-funcional/pulse-admin.md) — HU02 fila KYC
+- [producer-web.md](../especificacao-funcional/producer-web.md) — onboarding
 - [payout-policies.md](./payout-policies.md) — repasse e KYC

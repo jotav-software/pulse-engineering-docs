@@ -266,7 +266,7 @@ Fonte de status: código (`app-producer`, `producer-web`, `app-client`, `client-
 
 ## Regras transversais (todas as plataformas)
 
-Consulte também `product/global-business-rules.md` (pulse-engineering-docs).
+Consulte também `product/policies/global-business-rules.md` (pulse-engineering-docs).
 
 | Regra | Detalhe |
 | --- | --- |
@@ -276,7 +276,7 @@ Consulte também `product/global-business-rules.md` (pulse-engineering-docs).
 | Limite compra | Máx. **4 ingressos por evento** por CPF/conta |
 | Checkout | Reserva **10 min**; máx. **3 tentativas** de pagamento por pedido |
 | Cancelamento comprador | Até **24h antes** do início; ingresso **USED** não reembolsa |
-| Repasse produtor | Retido até elegibilidade (ver [payout-policies.md](../product/payout-policies.md)) |
+| Repasse produtor | Retido até elegibilidade (ver [payout-policies.md](../product/policies/payout-policies.md)) |
 | Facial vs QR | Facial principal; QR contingência obrigatória |
 | Promoter | Experiência principal no **App Cliente** (`/promoter`) |
 
@@ -307,7 +307,7 @@ Detalhes por sistema nos arquivos linkados acima.
 
 - [RBAC.md](../RBAC.md) — papéis e matriz por app
 - [CHECKOUT_COMPLIANCE.md](../CHECKOUT_COMPLIANCE.md) — gate de termos B2C/produtor
-- [global-business-rules.md](../product/global-business-rules.md) · [payout-policies.md](../product/payout-policies.md)
+- [global-business-rules.md](../product/policies/global-business-rules.md) · [payout-policies.md](../product/policies/payout-policies.md)
 - OpenAPI: `GET /swagger` no backend
 """,
     )
@@ -665,7 +665,7 @@ Ver [CHECKOUT_COMPLIANCE.md](../CHECKOUT_COMPLIANCE.md).
 - Backend `/api/client/v1/*`, espelho legado raiz
 - Pagar.me quando `PAYMENTS_ENABLED=true`
 - pulse-face para biometria
-- Regras globais: [global-business-rules.md](../product/global-business-rules.md)
+- Regras globais: [global-business-rules.md](../product/policies/global-business-rules.md)
 
 ## 6. Backlog / pendências
 
@@ -883,7 +883,7 @@ Resumo (detalhe em [RBAC.md](../RBAC.md)):
 
 - Backend producer + operation (check-in)
 - Câmera / facial / QR offline queue [PARCIAL]
-- Repasse: ver [payout-policies.md](../product/payout-policies.md) — job `ReleaseRetainedPayoutsUseCase` (D+1 após término; legado 10 check-ins não implementado)
+- Repasse: ver [payout-policies.md](../product/policies/payout-policies.md) — job `ReleaseRetainedPayoutsUseCase` (D+1 após término; legado 10 check-ins não implementado)
 
 ## 6. Backlog / pendências
 

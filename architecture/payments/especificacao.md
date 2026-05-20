@@ -1,6 +1,6 @@
 # Pagamentos Pulse! — Especificação Técnica (v1.0)
 
-> Definições técnicas de checkout, gateway, custódia e repasse. Complementa [checkout-flows.md](./checkout-flows.md), [payout-policies.md](../../product/payout-policies.md) e [global-business-rules.md](../../product/global-business-rules.md).
+> Definições técnicas de checkout, gateway, custódia e repasse. Complementa [checkout-flows.md](./checkout-flows.md), [payout-policies.md](../../product/policies/payout-policies.md) e [global-business-rules.md](../../product/policies/global-business-rules.md).
 
 **Última atualização:** 2026-05-20
 
@@ -52,7 +52,7 @@ Use cases de pagamento recebem `IPaymentGateway` por construtor (ex.: `ProcessPi
 | `CANCELLED` | Evento cancelado / saldo zerado | Cancelamento de evento |
 
 - Job: `backend/src/index.ts` → `ReleaseRetainedPayoutsUseCase` (intervalo configurável; ver [job-repasse.md](../job-repasse.md)).
-- **Não depende de check-in** (regra legada «10 check-ins» documentada em [payout-policies.md §5](../../product/payout-policies.md#5-legado-pré-spec-v10--não-implementado)).
+- **Não depende de check-in** (regra legada «10 check-ins» documentada em [payout-policies.md §5](../../product/policies/payout-policies.md#5-legado-pré-spec-v10--não-implementado)).
 
 ### Fase 2 — Roadmap (não implementado)
 
@@ -289,11 +289,11 @@ cd backend && bun test tests/unit/infrastructure/gateways/StripeGateway.test.ts 
 | Documento | Conteúdo |
 |-----------|----------|
 | [checkout-flows.md](./checkout-flows.md) | Fluxos Pix, cartão, falha, expiração, cancelamento |
-| [payout-policies.md](../../product/payout-policies.md) | Cancelamento, check-in, repasse (canônico + legado) |
-| [global-business-rules.md](../../product/global-business-rules.md) | Regras invioláveis transversais |
+| [payout-policies.md](../../product/policies/payout-policies.md) | Cancelamento, check-in, repasse (canônico + legado) |
+| [global-business-rules.md](../../product/policies/global-business-rules.md) | Regras invioláveis transversais |
 | [app-produtor.md](../../product/especificacao-funcional/app-produtor.md) | Financeiro e Access |
 | [job-repasse.md](../job-repasse.md) | Job RETAINED→AVAILABLE |
-| [checkout-compliance.md](../../product/checkout-compliance.md) | Gate HU06 termos |
+| [checkout-compliance.md](../../product/policies/checkout-compliance.md) | Gate HU06 termos |
 
 ---
 

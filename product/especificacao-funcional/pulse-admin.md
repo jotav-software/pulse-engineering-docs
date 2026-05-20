@@ -41,7 +41,7 @@ MUST: usuário sem role PULSE_ADMIN não acessa `/admin/*` nem API admin (403). 
 
 Tela /admin/produtoras: listagem com GMV 30d, busca, drawer criar produtora (CNPJ, taxa pulseFeeBps), reset de senha, drawer detalhe (HU02b). API: GET/POST /producers, GET /producers/:id, POST /producers/:id/reset-password. Subfluxo KYC titular: /admin/compliance/kyc — fila, aprovar, rejeitar, download documento. API KYC: GET /kyc/queue, GET /kyc/documents/:id, approve, reject, download.
 
-**Efeito no produtor:** aprovação KYC desbloqueia publicação de eventos (`KYC_APPROVED`). Matriz: [kyc-blocking-matrix.md](../kyc-blocking-matrix.md).
+**Efeito no produtor:** aprovação KYC desbloqueia publicação de eventos (`KYC_APPROVED`). Matriz: [kyc-blocking-matrix.md](../policies/kyc-blocking-matrix.md).
 
 ### 3.3 Visão e saúde do checkout (HU03) — [IMPLEMENTADO]
 

@@ -297,7 +297,7 @@ def ecosystem_blocks() -> list[tuple[str, str]]:
             "normal",
             "Escopo B2C (comprador e promoter). Referências: "
             "docs/product/especificacao_funcional_mvp_ingressos.docx, "
-            "product/global-business-rules.md, product/checkout-compliance.md (pulse-engineering-docs).",
+            "product/policies/global-business-rules.md, product/policies/checkout-compliance.md (pulse-engineering-docs).",
         ),
         ("Heading 2", "14.1 Descoberta e vitrine"),
         (
@@ -312,7 +312,7 @@ def ecosystem_blocks() -> list[tuple[str, str]]:
         (
             "normal",
             "MUST: reserva de estoque por 10 minutos; máximo 3 tentativas de pagamento por pedido; "
-            "ingresso só emitido após status PAID (product/global-business-rules.md). "
+            "ingresso só emitido após status PAID (product/policies/global-business-rules.md). "
             "App Cliente: fluxo implementado [PARCIAL] — flag PAYMENTS_ENABLED=false em demo impede pagamento real. "
             "Client Web: sem checkout [PENDENTE]. "
             "Gate HU06: rotas autenticadas bloqueadas até aceitar termos com forceAcceptance "
@@ -642,7 +642,7 @@ def build_client_module_table(doc: Document) -> None:
     )
     doc.add_paragraph(
         "*Gatilho de liberação: job ReleaseRetainedPayoutsUseCase — 24h após endDate do evento "
-        "(ver product/payout-policies.md — canônico D+1)."
+        "(ver product/policies/payout-policies.md — canônico D+1)."
     )
 
 
@@ -686,7 +686,7 @@ def main() -> None:
             p.text = (
                 "Documento único de regras de negócio, fluxos, permissões e backlog. "
                 "Referências: docs/RBAC.md, docs/CHECKOUT_COMPLIANCE.md, "
-                "product/global-business-rules.md, product/payout-policies.md, código (apps + backend)."
+                "product/policies/global-business-rules.md, product/policies/payout-policies.md, código (apps + backend)."
             )
 
     # Glossário após primeiro parágrafo substantivo
@@ -718,7 +718,7 @@ def main() -> None:
             )
             t0.rows[2].cells[1].text = f"2.1 — de/para código e docs ({TODAY.strftime('%Y-%m')})"
             t0.rows[3].cells[1].text = (
-                "product/rbac.md, global-business-rules.md, checkout-compliance.md"
+                "product/access/rbac.md, global-business-rules.md, checkout-compliance.md"
             )
         if len(doc.tables) > 1:
             patch_roadmap_table(doc.tables[1])

@@ -21,7 +21,7 @@ pulse-engineering-docs/
 ├── adr/           Architectural Decision Records (1, 2, 3...)
 ├── architecture/  Visão técnica, princípios, golden rules, pagamentos, jobs
 ├── standards/     Padrões transversais (API, backend, frontend, testes, segurança, comentários, Prisma)
-├── product/       Especificação funcional, regras de negócio, RBAC, facial, compliance
+├── product/       Produto: specs, políticas, acesso, facial, dev
 ├── backlog/       Roadmaps e épicos técnicos
 ├── brand/         Brand kit, logos, pitch
 ├── commercial/    Materiais de apresentação para cliente (HTMLs)
@@ -58,6 +58,7 @@ pulse-engineering-docs/
 - [Tipagem OpenAPI](./standards/openapi-typing.md)
 
 ### Produto
+- [Índice produto](./product/README.md)
 - [Especificação funcional (por sistema)](./product/especificacao-funcional/README.md)
   - [Pulse Admin](./product/especificacao-funcional/pulse-admin.md)
   - [App Produtor](./product/especificacao-funcional/app-produtor.md)
@@ -67,12 +68,9 @@ pulse-engineering-docs/
   - [Arquitetura (visão funcional)](./product/especificacao-funcional/arquitetura.md)
   - [Endpoints](./product/especificacao-funcional/api-endpoints.md)
   - [Fluxos detalhados](./product/especificacao-funcional/fluxos/README.md)
-- [RBAC](./product/rbac.md) · [Role matrix](./product/role-matrix.md)
-- [Regras globais de negócio](./product/global-business-rules.md)
-- [Políticas de repasse](./product/payout-policies.md)
-- [KYC blocking matrix](./product/kyc-blocking-matrix.md)
-- [Checkout compliance (HU06)](./product/checkout-compliance.md)
-- [Test users](./product/test-users.md)
+- Acesso — [RBAC](./product/access/rbac.md) · [Role matrix](./product/access/role-matrix.md)
+- Políticas — [Regras globais](./product/policies/global-business-rules.md) · [Repasse](./product/policies/payout-policies.md) · [KYC](./product/policies/kyc-blocking-matrix.md) · [Checkout compliance (HU06)](./product/policies/checkout-compliance.md)
+- Dev — [Test users](./product/dev/test-users.md)
 - Biometria facial — [como funciona](./product/facial/como-funciona-biometria-facial.md) · [LGPD](./product/facial/lgpd-security.md) · [enrollment MVP](./product/facial/enrollment-mvp.md) · [infra deploy](./product/facial/infra-deploy-checklist.md) · [épico self-hosted](./product/facial/epic-self-hosted.md)
 
 ### Backlog

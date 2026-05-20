@@ -64,5 +64,5 @@ Ver [app-client.md](../product/especificacao-funcional/app-client.md#35-vip--mem
 
 ## Referências
 
-- [global-business-rules.md](../product/global-business-rules.md) — fidelização no North Star
+- [global-business-rules.md](../product/policies/global-business-rules.md) — fidelização no North Star
 - [app-produtor.md](../product/especificacao-funcional/app-produtor.md) — destaque VIP no Access (quando membership existir)

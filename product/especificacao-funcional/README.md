@@ -48,7 +48,7 @@ Fonte de status: código (`app-producer`, `producer-web`, `app-client`, `client-
 
 ## Regras transversais (todas as plataformas)
 
-Consulte [global-business-rules.md](../global-business-rules.md) e [payout-policies.md](../payout-policies.md).
+Consulte [global-business-rules.md](../policies/global-business-rules.md) e [payout-policies.md](../policies/payout-policies.md).
 
 | Regra | Detalhe |
 | --- | --- |
@@ -58,8 +58,8 @@ Consulte [global-business-rules.md](../global-business-rules.md) e [payout-polic
 | Limite compra | Máx. **4 ingressos por evento** por CPF/conta |
 | Checkout | Reserva **10 min**; máx. **3 tentativas** de pagamento por pedido |
 | Cancelamento comprador | Até **24h antes** do início; ingresso **USED** não reembolsa |
-| Repasse produtor | `RETAINED` → job D+1 após término → `AVAILABLE` ([payout-policies.md](../payout-policies.md)) |
-| KYC titular | Publicar evento bloqueado até `KYC_APPROVED` ([kyc-blocking-matrix.md](../kyc-blocking-matrix.md)) |
+| Repasse produtor | `RETAINED` → job D+1 após término → `AVAILABLE` ([payout-policies.md](../policies/payout-policies.md)) |
+| KYC titular | Publicar evento bloqueado até `KYC_APPROVED` ([kyc-blocking-matrix.md](../policies/kyc-blocking-matrix.md)) |
 | QR check-in | Payload = `qrCodeHash` (UUID), não número TKT |
 | Facial vs QR | Facial principal; QR e manual (`cpfLast3`) como fallback |
 | Promoter | Experiência principal no **App Cliente** (`/promoter`) |
@@ -89,8 +89,8 @@ Detalhes por sistema nos arquivos linkados acima.
 
 ## Referências canônicas
 
-- [RBAC.md](../rbac.md) — papéis e matriz por app
-- [CHECKOUT_COMPLIANCE.md](../checkout-compliance.md) — gate de termos B2C/produtor
-- [global-business-rules.md](../global-business-rules.md) · [payout-policies.md](../payout-policies.md)
+- [RBAC.md](../access/rbac.md) — papéis e matriz por app
+- [CHECKOUT_COMPLIANCE.md](../policies/checkout-compliance.md) — gate de termos B2C/produtor
+- [global-business-rules.md](../policies/global-business-rules.md) · [payout-policies.md](../policies/payout-policies.md)
 - [architecture/payments/especificacao.md](../../architecture/payments/especificacao.md) — checkout e gateways
 - OpenAPI: `GET /swagger` no backend
