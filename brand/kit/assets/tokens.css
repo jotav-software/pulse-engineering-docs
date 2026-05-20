@@ -1,0 +1,28 @@
+/* Pulse! — shared brand tokens */
+:root{
+  --pulse-purple:#7b2cbf;
+  --pulse-dark:#5a189a;
+  --pulse-violet:#9d4edd;
+  --pulse-light:#f3e8ff;
+  --pulse-teal:#00f5d4;
+  --pulse-amber:#f59e0b;
+  --pulse-navy:#0f172a;
+  --pulse-navy-2:#1e293b;
+  --pulse-bg:#f8fafc;
+  --pulse-border:#e5e7eb;
+  --pulse-text:#111827;
+  --pulse-text-2:#6b7280;
+  --pulse-slate-400:#94a3b8;
+  --pulse-success:#10b981;
+  --pulse-danger:#ef4444;
+  --grad-signature: linear-gradient(90deg, #e0aaff 0%, #9d4edd 45%, #00f5d4 100%);
+  --grad-hero: linear-gradient(135deg, #0f172a 0%, #2a0a4a 50%, #0f172a 100%);
+  --font-display:'Outfit','Inter',system-ui,sans-serif;
+  --font-ui:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:var(--font-ui);color:var(--pulse-text);-webkit-font-smoothing:antialiased}
+.wordmark{font-family:var(--font-display);font-weight:800;font-style:italic;letter-spacing:-0.04em}
+.no-scrollbar::-webkit-scrollbar{display:none}
+.no-scrollbar{scrollbar-width:none}

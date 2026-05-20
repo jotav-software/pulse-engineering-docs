@@ -3,7 +3,7 @@
 | ADR | Título | Status |
 |-----|--------|--------|
 | [ADR-001](./ADR-001-backend-stack.md) | Backend stack (Bun, Elysia, Prisma) | Accepted |
+| [ADR-002](./ADR-002-authentication-strategy.md) | Authentication & RBAC strategy | Proposed |
+| [ADR-003](./ADR-003-implementation-rules.md) | Implementation rules (Clean Arch, DTOs, RBAC) | Accepted |
 
-ADRs adicionais no código-fonte: `pulse-backend/src/docs/technical/`.
-
-Regras de ouro: [pulse-backend/docs/technical/ARCHITECTURE_GOLDEN_RULES.md](https://github.com/jotav-software/pulse-backend/blob/develop/docs/technical/ARCHITECTURE_GOLDEN_RULES.md)
+Regras de ouro arquiteturais: [`../architecture/golden-rules.md`](../architecture/golden-rules.md).

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulse! — Pagamentos e repasses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7b2cbf;--dark:#5a189a;--violet:#9d4edd;--light:#f3e8ff;
+  --teal:#00f5d4;--navy:#0f172a;--bg:#f8fafc;--border:#e5e7eb;
+  --text:#111827;--muted:#6b7280;--success:#10b981;--warn:#f59e0b;
+  --grad:linear-gradient(90deg,#e0aaff 0%,#9d4edd 45%,#00f5d4 100%);
+  --font-d:'Outfit','Inter',system-ui,sans-serif;
+  --font-u:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-u);background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:40px 24px 64px}
+header{background:var(--navy);color:#fff;border-radius:20px;padding:36px 32px;margin-bottom:28px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(157,78,221,.35),transparent 50%);pointer-events:none}
+header h1{font:800 2rem/1.1 var(--font-d);font-style:italic;letter-spacing:-.03em;position:relative}
+header h1 span{color:var(--violet)}
+header p{margin-top:12px;color:#cbd5e1;font-size:1rem;max-width:560px;position:relative}
+.badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;position:relative}
+.badge{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.badge-ok{background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(16,185,129,.35)}
+.badge-prop{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.35)}
+.legend{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:28px;font-size:.9rem}
+.legend strong{display:block;margin-bottom:8px}
+.legend ul{margin-left:1.2rem;color:var(--muted)}
+section{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin-bottom:20px}
+section h2{font:700 1.25rem var(--font-d);color:var(--dark);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+section h2::before{content:"";width:4px;height:1.1em;background:var(--grad);border-radius:2px}
+section h3{font-size:1rem;font-weight:600;margin:18px 0 8px;color:var(--purple)}
+p,li{font-size:.95rem;color:#374151}
+ul,ol{margin:0 0 12px 1.25rem}
+.steps{counter-reset:step;list-style:none;margin-left:0}
+.steps li{counter-increment:step;padding:12px 0 12px 48px;position:relative;border-bottom:1px solid var(--border)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:0;top:12px;width:32px;height:32px;background:var(--light);color:var(--dark);font-weight:700;font-size:.85rem;border-radius:50%;display:flex;align-items:center;justify-content:center}
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:12px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{background:var(--light);font-weight:600;color:var(--dark)}
+td.num{font-variant-numeric:tabular-nums;text-align:right}
+.note{font-size:.85rem;color:var(--muted);margin-top:12px;padding:12px;background:var(--bg);border-radius:10px;border-left:3px solid var(--violet)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
+.card{background:var(--bg);border-radius:12px;padding:16px;border:1px solid var(--border)}
+.card .label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.card .value{font:700 1.5rem var(--font-d);color:var(--purple);margin-top:4px}
+footer{text-align:center;font-size:.8rem;color:var(--muted);margin-top:32px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Pulse<span>!</span> — Pagamentos</h1>
+    <p>Como funciona a compra para o público, a retenção e o repasse para o produtor, e as taxas previstas para o lançamento.</p>
+    <div class="badge-row">
+      <span class="badge badge-ok">Verde = já no produto (MVP)</span>
+      <span class="badge badge-prop">Âmbar = proposta de lançamento</span>
+    </div>
+  </header>
+
+  <div class="legend">
+    <strong>Legenda</strong>
+    <ul>
+      <li><strong>Já implementado:</strong> fluxo de checkout com Pix e cartão (Pagar.me), reserva de 10 minutos, emissão só após pagamento, retenção de saldo e painel financeiro básico.</li>
+      <li><strong>Proposta de lançamento (implementada no backend):</strong> taxa de conveniência 6,9% (mín. R$ 2,49 por ingresso), sem mensalidade; exemplos numéricos abaixo.</li>
+      <li><strong>Demonstração:</strong> em builds de demo, pagamentos reais ficam desligados até ativação em produção.</li>
+    </ul>
+  </div>
+
+  <section>
+    <h2>Fluxo de compra (comprador)</h2>
+    <ol class="steps">
+      <li>Escolhe evento, lote e quantidade (até 4 ingressos por evento).</li>
+      <li><strong>Já implementado:</strong> o sistema reserva o ingresso por <strong>10 minutos</strong> enquanto você paga.</li>
+      <li>Escolhe <strong>Pix</strong> ou <strong>cartão</strong> (até 4 parcelas).</li>
+      <li><strong>Proposta:</strong> taxa de conveniência aparece separada do valor do ingresso; no Pix há <strong>5% de desconto só sobre essa taxa</strong>.</li>
+      <li><strong>Já implementado:</strong> o ingresso digital só é emitido depois que o pagamento é confirmado.</li>
+      <li>Cartão: até <strong>3 tentativas</strong> se o banco recusar; depois o pedido é encerrado e a reserva expira.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Retenção e repasse (produtor)</h2>
+    <p>O dinheiro das vendas não cai na conta do produtor no mesmo segundo da compra. A Pulse! guarda o valor com segurança até o evento acontecer.</p>
+    <div class="grid-2" style="margin-top:16px">
+      <div class="card">
+        <div class="label">1. Retido</div>
+        <div class="value">Após a venda</div>
+        <p style="margin-top:8px;font-size:.85rem">Pagamento confirmado → saldo fica <strong>retido</strong> até liberar repasse.</p>
+      </div>
+      <div class="card">
+        <div class="label">2. Disponível</div>
+        <div class="value">Após o evento</div>
+        <p style="margin-top:8px;font-size:.85rem"><strong>Já implementado:</strong> liberação automática <strong>D+1</strong> após o término do evento (salvo bloqueio administrativo).</p>
+      </div>
+    </div>
+    <p class="note"><strong>Proteção:</strong> isso permite estornos ao comprador (cancelamento de evento, janela de arrependimento) sem surpresa para quem comprou.</p>
+    <p class="note" style="margin-top:8px"><strong>Futuro (não disponível hoje):</strong> repasse direto via split Pagar.me na conta do produtor — fase 2 do roadmap técnico.</p>
+  </section>
+
+  <section>
+    <h2>Taxas — proposta de lançamento</h2>
+    <ul>
+      <li><strong>Conveniência:</strong> 6,9% sobre o valor de cada ingresso, com <strong>mínimo de R$ 2,49</strong> por ingresso.</li>
+      <li><strong>Pix:</strong> 5% de desconto <em>apenas</em> sobre a taxa de conveniência (não sobre o ingresso).</li>
+      <li><strong>Cartão:</strong> parcelamento em até <strong>4x</strong>.</li>
+      <li><strong>Sem mensalidade</strong> para usar a plataforma.</li>
+    </ul>
+    <p style="margin-top:12px">A taxa é paga pelo <strong>comprador</strong> (transparência no checkout). O produtor recebe o valor líquido acordado do ingresso.</p>
+
+    <h3>Exemplos (1 ingresso, proposta 6,9% / mín. R$ 2,49)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Ingresso</th>
+          <th class="num">Taxa conv.</th>
+          <th class="num">Desc. Pix (5% taxa)</th>
+          <th class="num">Total Pix</th>
+          <th class="num">Total cartão (1x)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>R$ 50,00</td>
+          <td class="num">R$ 3,45</td>
+          <td class="num">− R$ 0,17</td>
+          <td class="num"><strong>R$ 53,28</strong></td>
+          <td class="num"><strong>R$ 53,45</strong></td>
+        </tr>
+        <tr>
+          <td>R$ 100,00</td>
+          <td class="num">R$ 6,90</td>
+          <td class="num">− R$ 0,35</td>
+          <td class="num"><strong>R$ 106,55</strong></td>
+          <td class="num"><strong>R$ 106,90</strong></td>
+        </tr>
+        <tr>
+          <td>R$ 200,00</td>
+          <td class="num">R$ 13,80</td>
+          <td class="num">− R$ 0,69</td>
+          <td class="num"><strong>R$ 213,11</strong></td>
+          <td class="num"><strong>R$ 213,80</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Cálculo: taxa = max(6,9% × ingresso; R$ 2,49); desconto Pix = 5% × taxa; total = ingresso + taxa − desconto Pix.</p>
+  </section>
+
+  <section>
+    <h2>Cancelamento e proteção ao comprador</h2>
+    <ul>
+      <li><strong>Já implementado (regra de negócio):</strong> o comprador pode cancelar até <strong>24 horas antes</strong> do início do evento, se o ingresso ainda não foi usado no check-in.</li>
+      <li>Ingresso já utilizado na entrada <strong>não</strong> pode ser cancelado.</li>
+      <li>Se o <strong>produtor cancelar o evento</strong>, os compradores são reembolsados (estorno via gateway).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>O que o produtor vê no painel financeiro</h2>
+    <p><strong>Já implementado (visão resumida):</strong></p>
+    <ul>
+      <li>Receita bruta e líquida no período escolhido.</li>
+      <li>Quanto está <strong>retido</strong>, <strong>liberado</strong> e <strong>já repassado</strong>.</li>
+      <li>Taxas e cancelamentos/estornos no recorte.</li>
+      <li>Indicadores: método de pagamento mais usado, ticket médio, evento mais rentável no período.</li>
+    </ul>
+    <p class="note">Detalhes de antecipação, exportação CSV e split com promoters evoluem conforme roadmap — não prometidos nesta versão comercial.</p>
+  </section>
+
+  <footer>
+    Pulse! · Documento comercial · Maio/2026 · Abra este arquivo no navegador para compartilhar com o cliente.
+  </footer>
+</div>
+</body>
+</html>

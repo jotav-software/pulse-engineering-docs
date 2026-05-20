@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pulse! Client Web — Proposta v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7b2cbf; --dark:#5a189a; --violet:#9d4edd; --light:#e0aaff;
+  --teal:#00f5d4; --amber:#f59e0b;
+  --bg:#0a0a14; --bg-2:#0f172a; --surface:#141422; --surface-2:#1c1c2e;
+  --border:rgba(255,255,255,.06); --border-2:rgba(255,255,255,.12);
+  --text:#fff; --text-2:#cbd5e1; --text-3:#94a3b8; --text-4:#64748b; --text-5:#475569;
+  --grad: linear-gradient(90deg,#e0aaff 0%,#9d4edd 45%,#00f5d4 100%);
+  --grad-hero: radial-gradient(ellipse at 25% 0%, rgba(123,44,191,.45), transparent 55%), radial-gradient(ellipse at 75% 100%, rgba(0,245,212,.18), transparent 55%), #0a0a14;
+  --font-d:'Outfit','Inter',system-ui,sans-serif;
+  --font-u:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);font-family:var(--font-u);color:var(--text);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.shell{max-width:1360px;margin:0 auto;padding:0 32px}
+
+/* ============ DIAGNOSTIC STRIP (top) ============ */
+.diag{background:linear-gradient(90deg,rgba(123,44,191,.18),rgba(0,245,212,.06));border-bottom:1px solid var(--border-2);padding:12px 0;position:relative;z-index:60}
+.diag-inner{max-width:1360px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.diag .lab{font:600 10px var(--font-u);color:var(--teal);letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.diag .lab .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal)}
+.diag .desc{font:500 13px var(--font-u);color:var(--text-2);max-width:880px}
+.diag .desc b{color:#fff;font-weight:700}
+.diag a{font:600 11px var(--font-u);color:var(--text);background:rgba(255,255,255,.08);border:1px solid var(--border-2);padding:8px 14px;border-radius:999px;letter-spacing:.06em;display:inline-flex;align-items:center;gap:6px}
+
+/* ============ NAVBAR ============ */
+.nav{position:sticky;top:0;z-index:50;background:rgba(10,10,20,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-in{max-width:1360px;margin:0 auto;padding:18px 32px;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center}
+.nav-left{display:flex;align-items:center;gap:28px}
+.wm{display:flex;align-items:center;gap:6px;font:800 italic 26px var(--font-d);letter-spacing:-0.04em}
+.wm .bang{color:var(--teal)}
+.loc{display:flex;align-items:center;gap:10px;padding-left:24px;border-left:1px solid var(--border-2);cursor:pointer}
+.loc .l{font:600 9px var(--font-u);color:var(--text-3);letter-spacing:.2em;text-transform:uppercase}
+.loc .v{font:600 14px var(--font-u);color:#fff;margin-top:2px;display:flex;align-items:center;gap:6px}
+.loc .v svg{color:var(--violet)}
+.nav-search{position:relative;max-width:520px;width:100%;justify-self:center}
+.nav-search input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border-2);border-radius:999px;padding:13px 18px 13px 46px;color:#fff;font:500 14px var(--font-u);outline:none;transition:.2s}
+.nav-search input::placeholder{color:var(--text-4)}
+.nav-search input:focus{border-color:rgba(0,245,212,.5);box-shadow:0 0 0 4px rgba(0,245,212,.08)}
+.nav-search svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-4)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.btn-ghost{font:600 13px var(--font-u);color:#fff;padding:11px 18px;border-radius:999px;border:1px solid var(--border-2);background:transparent;cursor:pointer}
+.btn-ghost:hover{background:rgba(255,255,255,.04)}
+.btn-app{font:700 12px var(--font-u);color:var(--bg);background:#fff;padding:12px 22px;border-radius:999px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none}
+.btn-app:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,255,255,.12)}
+
+/* ============ HERO ============ */
+.hero{position:relative;height:560px;overflow:hidden;background:#0f0f1a}
+.hero-img{position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2400") center/cover no-repeat}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,20,.45) 0%,rgba(10,10,20,.4) 30%,rgba(10,10,20,.85) 80%,rgba(10,10,20,1) 100%)}
+.hero-veil-2{position:absolute;inset:0;background:radial-gradient(ellipse at 80% 30%, rgba(123,44,191,.35), transparent 60%)}
+.hero-content{position:absolute;inset:0;max-width:1360px;margin:0 auto;padding:120px 32px 48px;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;font:700 10px var(--font-u);background:rgba(239,68,68,.16);border:1px solid rgba(239,68,68,.4);color:#fecaca;padding:7px 14px;border-radius:999px;letter-spacing:.2em;text-transform:uppercase;align-self:flex-start;backdrop-filter:blur(8px)}
+.hero h1{font:800 76px/.96 var(--font-d);letter-spacing:-0.035em;margin-top:18px;max-width:880px;text-shadow:0 4px 32px rgba(0,0,0,.5)}
+.hero h1 .em{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-meta{display:flex;gap:32px;margin-top:26px;align-items:center;flex-wrap:wrap}
+.hero-meta .m{display:flex;align-items:center;gap:10px;font:600 12px var(--font-u);color:var(--text-2);letter-spacing:.14em;text-transform:uppercase}
+.hero-meta .m svg{color:var(--teal)}
+.hero-cta-row{margin-top:34px;display:flex;gap:14px;align-items:center}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;font:700 14px var(--font-u);color:#fff;background:var(--purple);padding:18px 34px;border-radius:14px;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 12px 32px rgba(123,44,191,.4);cursor:pointer;border:none;transition:.2s}
+.btn-primary:hover{background:var(--dark);transform:translateY(-1px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--font-u);color:#fff;background:rgba(255,255,255,.08);padding:18px 26px;border-radius:14px;letter-spacing:.04em;backdrop-filter:blur(8px);border:1px solid var(--border-2);cursor:pointer}
+.btn-secondary:hover{background:rgba(255,255,255,.14)}
+
+/* ============ CATEGORY BAR (sticky-ish below hero) ============ */
+.cats{background:var(--bg);border-bottom:1px solid var(--border);position:relative;z-index:5}
+.cats-in{max-width:1360px;margin:0 auto;padding:18px 32px;display:flex;gap:8px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.cats-in::-webkit-scrollbar{display:none}
+.cat{font:600 12px var(--font-u);color:var(--text-3);padding:10px 20px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.02);letter-spacing:.06em;cursor:pointer;white-space:nowrap;transition:.2s}
+.cat:hover{color:#fff;border-color:var(--border-2)}
+.cat.active{background:var(--teal);color:var(--bg);border-color:var(--teal);font-weight:700;box-shadow:0 8px 20px rgba(0,245,212,.25)}
+.cats-sort{margin-left:auto;display:flex;align-items:center;gap:14px;color:var(--text-3);font:500 12px var(--font-u)}
+.cats-sort .sel{display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--border-2);background:transparent;cursor:pointer;color:#fff;font:600 12px var(--font-u)}
+
+/* ============ STATS STRIP ============ */
+.stats{background:linear-gradient(90deg,rgba(123,44,191,.06),rgba(0,245,212,.04));border-bottom:1px solid var(--border)}
+.stats-in{max-width:1360px;margin:0 auto;padding:24px 32px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:center}
+.stat{padding:0 24px;border-right:1px solid var(--border);display:flex;align-items:center;gap:16px}
+.stat:last-child{border-right:0}
+.stat:first-child{padding-left:0}
+.stat .ic{width:44px;height:44px;border-radius:12px;background:rgba(0,245,212,.1);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stat .ic.p{background:rgba(123,44,191,.16);color:var(--violet)}
+.stat .ic.a{background:rgba(245,158,11,.14);color:var(--amber)}
+.stat .v{font:800 24px/1 var(--font-d);letter-spacing:-0.02em}
+.stat .v .gr{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .l{font:500 11px var(--font-u);color:var(--text-3);margin-top:4px;letter-spacing:.04em}
+
+/* ============ SECTIONS ============ */
+section{padding:72px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:32px}
+.sec-head .lt{display:flex;flex-direction:column;gap:6px}
+.sec-head .eb{display:inline-flex;align-items:center;gap:8px;color:var(--teal);font:700 10px var(--font-u);letter-spacing:.24em;text-transform:uppercase}
+.sec-head h2{font:800 38px var(--font-d);letter-spacing:-0.025em;line-height:1}
+.sec-head .all{display:inline-flex;align-items:center;gap:6px;color:var(--text-3);font:600 12px var(--font-u);letter-spacing:.1em;cursor:pointer;border:1px solid var(--border-2);padding:11px 18px;border-radius:999px;transition:.2s}
+.sec-head .all:hover{color:var(--teal);border-color:var(--teal)}
+
+/* ============ EVENT GRID — fixed problems ============ */
+/* auto-fit grid means no empty cells; cards remain consistent size */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:.3s;cursor:pointer;position:relative}
+.card:hover{transform:translateY(-4px);border-color:var(--border-2);box-shadow:0 24px 48px rgba(0,0,0,.4)}
+.card-cover{position:relative;height:200px;overflow:hidden;background:linear-gradient(135deg,#1a0a2e,#0a0a14)}
+.card-cover img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.card:hover .card-cover img{transform:scale(1.05)}
+/* placeholder treatment when no image */
+.card-cover.placeholder{background:radial-gradient(circle at 30% 30%,rgba(157,78,221,.4),rgba(10,10,20,.95) 70%)}
+.card-cover.placeholder::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 50% 50%,rgba(0,245,212,.06) 1px,transparent 1px);background-size:18px 18px;opacity:.5}
+.card-cover.placeholder .ph-ic{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:rgba(255,255,255,.18)}
+.card-cover .date-chip{position:absolute;top:14px;right:14px;background:rgba(10,10,20,.85);backdrop-filter:blur(12px);color:#fff;font:700 10px var(--font-u);padding:7px 12px;border-radius:8px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,.08)}
+.card-cover .save{position:absolute;top:14px;left:14px;width:32px;height:32px;border-radius:50%;background:rgba(10,10,20,.7);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;color:#fff;border:1px solid rgba(255,255,255,.08)}
+.card-cover .live{position:absolute;bottom:14px;left:14px;background:rgba(0,245,212,.18);border:1px solid rgba(0,245,212,.4);color:var(--teal);font:700 9px var(--font-u);padding:5px 10px;border-radius:6px;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.card-cover .live .dot{width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 6px var(--teal);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+.card-body{padding:18px 18px 16px;display:flex;flex-direction:column;flex:1}
+.card-cat{font:700 9px var(--font-u);color:var(--teal);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+.card-title{font:700 16px/1.25 var(--font-d);color:#fff;letter-spacing:-0.005em;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:40px}
+.card-loc{display:flex;align-items:flex-start;gap:6px;color:var(--text-3);font:500 12px/1.4 var(--font-u);margin-bottom:14px}
+.card-loc svg{color:var(--violet);flex-shrink:0;margin-top:2px}
+.card-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border)}
+.card-price .l{font:600 9px var(--font-u);color:var(--text-4);letter-spacing:.18em;text-transform:uppercase}
+.card-price .v{font:700 16px var(--font-d);color:#fff;letter-spacing:-0.01em;margin-top:2px}
+.card-price .v.free{color:var(--teal)}
+.card-cta{width:36px;height:36px;border-radius:10px;background:rgba(123,44,191,.16);border:1px solid rgba(123,44,191,.3);color:var(--violet);display:flex;align-items:center;justify-content:center;transition:.2s}
+.card:hover .card-cta{background:var(--purple);color:#fff;border-color:var(--purple)}
+
+/* Compact horizontal scroll for trending when fewer items */
+.scroll-row{display:flex;gap:20px;overflow-x:auto;padding-bottom:14px;margin:0 -32px;padding-left:32px;padding-right:32px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.scroll-row::-webkit-scrollbar{height:6px}
+.scroll-row::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:3px}
+.scroll-row .card{flex:0 0 280px;scroll-snap-align:start}
+
+/* Trending feature card (first item bigger) */
+.trending-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px;align-items:stretch}
+.trending-grid .card.feat{grid-row:span 1}
+.trending-grid .card.feat .card-cover{height:340px}
+.trending-grid .card.feat .card-body{padding:24px}
+.trending-grid .card.feat .card-title{font-size:24px;-webkit-line-clamp:2;min-height:auto}
+.trending-grid .card.feat .card-cat{font-size:10px;margin-bottom:10px}
+
+/* ============ FOOTER ============ */
+.foot{margin-top:64px;background:linear-gradient(180deg,transparent,rgba(123,44,191,.04));border-top:1px solid var(--border);padding:64px 0 32px}
+.foot-in{max-width:1360px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
+.foot-brand .wm{font-size:30px;margin-bottom:14px}
+.foot-brand p{color:var(--text-3);font:400 14px/1.5 var(--font-u);max-width:340px;margin-bottom:24px}
+.foot-brand .badges{display:flex;gap:10px}
+.foot-brand .badges a{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--border-2);padding:10px 14px;border-radius:12px;font:600 12px var(--font-u);color:#fff}
+.foot-col h4{font:700 11px var(--font-u);color:var(--text-3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px}
+.foot-col ul{list-style:none}
+.foot-col ul li{padding:7px 0}
+.foot-col ul a{color:var(--text-2);font:500 14px var(--font-u);transition:.2s}
+.foot-col ul a:hover{color:var(--teal)}
+.foot-bot{max-width:1360px;margin:48px auto 0;padding:24px 32px 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;color:var(--text-4);font:500 12px var(--font-u);flex-wrap:wrap;gap:14px}
+.foot-bot .social{display:flex;gap:10px}
+.foot-bot .social a{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--border-2);display:flex;align-items:center;justify-content:center;color:var(--text-3);transition:.2s}
+.foot-bot .social a:hover{color:var(--teal);border-color:var(--teal)}
+
+/* Annotation pins */
+.annot{position:absolute;background:#fff;color:#0a0a14;padding:8px 12px;border-radius:8px;font:700 11px var(--font-u);box-shadow:0 8px 20px rgba(0,0,0,.3);z-index:10;display:none;pointer-events:none;letter-spacing:.04em}
+.annot::after{content:"";position:absolute;width:8px;height:8px;background:#fff;transform:rotate(45deg)}
+.show-annots .annot{display:block}
+
+@media (max-width: 1100px){
+  .trending-grid{grid-template-columns:1fr 1fr;gap:18px}
+  .trending-grid .card.feat .card-cover{height:240px}
+  .stats-in{grid-template-columns:repeat(2,1fr);gap:18px}
+  .stat{border-right:0;border-bottom:1px solid var(--border);padding:14px 0}
+  .stat:first-child{padding-top:0}
+}
+@media (max-width: 768px){
+  .nav-in{grid-template-columns:auto auto;gap:14px}
+  .nav-search{display:none}
+  .hero h1{font-size:42px}
+  .hero{height:480px}
+  .foot-in{grid-template-columns:1fr 1fr;gap:32px}
+  .sec-head h2{font-size:28px}
+}
+</style>
+</head>
+<body data-screen-label="Client Web v2 Home">
+
+<!-- DIAGNOSTIC STRIP -->
+<div class="diag">
+  <div class="diag-inner">
+    <div style="display:flex;gap:14px;align-items:center;flex:1;min-width:280px">
+      <div class="lab"><span class="dot"></span> Proposta v2 · diagnóstico</div>
+      <div class="desc">8 ajustes: hero balanceado · grid <b>auto-fill</b> (sem cards solitários) · placeholder visual quando sem imagem · <b>stats strip</b> com prova social · barra de categorias persistente · cards com radius reduzido e hierarquia revisada · footer 4 colunas · tipografia com pesos variáveis (não mais tudo black uppercase).</div>
+    </div>
+    <a href="#" id="toggle-annots">Ver anotações ↗</a>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-left">
+      <a href="#" class="wm">PULSE<span class="bang">!</span></a>
+      <div class="loc">
+        <div>
+          <div class="l">Localização</div>
+          <div class="v">São Paulo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" placeholder="Busque por eventos, festas, artistas ou cidades…">
+    </div>
+    <div class="nav-right">
+      <button class="btn-ghost">Entrar</button>
+      <button class="btn-app">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 17V3M5 10l7 7 7-7"/></svg>
+        Baixar app
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-veil"></div>
+  <div class="hero-veil-2"></div>
+  <div class="hero-content">
+    <span class="hero-pill">🔥 Destaque da semana</span>
+    <h1>Serra Limpa: <span class="em">circuito cênico<br>e eletrônica</span></h1>
+    <div class="hero-meta">
+      <div class="m">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Mirante das Araucárias — Campos do Jordão, SP
+      </div>
+      <div class="m">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        04 de junho
+      </div>
+      <div class="m">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 10c0-.5.5-1 1-1M14 9c.5 0 1 .5 1 1"/></svg>
+        Check-in facial
+      </div>
+    </div>
+    <div class="hero-cta-row">
+      <button class="btn-primary">
+        Garantir ingresso
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+      <button class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"/></svg>
+        Ver aftermovie
+      </button>
+    </div>
+  </div>
+  <!-- annot -->
+  <div class="annot" style="top:230px;left:32px;background:var(--teal);color:#0a0a14;display:none">1 · Hero: gradiente reforçado, CTA proporcional à headline, meta-info estruturada</div>
+</header>
+
+<!-- CATEGORY BAR -->
+<div class="cats">
+  <div class="cats-in">
+    <button class="cat active">Tudo</button>
+    <button class="cat">Festas & Shows</button>
+    <button class="cat">Gastronomia</button>
+    <button class="cat">Eletrônico</button>
+    <button class="cat">Universitário</button>
+    <button class="cat">Teatro</button>
+    <button class="cat">Esportes</button>
+    <button class="cat">Comédia</button>
+    <div class="cats-sort">
+      Ordenar
+      <button class="sel">Em alta
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats">
+  <div class="stats-in">
+    <div class="stat">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 10c0-.5.5-1 1-1M14 9c.5 0 1 .5 1 1M8 15c1 1.5 2.4 2 4 2s3-.5 4-2"/></svg></div>
+      <div><div class="v"><span class="gr">9,4s</span></div><div class="l">por pessoa na portaria</div></div>
+    </div>
+    <div class="stat">
+      <div class="ic p"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div><div class="v">0%</div><div class="l">de chargebacks em produção</div></div>
+    </div>
+    <div class="stat">
+      <div class="ic a"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div><div class="v">98,4%</div><div class="l">acerto na 1ª tentativa</div></div>
+    </div>
+    <div class="stat">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg></div>
+      <div><div class="v">&lt;1min</div><div class="l">da compra ao rosto cadastrado</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TRENDING (asymmetric grid — 1 feature + small cards) -->
+<section>
+  <div class="shell">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73S7.42 7.53 7.42 5.47c0-2.06 1.62-3.55 1.62-3.55S9.07 4.36 10.5 5.4c.45-2.7 3-4.73 3-4.73z"/><path d="M5.91 11.06s-.91-.86-1.5-2.06c-.59-1.2-.4-2.06.5-2.5 1.34-.65 2.06.95 2.06 2.06 0 1.11-1.06 2.5-1.06 2.5"/><path d="M12 22a8 8 0 0 0 8-8c0-2.65-1.45-5.5-4-7-.91 1.91-.91 4-3.59 4-2.68 0-3.27-2.91-3.27-2.91S4 11 4 14a8 8 0 0 0 8 8z"/></svg>
+          Em alta agora
+        </span>
+        <h2>Bombando no Pulse!</h2>
+      </div>
+      <a href="#" class="all">Ver todos
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="trending-grid">
+      <!-- Feature card -->
+      <a href="#" class="card feat">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200" alt="">
+          <div class="save">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="date-chip">04 JUN · QUI</div>
+          <div class="live"><span class="dot"></span>Vendendo agora</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Lifestyle &amp; Experiências · Destaque</div>
+          <div class="card-title" style="font-size:24px">Serra Limpa: circuito cênico e eletrônica</div>
+          <div class="card-loc">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Mirante das Araucárias — Campos do Jordão, SP
+          </div>
+          <div class="card-foot">
+            <div class="card-price">
+              <div class="l">A partir de</div>
+              <div class="v">R$ 520,00</div>
+            </div>
+            <div class="card-cta">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- Side card 1 -->
+      <a href="#" class="card">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=800" alt="">
+          <div class="date-chip">15 MAI</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Festas &amp; Baladas</div>
+          <div class="card-title">Evento do Rodrigo · DJ Set + open bar</div>
+          <div class="card-loc">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Avenida Paulista, São Paulo
+          </div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v">R$ 50,00</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <!-- Side card 2 -->
+      <a href="#" class="card">
+        <div class="card-cover placeholder">
+          <div class="ph-ic">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 9a2 2 0 0 1 2-2h3l2-3h6l2 3h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <div class="date-chip">13 MAI</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Festas &amp; Baladas</div>
+          <div class="card-title">Brisa 98 — Sunset na Lagoa</div>
+          <div class="card-loc">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Rooftop Lagoa — Jardim Botânico, RJ
+          </div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v">R$ 380,00</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <!-- Side card 3 -->
+      <a href="#" class="card" style="grid-column:2 / span 2">
+        <div class="card-cover" style="height:200px">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1200" alt="">
+          <div class="date-chip">25 MAI</div>
+          <div class="live" style="background:rgba(245,158,11,.18);border-color:rgba(245,158,11,.4);color:#fcd34d"><span class="dot" style="background:#f59e0b;box-shadow:0 0 6px #f59e0b"></span>Últimas vagas</div>
+        </div>
+        <div class="card-body" style="flex-direction:row;align-items:center;gap:20px">
+          <div style="flex:1">
+            <div class="card-cat">Gastronomia</div>
+            <div class="card-title" style="min-height:auto;margin-bottom:6px">Churrasco On Fire — Mogi</div>
+            <div class="card-loc" style="margin-bottom:0">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Fazenda Salun, Mogi Mirim — SP
+            </div>
+          </div>
+          <div class="card-foot" style="padding-top:0;border:0;flex-direction:column;align-items:flex-end;gap:10px">
+            <div class="card-price" style="text-align:right"><div class="l">Preço</div><div class="v">R$ 650,00</div></div>
+            <button class="btn-primary" style="padding:11px 18px;font-size:12px">Comprar</button>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING — auto-fill grid -->
+<section style="padding-top:24px">
+  <div class="shell">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Calendário
+        </span>
+        <h2>Próximos eventos</h2>
+      </div>
+      <a href="#" class="all">Ver agenda completa
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="grid">
+      <a href="#" class="card">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1493676304819-0d7a8d026dcf?q=80&w=800" alt="">
+          <div class="date-chip">25 MAI</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Gastronomia</div>
+          <div class="card-title">Churrasco On Fire — Mogi</div>
+          <div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Fazenda Salun, Mogi Mirim — SP</div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v">R$ 650,00</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card-cover placeholder">
+          <div class="ph-ic"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 9a2 2 0 0 1 2-2h3l2-3h6l2 3h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+          <div class="date-chip">13 MAI</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Festas &amp; Baladas</div>
+          <div class="card-title">Brisa 98 — Sunset na Lagoa</div>
+          <div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Rooftop Lagoa — Jardim Botânico, RJ</div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v">R$ 185,00</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=800" alt="">
+          <div class="date-chip">15 MAI</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Festas &amp; Baladas</div>
+          <div class="card-title">Evento do Marcos · noite eletrônica</div>
+          <div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Local a definir</div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v free">A definir</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1496337589254-7e19d01cec44?q=80&w=800" alt="">
+          <div class="date-chip">22 MAI</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Eletrônico</div>
+          <div class="card-title">Pulse Underground · open-air</div>
+          <div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Galpão Z, Vila Madalena — SP</div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v">R$ 220,00</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1574391884720-bbc049ec09ad?q=80&w=800" alt="">
+          <div class="date-chip">30 MAI</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Universitário</div>
+          <div class="card-title">Calourada FEA 26 · open beer</div>
+          <div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Cidade Universitária, São Paulo</div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v">R$ 60,00</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800" alt="">
+          <div class="date-chip">02 JUN</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Teatro</div>
+          <div class="card-title">Hamlet — Cia. de Repertório</div>
+          <div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Teatro Sérgio Cardoso — SP</div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v">R$ 90,00</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?q=80&w=800" alt="">
+          <div class="date-chip">08 JUN</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Festas &amp; Shows</div>
+          <div class="card-title">Bloco no Pulso — esquenta junino</div>
+          <div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Praça da Sé, São Paulo</div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Entrada</div><div class="v free">Grátis</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="card">
+        <div class="card-cover">
+          <img src="https://images.unsplash.com/photo-1571266028243-d220bc6c6cc7?q=80&w=800" alt="">
+          <div class="date-chip">12 JUN</div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Comédia</div>
+          <div class="card-title">Stand-up Solo · Renan Beira</div>
+          <div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Teatro Bradesco — SP</div>
+          <div class="card-foot">
+            <div class="card-price"><div class="l">Preço</div><div class="v">R$ 75,00</div></div>
+            <div class="card-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS BANNER -->
+<section style="padding:24px 0 96px">
+  <div class="shell">
+    <div style="background:linear-gradient(135deg,rgba(123,44,191,.16),rgba(0,245,212,.06));border:1px solid var(--border-2);border-radius:24px;padding:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center">
+      <div>
+        <span class="eb" style="color:var(--teal);font:700 10px var(--font-u);letter-spacing:.24em;text-transform:uppercase;display:block;margin-bottom:14px">⚡ Pulse Facial</span>
+        <h2 style="font:800 40px/1 var(--font-d);letter-spacing:-0.025em;margin-bottom:18px">Compre. Cadastre o rosto.<br><span style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">Entre sem fila.</span></h2>
+        <p style="font:400 16px/1.5 var(--font-u);color:var(--text-2);max-width:520px;margin-bottom:28px">No app você compra em menos de 1 minuto. Cadastra o rosto uma única vez. Na próxima festa, é só chegar — câmera aponta, libera, você entra.</p>
+        <div style="display:flex;gap:12px">
+          <button class="btn-primary">Baixar o app
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+          <button class="btn-secondary">Como funciona</button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center">
+        <div style="width:240px;height:240px;border-radius:50%;border:2px dashed rgba(0,245,212,.5);position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(0,245,212,.08),transparent 70%)">
+          <div style="width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#9d4edd,#00f5d4);opacity:.35"></div>
+          <div style="position:absolute;left:18px;right:18px;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);top:50%;box-shadow:0 0 14px var(--teal);animation:scan 2.4s ease-in-out infinite"></div>
+          <div style="position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);background:rgba(0,245,212,.18);border:1px solid var(--teal);color:var(--teal);font:700 10px var(--font-u);padding:7px 14px;border-radius:999px;letter-spacing:.16em;text-transform:uppercase">Entrada liberada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>@keyframes scan{0%{top:32%}50%{top:62%}100%{top:32%}}</style>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot-in">
+    <div class="foot-brand">
+      <a class="wm" href="#" style="font-size:30px;display:inline-flex">PULSE<span class="bang">!</span></a>
+      <p>O fim das filas. O fim dos chargebacks. A plataforma brasileira que une venda de ingressos e check-in facial num único ecossistema.</p>
+      <div class="badges">
+        <a href="#">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-2.88 2.36-4.27 2.47-4.34-1.35-1.97-3.45-2.24-4.19-2.27-1.78-.18-3.49 1.05-4.39 1.05-.92 0-2.31-1.03-3.81-1-1.95.03-3.77 1.15-4.78 2.9-2.05 3.55-.52 8.79 1.47 11.67.97 1.41 2.13 2.99 3.64 2.94 1.46-.06 2.01-.95 3.78-.95s2.27.95 3.81.92c1.58-.03 2.57-1.43 3.53-2.85 1.12-1.64 1.58-3.23 1.6-3.32-.03-.02-3.07-1.18-3.1-4.68zm-2.86-8.6c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.73-.74.86-1.39 2.23-1.22 3.55 1.29.1 2.6-.65 3.41-1.62z"/></svg>
+          App Store
+        </a>
+        <a href="#">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5V3.5c0-.43.24-.81.6-1.01L13.81 12 3.6 21.51c-.36-.2-.6-.58-.6-1.01zM16.81 15.04 5.96 21.5l8.61-8.61 2.24 2.15zM20.16 11.39l-2.6 1.5-2.85-2.85L17.56 7.1l2.6 1.49a1 1 0 0 1 0 1.8zM5.96 2.5l10.85 6.46-2.24 2.15-8.61-8.61z"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Produto</h4>
+      <ul>
+        <li><a href="#">Para o público</a></li>
+        <li><a href="#">Para produtores</a></li>
+        <li><a href="#">Pulse Facial</a></li>
+        <li><a href="#">App</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#">Sobre o Pulse!</a></li>
+        <li><a href="#">Ross Produções</a></li>
+        <li><a href="#">Imprensa</a></li>
+        <li><a href="#">Carreiras</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Suporte</h4>
+      <ul>
+        <li><a href="#">Central de ajuda</a></li>
+        <li><a href="#">Falar com a gente</a></li>
+        <li><a href="#">Termos de uso</a></li>
+        <li><a href="#">Privacidade</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <div>© 2026 Pulse! Ticketing · Powered by Ross Produções · CNPJ 00.000.000/0001-00</div>
+    <div class="social">
+      <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"/></svg></a>
+      <a href="#" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg></a>
+      <a href="#" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.04c.48-.9 1.65-1.85 3.39-1.85 3.63 0 4.3 2.39 4.3 5.49v6.25zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm-1.78 13.02h3.56V9H3.56z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Toggle annotation pins (just visual aid)
+  document.getElementById('toggle-annots').addEventListener('click', (e)=>{
+    e.preventDefault();
+    document.body.classList.toggle('show-annots');
+    e.target.textContent = document.body.classList.contains('show-annots') ? 'Esconder anotações ↘' : 'Ver anotações ↗';
+  });
+</script>
+
+</body>
+</html>

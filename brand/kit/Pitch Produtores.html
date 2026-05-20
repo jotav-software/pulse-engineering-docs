@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Pulse! — Pitch para Produtores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7b2cbf; --dark:#5a189a; --violet:#9d4edd; --light:#e0aaff;
+  --teal:#00f5d4; --amber:#f59e0b;
+  --navy:#0a0a14; --navy-2:#1a0a2e; --navy-3:#1e293b;
+  --text:#fff; --text-2:#cbd5e1; --text-3:#94a3b8; --text-4:#64748b;
+  --grad: linear-gradient(90deg,#e0aaff 0%,#9d4edd 45%,#00f5d4 100%);
+  --font-d:'Outfit','Inter',system-ui,sans-serif;
+  --font-u:'Inter',system-ui,sans-serif;
+  --font-m:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;font-family:var(--font-u);color:var(--text)}
+
+deck-stage > section{
+  background:radial-gradient(ellipse at top left, rgba(123,44,191,.22), transparent 55%),
+             radial-gradient(ellipse at bottom right, rgba(0,245,212,.12), transparent 55%),
+             linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+  color:var(--text);
+  padding:96px 112px;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Slide chrome */
+.slide-tag{position:absolute;top:48px;left:112px;display:flex;align-items:center;gap:14px;font:600 12px var(--font-u);color:var(--text-3);letter-spacing:.2em;text-transform:uppercase;z-index:5}
+.slide-tag .num{font-family:var(--font-m);color:var(--teal);font-weight:600}
+.slide-tag .bar{width:42px;height:1px;background:rgba(255,255,255,.2)}
+.slide-foot{position:absolute;bottom:48px;left:112px;right:112px;display:flex;justify-content:space-between;align-items:center;font:500 12px var(--font-u);color:var(--text-4);letter-spacing:.14em;text-transform:uppercase;z-index:5}
+.slide-foot .lk-mini{display:flex;align-items:center;gap:10px;color:var(--text-3)}
+.slide-foot .lk-mini svg{height:18px;color:#fff}
+
+.wm{font-family:var(--font-d);font-weight:800;font-style:italic;letter-spacing:-0.04em}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 13px var(--font-u);color:var(--teal);letter-spacing:.22em;text-transform:uppercase}
+.eyebrow .dot{width:7px;height:7px;background:var(--teal);border-radius:50%;box-shadow:0 0 10px var(--teal)}
+
+.h1{font:800 92px/.98 var(--font-d);letter-spacing:-0.035em}
+.h2{font:800 76px/1 var(--font-d);letter-spacing:-0.03em}
+.h3{font:700 32px/1.15 var(--font-d);letter-spacing:-0.015em}
+.lead{font:400 26px/1.45 var(--font-u);color:var(--text-2);max-width:920px}
+
+/* ---- 01: Cover ---- */
+.s-cover{justify-content:space-between}
+.s-cover .lock-top{display:flex;align-items:center;gap:18px}
+.s-cover .lock-top svg{height:48px;color:#fff}
+.s-cover .lock-top .sep{width:1px;height:34px;background:rgba(255,255,255,.2)}
+.s-cover .lock-top .ross{font:500 12px var(--font-u);color:var(--text-3);letter-spacing:.16em;text-transform:uppercase}
+.s-cover .ttl-block{margin-top:auto;max-width:1300px}
+.s-cover h1{font:900 200px/.9 var(--font-d);font-style:italic;letter-spacing:-0.05em;margin:24px 0 36px}
+.s-cover h1 .bang{color:var(--purple)}
+.s-cover .tagline{font:300 44px/1.1 var(--font-d);color:#fff;letter-spacing:-0.02em;max-width:900px}
+.s-cover .tagline em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+.s-cover .meta{display:flex;gap:64px;margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.1);align-items:flex-end;justify-content:space-between}
+.s-cover .meta .left{display:flex;gap:64px}
+.s-cover .meta .item .l{font:600 11px var(--font-u);color:var(--text-3);letter-spacing:.2em;text-transform:uppercase}
+.s-cover .meta .item .v{font:600 18px var(--font-u);color:#fff;margin-top:8px}
+.s-cover .pulse-pin{display:flex;align-items:center;gap:14px;color:var(--teal)}
+.s-cover .pulse-pin svg{height:64px}
+
+/* ---- 02: Problem ---- */
+.s-prob h2{margin-bottom:20px}
+.prob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:auto}
+.prob-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:36px;position:relative;overflow:hidden}
+.prob-card::before{content:"";position:absolute;top:0;left:0;width:80px;height:1px;background:linear-gradient(90deg,var(--purple),transparent)}
+.prob-card .ic{font:800 18px var(--font-m);color:#ef4444;letter-spacing:.05em;margin-bottom:18px}
+.prob-card .stat{font:800 78px/1 var(--font-d);letter-spacing:-0.03em;margin-bottom:14px}
+.prob-card .stat .unit{font:600 22px var(--font-u);color:var(--text-3);margin-left:4px;letter-spacing:0}
+.prob-card h3{font:700 18px var(--font-d);margin-bottom:8px;letter-spacing:-0.005em}
+.prob-card p{font:400 14px/1.5 var(--font-u);color:var(--text-3)}
+
+/* ---- 03: The shift ---- */
+.s-shift{justify-content:center;align-items:flex-start;padding:96px 112px}
+.s-shift .reveal{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center;width:100%}
+.s-shift .h-mega{font:900 140px/.92 var(--font-d);letter-spacing:-0.04em}
+.s-shift .h-mega .l1{display:block;color:var(--text-4);text-decoration:line-through;text-decoration-thickness:6px;font-size:80px;margin-bottom:18px;letter-spacing:-0.025em}
+.s-shift .h-mega .l2{display:block}
+.s-shift p.lead{margin-top:32px;font-size:22px}
+.shift-viz{position:relative;display:flex;align-items:center;justify-content:center;min-height:600px}
+.shift-viz .ring{width:480px;height:480px;border-radius:50%;border:2px dashed rgba(0,245,212,.5);position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(0,245,212,.08),transparent 70%)}
+.shift-viz .ring::after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--teal));opacity:.35;filter:blur(2px)}
+.shift-viz .scan{position:absolute;left:40px;right:40px;height:3px;background:linear-gradient(90deg,transparent,var(--teal),transparent);top:50%;box-shadow:0 0 28px var(--teal)}
+.shift-viz .badge-ok{position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);background:rgba(0,245,212,.18);border:1px solid var(--teal);color:var(--teal);font:700 14px var(--font-u);padding:14px 32px;border-radius:999px;letter-spacing:.18em;text-transform:uppercase;display:flex;gap:10px;align-items:center}
+.shift-viz .label-time{position:absolute;top:0;right:-20px;background:rgba(123,44,191,.2);border:1px solid var(--purple);padding:14px 22px;border-radius:18px;font:700 38px var(--font-m);color:#fff;letter-spacing:-0.02em}
+.shift-viz .label-time small{display:block;font:500 10px var(--font-u);color:var(--text-3);letter-spacing:.18em;text-transform:uppercase;margin-top:4px}
+
+/* ---- 04: How it works ---- */
+.s-how h2{margin-bottom:64px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;flex:1;align-content:start}
+.step{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:48px 40px;position:relative;display:flex;flex-direction:column}
+.step .num{font:900 120px/.85 var(--font-d);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.04em;margin-bottom:24px}
+.step h3{font:700 36px var(--font-d);letter-spacing:-0.02em;margin-bottom:14px}
+.step p{font:400 18px/1.5 var(--font-u);color:var(--text-2)}
+.step .ic{position:absolute;top:36px;right:36px;width:56px;height:56px;border-radius:16px;background:rgba(123,44,191,.18);display:flex;align-items:center;justify-content:center;color:var(--violet)}
+.step .ic svg{width:28px;height:28px}
+.step .when{margin-top:auto;padding-top:32px;font:600 13px var(--font-m);color:var(--teal);letter-spacing:.14em;text-transform:uppercase}
+
+/* ---- 05: Para o produtor — 3 pillars ---- */
+.s-pillars h2{margin-bottom:24px}
+.s-pillars .lead{margin-bottom:64px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;flex:1}
+.pillar{border-radius:28px;padding:48px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.pillar.p1{background:linear-gradient(160deg,rgba(123,44,191,.22),rgba(123,44,191,.04));border:1px solid rgba(157,78,221,.3)}
+.pillar.p2{background:linear-gradient(160deg,rgba(0,245,212,.16),rgba(0,245,212,.03));border:1px solid rgba(0,245,212,.3)}
+.pillar.p3{background:linear-gradient(160deg,rgba(245,158,11,.16),rgba(245,158,11,.03));border:1px solid rgba(245,158,11,.3)}
+.pillar .ic-bg{position:absolute;top:32px;right:32px;width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06)}
+.pillar .ic-bg svg{width:32px;height:32px}
+.pillar .label{font:600 12px var(--font-u);letter-spacing:.22em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px}
+.pillar h3{font:800 38px/1.05 var(--font-d);letter-spacing:-0.02em;margin-bottom:22px;max-width:280px}
+.pillar p{font:400 17px/1.5 var(--font-u);color:var(--text-2);flex:1}
+.pillar ul{list-style:none;margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
+.pillar ul li{font:500 14px/1.5 var(--font-u);color:var(--text-2);padding:6px 0;display:flex;gap:10px}
+.pillar ul li::before{content:"●";color:var(--teal);font-size:10px;margin-top:6px}
+
+/* ---- 06: Numbers ---- */
+.s-nums h2{margin-bottom:64px}
+.nums-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;flex:1;align-items:center}
+.num-cell{padding:48px 32px 48px 0;border-right:1px solid rgba(255,255,255,.1)}
+.num-cell:last-child{border-right:0}
+.num-cell:not(:first-child){padding-left:32px}
+.num-cell .vl{font:900 110px/.9 var(--font-d);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.045em;margin-bottom:18px}
+.num-cell .vl .small{font-size:48px}
+.num-cell .vl .pct{font-size:60px;-webkit-text-fill-color:#fff;background:none}
+.num-cell .lb{font:600 13px var(--font-u);color:var(--text-3);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+.num-cell .desc{font:400 15px/1.5 var(--font-u);color:var(--text-2)}
+
+/* ---- 07: Antecipação ---- */
+.s-anti{padding:96px 112px}
+.anti-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;flex:1;align-items:center}
+.anti-left h2{margin-bottom:24px}
+.anti-left h2 small{display:block;font:600 13px var(--font-u);color:var(--amber);letter-spacing:.22em;text-transform:uppercase;margin-bottom:18px}
+.anti-left .formula{margin-top:48px;padding:32px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:20px}
+.anti-left .formula .row{display:flex;align-items:center;gap:14px;font:500 19px var(--font-u);color:var(--text-2)}
+.anti-left .formula .row b{color:#fff;font-weight:700;font-family:var(--font-m)}
+.anti-left .formula .row .arrow{color:var(--amber);font-weight:700}
+.anti-right{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:0;overflow:hidden}
+.anti-right .top{padding:32px 36px;background:linear-gradient(135deg,rgba(123,44,191,.3),rgba(245,158,11,.15));border-bottom:1px solid rgba(255,255,255,.1)}
+.anti-right .top .eb{font:600 11px var(--font-u);color:var(--amber);letter-spacing:.22em;text-transform:uppercase}
+.anti-right .top .ttl{font:700 28px var(--font-d);margin-top:8px;letter-spacing:-0.01em}
+.anti-right .lns{padding:8px 36px 32px}
+.anti-right .ln{padding:20px 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);font:500 17px var(--font-u);color:var(--text-2)}
+.anti-right .ln:last-child{border-bottom:0;padding-top:28px;font-weight:700;color:var(--amber);font-size:22px;border-top:2px solid rgba(245,158,11,.4);margin-top:12px}
+.anti-right .ln b{color:#fff;font-weight:600;font-family:var(--font-m)}
+.anti-right .ln:last-child b{color:var(--amber);font-size:30px;font-weight:700}
+
+/* ---- 08: Pricing ---- */
+.s-price{padding:96px 112px}
+.s-price .top{margin-bottom:48px}
+.s-price h2{margin-bottom:18px}
+.price-card{background:linear-gradient(160deg,rgba(123,44,191,.2),rgba(0,245,212,.06));border:1px solid rgba(255,255,255,.15);border-radius:32px;padding:64px;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center;flex:1}
+.price-card .lefty .ep{font:600 12px var(--font-u);color:var(--teal);letter-spacing:.22em;text-transform:uppercase}
+.price-card .big{font:900 240px/.85 var(--font-d);letter-spacing:-0.06em;margin:24px 0 24px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.price-card .big .pct{font-size:120px;-webkit-text-fill-color:#fff;background:none;margin-left:8px}
+.price-card .sub{font:600 26px var(--font-d);color:#fff;letter-spacing:-0.01em}
+.price-card .sub .em{color:var(--teal)}
+.price-card .righty ul{list-style:none}
+.price-card .righty ul li{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.08);font:500 19px var(--font-u);color:var(--text-2);display:flex;gap:16px;align-items:center}
+.price-card .righty ul li:last-child{border-bottom:0}
+.price-card .righty ul li .chk{width:28px;height:28px;border-radius:50%;background:rgba(0,245,212,.18);border:1px solid var(--teal);display:flex;align-items:center;justify-content:center;color:var(--teal);flex-shrink:0}
+.price-card .righty ul li b{color:#fff;font-weight:700}
+
+/* ---- 09: Roadmap ---- */
+.s-road h2{margin-bottom:64px}
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:0;flex:1;align-items:start;position:relative}
+.road::before{content:"";position:absolute;top:42px;left:60px;right:60px;height:2px;background:linear-gradient(90deg,var(--teal) 0%,var(--violet) 30%,rgba(255,255,255,.1) 60%);z-index:0}
+.road-step{position:relative;z-index:1;padding:0 24px}
+.road-step .dot{width:84px;height:84px;border-radius:50%;background:var(--navy);border:2px solid var(--violet);display:flex;align-items:center;justify-content:center;font:800 26px var(--font-m);color:#fff;margin-bottom:32px;letter-spacing:-0.02em}
+.road-step.now .dot{background:var(--teal);color:var(--navy);border-color:var(--teal);box-shadow:0 0 32px rgba(0,245,212,.4)}
+.road-step.next .dot{border-color:var(--violet);color:var(--violet)}
+.road-step.future .dot{border-color:rgba(255,255,255,.2);color:var(--text-4)}
+.road-step .tag{font:600 11px var(--font-u);letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+.road-step.now .tag{color:var(--teal)}
+.road-step.next .tag{color:var(--violet)}
+.road-step.future .tag{color:var(--text-4)}
+.road-step h3{font:700 26px var(--font-d);letter-spacing:-0.015em;margin-bottom:12px;color:#fff}
+.road-step.future h3{color:var(--text-3)}
+.road-step p{font:400 15px/1.45 var(--font-u);color:var(--text-2)}
+.road-step.future p{color:var(--text-4)}
+
+/* ---- 10: Closing ---- */
+.s-end{padding:96px 112px;justify-content:space-between}
+.s-end .core{margin-top:auto;margin-bottom:auto;text-align:left;max-width:1400px}
+.s-end h1{font:900 156px/.92 var(--font-d);letter-spacing:-0.04em;margin-bottom:40px}
+.s-end h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.s-end p.lead{font-size:32px;color:var(--text-2);max-width:1000px}
+.s-end .cta-row{margin-top:64px;display:flex;gap:24px;align-items:center}
+.s-end .cta-row a{display:inline-flex;align-items:center;gap:14px;background:var(--teal);color:var(--navy);font:700 19px var(--font-u);padding:24px 44px;border-radius:18px;text-decoration:none;letter-spacing:.04em;box-shadow:0 24px 64px rgba(0,245,212,.25)}
+.s-end .cta-row a.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);box-shadow:none}
+.s-end .contact{display:flex;gap:64px;margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.1)}
+.s-end .contact .item .l{font:600 11px var(--font-u);color:var(--text-3);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px}
+.s-end .contact .item .v{font:600 19px var(--font-u);color:#fff}
+.s-end .contact .item .v.mono{font-family:var(--font-m)}
+
+</style>
+</head>
+<body>
+
+<!-- Logo defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ic-pulse" viewBox="0 0 320 320">
+      <mask id="m-pulse-cut"><rect width="320" height="320" fill="white"/>
+        <path d="M 10 168 L 70 168 L 88 138 L 108 210 L 138 96 L 170 226 L 200 168 L 310 168" stroke="black" stroke-width="22" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </mask>
+      <g mask="url(#m-pulse-cut)" fill="currentColor">
+        <rect x="64" y="40" width="56" height="240" rx="12"/>
+        <path d="M 120 40 H 190 a 70 70 0 0 1 0 140 H 120 Z"/>
+      </g>
+      <path d="M 10 168 L 70 168 L 88 138 L 108 210 L 138 96 L 170 226 L 200 168 L 310 168" stroke="currentColor" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-wm" viewBox="0 0 720 200">
+      <mask id="m-wm-cut"><rect width="200" height="200" fill="white"/>
+        <path d="M 0 105 L 44 105 L 55 86 L 67 131 L 86 60 L 106 141 L 125 105 L 200 105" stroke="black" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </mask>
+      <g fill="currentColor">
+        <g mask="url(#m-wm-cut)">
+          <rect x="40" y="25" width="35" height="150" rx="8"/>
+          <path d="M 75 25 H 119 a 44 44 0 0 1 0 88 H 75 Z"/>
+        </g>
+        <path d="M 0 105 L 44 105 L 55 86 L 67 131 L 86 60 L 106 141 L 125 105 L 200 105" stroke="currentColor" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g font-family="Outfit, Inter, sans-serif" font-weight="800" font-style="italic" font-size="128" letter-spacing="-6">
+        <text x="218" y="142" fill="currentColor">PULSE</text>
+        <text x="585" y="142" fill="#7b2cbf">!</text>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<deck-stage>
+
+<!-- 01 — COVER -->
+<section data-screen-label="01 Cover" class="s-cover">
+  <div class="lock-top">
+    <svg viewBox="0 0 720 200" style="height:44px;color:#fff"><use href="#ic-wm"/></svg>
+    <span class="sep"></span>
+    <span class="ross">Powered by Ross Produções</span>
+  </div>
+  <div class="ttl-block">
+    <span class="eyebrow"><span class="dot"></span> Pitch · Produtores 2026</span>
+    <h1>PULSE<span class="bang">!</span></h1>
+    <div class="tagline">A primeira plataforma brasileira que une <em>venda, check-in facial e gestão financeira</em> num único ecossistema.</div>
+  </div>
+  <div class="meta">
+    <div class="left">
+      <div class="item"><div class="l">Apresentação</div><div class="v">Festivais &amp; Casas de Show</div></div>
+      <div class="item"><div class="l">Versão</div><div class="v">v1.0 · maio 2026</div></div>
+      <div class="item"><div class="l">Duração</div><div class="v">10 slides · ~12 min</div></div>
+    </div>
+    <div class="pulse-pin">
+      <svg viewBox="0 0 320 320" style="height:64px"><use href="#ic-pulse"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 02 — PROBLEM -->
+<section data-screen-label="02 Problem" class="s-prob">
+  <div class="slide-tag"><span class="num">02</span><span class="bar"></span><span>O problema</span></div>
+  <span class="eyebrow" style="margin-top:60px"><span class="dot" style="background:#ef4444;box-shadow:0 0 10px #ef4444"></span> O que dói no setor hoje</span>
+  <h2 class="h2" style="margin-top:24px;max-width:1400px">A bilheteria brasileira <span class="grad">trabalha contra você.</span></h2>
+  <p class="lead" style="margin-top:24px;margin-bottom:auto">Fila travada na porta, fraude no QR, cambismo no Instagram, chargeback chegando 60 dias depois. Toda festa começa com o mesmo prejuízo.</p>
+  <div class="prob-grid">
+    <div class="prob-card">
+      <div class="ic">FILAS</div>
+      <div class="stat">42<span class="unit">min</span></div>
+      <h3>Tempo médio na portaria</h3>
+      <p>QR + leitor + lista + caixa. Quatro processos em série pra fazer uma coisa só.</p>
+    </div>
+    <div class="prob-card">
+      <div class="ic">FRAUDE</div>
+      <div class="stat">1 em 8</div>
+      <h3>QRs duplicados ou compartilhados</h3>
+      <p>Print no WhatsApp. Mesmo ingresso entra duas, três vezes — e o produtor perde lugar pra quem pagou.</p>
+    </div>
+    <div class="prob-card">
+      <div class="ic">CAMBISMO</div>
+      <div class="stat">+38%</div>
+      <h3>Markup médio no mercado paralelo</h3>
+      <p>Cambista compra em lote, revende caro. Você fica com a má reputação — e zero do lucro.</p>
+    </div>
+    <div class="prob-card">
+      <div class="ic">CHARGEBACK</div>
+      <div class="stat">60d</div>
+      <h3>Pra perder uma venda que já entrou</h3>
+      <p>"Não reconheço a compra." Sem prova de presença, a operadora estorna. Você paga duas vezes.</p>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Pulse! · O problema</span><span class="lk-mini"><svg viewBox="0 0 720 200" style="width:auto"><use href="#ic-wm"/></svg></span></div>
+</section>
+
+<!-- 03 — THE SHIFT -->
+<section data-screen-label="03 Shift" class="s-shift">
+  <div class="slide-tag"><span class="num">03</span><span class="bar"></span><span>A virada</span></div>
+  <div class="reveal">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Mudamos a porta de entrada</span>
+      <div class="h-mega" style="margin-top:32px">
+        <span class="l1">Não é mais o QR.</span>
+        <span class="l2">Seu rosto<br><span class="grad">é o ingresso.</span></span>
+      </div>
+      <p class="lead">Comprou, cadastrou em 30 segundos, entrou. Não tem como esquecer no Uber, não tem como duplicar no print, não tem como descarregar a bateria.</p>
+    </div>
+    <div class="shift-viz">
+      <div class="label-time">9,4s<small>por pessoa</small></div>
+      <div class="ring"></div>
+      <div class="scan"></div>
+      <div class="badge-ok">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        ENTRADA LIBERADA
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Pulse! · A virada</span><span>03 · 10</span></div>
+</section>
+
+<!-- 04 — HOW IT WORKS -->
+<section data-screen-label="04 How" class="s-how">
+  <div class="slide-tag"><span class="num">04</span><span class="bar"></span><span>Como funciona</span></div>
+  <span class="eyebrow" style="margin-top:60px"><span class="dot"></span> Fluxo do público</span>
+  <h2 class="h2" style="margin-top:24px;margin-bottom:24px">Compre. Cadastre. <span class="grad">Entre.</span></h2>
+  <p class="lead" style="margin-bottom:64px">Três passos. Menos de 1 minuto da compra até o rosto cadastrado. Próxima festa, o app já reconhece.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 11h20M6 16h4"/></svg></div>
+      <div class="num">01</div>
+      <h3>Comprou</h3>
+      <p>App ou web. Pix, crédito, débito. Recibo na hora — e nada mais "vai pro e-mail e some no spam".</p>
+      <div class="when">~ 40 segundos</div>
+    </div>
+    <div class="step">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="11" r="3"/><path d="M7 18c1-2 3-3 5-3s4 1 5 3"/></svg></div>
+      <div class="num">02</div>
+      <h3>Cadastrou o rosto</h3>
+      <p>Selfie guiada de 4 segundos. Vetor biométrico criptografado — não armazenamos a foto, só a chave.</p>
+      <div class="when">~ 20 segundos</div>
+    </div>
+    <div class="step">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13M13 5l8 7-8 7"/></svg></div>
+      <div class="num">03</div>
+      <h3>Entrou</h3>
+      <p>Tablet na portaria, câmera apontada, confirma e libera. Sem celular na mão, sem bateria, sem print.</p>
+      <div class="when">~ 9,4 segundos</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Pulse! · Como funciona</span><span>04 · 10</span></div>
+</section>
+
+<!-- 05 — 3 PILLARS -->
+<section data-screen-label="05 Pillars" class="s-pillars">
+  <div class="slide-tag"><span class="num">05</span><span class="bar"></span><span>Para o produtor</span></div>
+  <span class="eyebrow" style="margin-top:60px"><span class="dot"></span> O que muda na sua operação</span>
+  <h2 class="h2" style="margin-top:24px">Controle total. <span class="grad">Fraude Zero.</span></h2>
+  <p class="lead">Três coisas, e só três, que justificam a troca da sua ticketeria.</p>
+  <div class="pillars">
+    <div class="pillar p1">
+      <div class="ic-bg"><svg viewBox="0 0 24 24" fill="none" stroke="#9d4edd" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 10c0-.5.5-1 1-1M14 9c.5 0 1 .5 1 1M9 15c1 1 2 1.5 3 1.5s2-.5 3-1.5"/></svg></div>
+      <div class="label">Operação</div>
+      <h3>Portaria fluindo<br>em 9 segundos.</h3>
+      <p>Tablet + câmera + IA. A pessoa chega, é reconhecida, entra. Sem buscar QR, sem segurar celular molhado, sem fila.</p>
+      <ul>
+        <li>Tablets que conectam em 5 min</li>
+        <li>Funciona offline · sincroniza depois</li>
+        <li>Lista VIP integrada</li>
+      </ul>
+    </div>
+    <div class="pillar p2">
+      <div class="ic-bg"><svg viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div class="label">Blindagem</div>
+      <h3>Zero chargeback.<br>Zero cambismo.</h3>
+      <p>Ingresso ancorado no rosto. Sem QR transferível por print, sem revenda por fora, sem "não reconheço a compra" 60 dias depois.</p>
+      <ul>
+        <li>Prova biométrica de presença</li>
+        <li>Disputa vencida em 1 clique</li>
+        <li>Transferência oficial controlada</li>
+      </ul>
+    </div>
+    <div class="pillar p3">
+      <div class="ic-bg"><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="label">Caixa</div>
+      <h3>Antecipação inteligente.</h3>
+      <p>Seu histórico de eventos com a Pulse! vira limite. Recebe antes mesmo das portas abrirem — sem score externo, sem burocracia.</p>
+      <ul>
+        <li>Crédito por desempenho próprio</li>
+        <li>Liberação D+0 quando você precisar</li>
+        <li>Taxa transparente, sem letra miúda</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Pulse! · Pilares</span><span>05 · 10</span></div>
+</section>
+
+<!-- 06 — NUMBERS -->
+<section data-screen-label="06 Numbers" class="s-nums">
+  <div class="slide-tag"><span class="num">06</span><span class="bar"></span><span>Em números</span></div>
+  <span class="eyebrow" style="margin-top:60px"><span class="dot"></span> Performance medida em produção</span>
+  <h2 class="h2" style="margin-top:24px">O que mudou <span class="grad">na portaria.</span></h2>
+  <p class="lead" style="margin-bottom:auto">Dados de eventos em operação com a Pulse! nos últimos seis meses.</p>
+  <div class="nums-grid">
+    <div class="num-cell">
+      <div class="lb">Tempo médio</div>
+      <div class="vl">9,4<span class="small">s</span></div>
+      <div class="desc">Por pessoa, da chegada à liberação. Antes: 38–60s no leitor de QR.</div>
+    </div>
+    <div class="num-cell">
+      <div class="lb">Reconhecimento</div>
+      <div class="vl">98,4<span class="pct">%</span></div>
+      <div class="desc">Na primeira tentativa, com iluminação real de portaria noturna.</div>
+    </div>
+    <div class="num-cell">
+      <div class="lb">Chargeback</div>
+      <div class="vl">0<span class="pct">%</span></div>
+      <div class="desc">Em todas as casas com check-in facial ativo. Prova biométrica vence disputa.</div>
+    </div>
+    <div class="num-cell">
+      <div class="lb">Cadastro</div>
+      <div class="vl">&lt;60<span class="small">s</span></div>
+      <div class="desc">Da compra ao rosto registrado. Próxima festa, o app já te reconhece.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Pulse! · Números</span><span>06 · 10</span></div>
+</section>
+
+<!-- 07 — ANTECIPAÇÃO -->
+<section data-screen-label="07 Anticipation" class="s-anti">
+  <div class="slide-tag"><span class="num">07</span><span class="bar"></span><span>Antecipação inteligente</span></div>
+  <div class="anti-wrap">
+    <div class="anti-left">
+      <h2 class="h2"><small>O caixa que sai de você</small>Seu histórico <span class="grad">vira limite.</span></h2>
+      <p class="lead">A gente não pede score externo. A gente já viu você vender. Quanto melhor sua operação na Pulse!, maior seu limite, menor a taxa.</p>
+      <div class="formula">
+        <div class="row"><b>HISTÓRICO</b><span class="arrow">→</span><span>2+ eventos auditados na plataforma</span></div>
+        <div class="row" style="margin-top:14px"><b>LIMITE</b><span class="arrow">→</span><span>até 80% da venda atual antecipável</span></div>
+        <div class="row" style="margin-top:14px"><b>LIBERAÇÃO</b><span class="arrow">→</span><span>D+0 — antes mesmo das portas abrirem</span></div>
+      </div>
+    </div>
+    <div class="anti-right">
+      <div class="top">
+        <div class="eb">Exemplo · Festival 4.500 pessoas</div>
+        <div class="ttl">Simulação de adiantamento</div>
+      </div>
+      <div class="lns">
+        <div class="ln"><span>Receita projetada</span><b>R$ 720.000</b></div>
+        <div class="ln"><span>Limite antecipável (80%)</span><b>R$ 576.000</b></div>
+        <div class="ln"><span>Custos fixos pré-evento</span><b>R$ 380.000</b></div>
+        <div class="ln"><span>Liberação D+0 solicitada</span><b>R$ 400.000</b></div>
+        <div class="ln"><span>Antecipação Pulse!</span><b>R$ 400.000</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Pulse! · Antecipação</span><span>07 · 10</span></div>
+</section>
+
+<!-- 08 — PRICING -->
+<section data-screen-label="08 Pricing" class="s-price">
+  <div class="slide-tag"><span class="num">08</span><span class="bar"></span><span>Modelo de negócio</span></div>
+  <div class="top">
+    <span class="eyebrow"><span class="dot"></span> Um plano · sem letra miúda</span>
+    <h2 class="h2" style="margin-top:24px">Você só paga <span class="grad">quando vende.</span></h2>
+  </div>
+  <div class="price-card">
+    <div class="lefty">
+      <div class="ep">Taxa única por ingresso</div>
+      <div class="big">10<span class="pct">%</span></div>
+      <div class="sub">Sem mensalidade. Sem setup. Sem taxa de portaria. <span class="em">Ponto.</span></div>
+    </div>
+    <div class="righty">
+      <ul>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Bilheteria + check-in facial</b> inclusos</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Antecipação de recebíveis</b> por histórico próprio</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Dashboard ao vivo</b> + IA no WhatsApp</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Zero chargeback · zero cambismo</b> contratual</span></li>
+        <li><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Onboarding</b> e suporte dedicado por evento</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Pulse! · Preço</span><span>08 · 10</span></div>
+</section>
+
+<!-- 09 — ROADMAP -->
+<section data-screen-label="09 Roadmap" class="s-road">
+  <div class="slide-tag"><span class="num">09</span><span class="bar"></span><span>Roadmap</span></div>
+  <span class="eyebrow" style="margin-top:60px"><span class="dot"></span> O que já roda · O que vem depois</span>
+  <h2 class="h2" style="margin-top:24px">Como a gente <span class="grad">cresce com você.</span></h2>
+  <p class="lead" style="margin-bottom:64px">Já está em produção em casas parceiras Ross. Próximos trimestres dedicados a aprofundar dado, crédito e experiência VIP.</p>
+  <div class="road">
+    <div class="road-step now">
+      <div class="dot">✓</div>
+      <div class="tag">Agora · Q2 2026</div>
+      <h3>Núcleo facial em produção</h3>
+      <p>Venda, check-in facial, dashboard ao vivo, IA no WhatsApp. Tudo rodando em festivais Ross.</p>
+    </div>
+    <div class="road-step next">
+      <div class="dot">02</div>
+      <div class="tag">Próximo · Q3 2026</div>
+      <h3>Antecipação por histórico</h3>
+      <p>Score interno, sem buró. Liberação D+0 para produtores com 2+ eventos auditados na plataforma.</p>
+    </div>
+    <div class="road-step next">
+      <div class="dot">03</div>
+      <div class="tag">Em sequência · Q4 2026</div>
+      <h3>Marketplace cross-evento</h3>
+      <p>Públicos do festival A aparecem no festival B. Recomendação cruzada — você vende mais sem comprar mídia.</p>
+    </div>
+    <div class="road-step future">
+      <div class="dot">04</div>
+      <div class="tag">Depois · 2027</div>
+      <h3>Pulse! VIP</h3>
+      <p>Camada premium pro público final. Detalhes definidos junto com os produtores parceiros — a partir do que você precisar.</p>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Pulse! · Roadmap</span><span>09 · 10</span></div>
+</section>
+
+<!-- 10 — CLOSING -->
+<section data-screen-label="10 Close" class="s-end">
+  <div class="slide-tag"><span class="num">10</span><span class="bar"></span><span>Próximo passo</span></div>
+  <div class="core">
+    <span class="eyebrow"><span class="dot"></span> Vamos conversar</span>
+    <h1 style="margin-top:32px">Pronto pra<br><span class="grad">acabar com as filas?</span></h1>
+    <p class="lead">20 minutos. Te mostro o painel ao vivo, o check-in facial em ação e simulamos os números do seu próximo evento.</p>
+    <div class="cta-row">
+      <a href="#">Agendar demo
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a class="ghost" href="#">Receber proposta por e-mail</a>
+    </div>
+    <div class="contact">
+      <div class="item"><div class="l">Contato comercial</div><div class="v">contato@pulse.live</div></div>
+      <div class="item"><div class="l">Whatsapp</div><div class="v mono">+55 11 0000-0000</div></div>
+      <div class="item"><div class="l">Parceiro fundador</div><div class="v">Ross Produções</div></div>
+    </div>
+  </div>
+  <div class="slide-foot"><svg viewBox="0 0 720 200" style="height:22px;color:#fff"><use href="#ic-wm"/></svg><span>Powered by Ross Produções · 2026</span></div>
+</section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pulse! — Brand Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+body{background:var(--pulse-bg);color:var(--pulse-text)}
+.shell{max-width:1240px;margin:0 auto;padding:0 32px}
+
+/* Header */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--pulse-border)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1240px;margin:0 auto}
+.brand-lockup{display:flex;align-items:center;gap:10px}
+.brand-lockup svg{height:32px;width:auto;color:var(--pulse-purple)}
+.brand-lockup .chip{font-family:var(--font-ui);font-weight:700;font-size:11px;letter-spacing:.18em;background:var(--pulse-navy);color:#fff;padding:4px 10px;border-radius:999px}
+.tabs{display:flex;gap:4px;background:#fff;border:1px solid var(--pulse-border);padding:4px;border-radius:14px}
+.tab{appearance:none;border:0;background:transparent;font:600 14px var(--font-ui);color:var(--pulse-text-2);padding:9px 18px;border-radius:10px;cursor:pointer;transition:all .2s}
+.tab:hover{color:var(--pulse-text)}
+.tab.active{background:var(--pulse-navy);color:#fff}
+.actions{display:flex;gap:10px}
+.btn{appearance:none;border:0;font:600 14px var(--font-ui);padding:11px 18px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--pulse-purple);color:#fff}
+.btn-primary:hover{background:var(--pulse-dark)}
+.btn-ghost{background:#fff;color:var(--pulse-text);border:1px solid var(--pulse-border)}
+
+/* Panel layout */
+.panel{display:none;padding:48px 0 96px}
+.panel.active{display:block}
+.panel-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--pulse-border)}
+.eyebrow{font:600 12px var(--font-ui);letter-spacing:.22em;color:var(--pulse-purple);text-transform:uppercase;margin-bottom:12px}
+.panel-hero h1{font:800 56px/1.02 var(--font-display);letter-spacing:-0.03em;margin:0}
+.panel-hero p{color:var(--pulse-text-2);font-size:17px;max-width:520px;margin:10px 0 0}
+
+/* Cards / sections */
+.grid{display:grid;gap:20px}
+.section-title{font:700 22px/1.2 var(--font-display);margin:48px 0 16px;letter-spacing:-0.01em}
+.section-title small{font:500 13px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px}
+.card{background:#fff;border:1px solid var(--pulse-border);border-radius:18px;padding:24px}
+
+/* ===== Marca ===== */
+.logo-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px}
+.logo-hero{background:var(--pulse-purple);border-radius:24px;padding:64px;display:flex;align-items:center;justify-content:center;min-height:360px;color:#fff;position:relative;overflow:hidden}
+.logo-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.12), transparent 60%);pointer-events:none}
+.logo-hero svg{height:140px;width:auto;color:#fff;position:relative;z-index:1}
+.logo-tiles{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.logo-tile{background:#fff;border:1px solid var(--pulse-border);border-radius:18px;padding:32px;display:flex;align-items:center;justify-content:center;min-height:168px}
+.logo-tile.dark{background:var(--pulse-navy);color:#fff;border-color:var(--pulse-navy)}
+.logo-tile.gradient{background:var(--grad-signature)}
+.logo-tile.mono{background:#fff}
+.logo-tile svg{height:72px;color:var(--pulse-purple)}
+.logo-tile.dark svg{color:#fff}
+.logo-tile.mono svg{color:#0a0a0a}
+.logo-tile.gradient svg{color:#fff;filter:drop-shadow(0 4px 16px rgba(0,0,0,.18))}
+.logo-meta{display:flex;justify-content:space-between;align-items:center;font:500 12px var(--font-ui);color:var(--pulse-text-2);margin-top:10px;letter-spacing:.06em;text-transform:uppercase}
+
+.usage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px}
+.usage{padding:18px;border-radius:14px;border:1px solid var(--pulse-border);background:#fff;font-size:13px;color:var(--pulse-text-2)}
+.usage b{display:block;color:var(--pulse-text);font:700 13px var(--font-ui);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.usage.ok b::before{content:"✓ ";color:var(--pulse-success)}
+.usage.no b::before{content:"✕ ";color:var(--pulse-danger)}
+
+/* Colors */
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.swatch{border-radius:18px;overflow:hidden;border:1px solid var(--pulse-border);background:#fff}
+.swatch .sw{height:120px}
+.swatch .meta{padding:14px 16px}
+.swatch .name{font:700 14px var(--font-ui)}
+.swatch .hex{font:500 12px var(--font-mono);color:var(--pulse-text-2);margin-top:2px}
+.swatch .use{font:400 11px var(--font-ui);color:var(--pulse-text-2);margin-top:6px;letter-spacing:.04em;text-transform:uppercase}
+.scale{display:grid;grid-template-columns:repeat(9,1fr);gap:0;border-radius:14px;overflow:hidden}
+.scale > div{height:64px;display:flex;align-items:flex-end;padding:8px;font:500 10px var(--font-mono);color:rgba(255,255,255,.85)}
+.scale > div.light{color:rgba(0,0,0,.5)}
+.gradient-bar{height:88px;border-radius:14px;background:var(--grad-signature);display:flex;align-items:center;justify-content:center;color:#0f172a;font:700 16px var(--font-display);letter-spacing:.04em}
+
+/* Type */
+.type-row{display:grid;grid-template-columns:140px 1fr 1fr;gap:24px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--pulse-border)}
+.type-row:last-child{border-bottom:0}
+.type-tag{font:600 12px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.12em;text-transform:uppercase}
+.type-sample-display{font:800 56px/1 var(--font-display);letter-spacing:-0.03em}
+.type-sample-ui{font:500 17px/1.4 var(--font-ui)}
+.type-sample-wm{font:800 italic 56px/1 var(--font-display);letter-spacing:-0.04em}
+.type-spec{font:500 13px/1.5 var(--font-mono);color:var(--pulse-text-2)}
+
+/* Components */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:10px}
+.field label{font:600 11px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.1em;text-transform:uppercase}
+.input{background:#fff;border:1px solid var(--pulse-border);border-radius:12px;padding:14px 16px;font:500 15px var(--font-ui);outline:none;width:100%}
+.input:focus{border-color:var(--pulse-purple);box-shadow:0 0 0 4px rgba(123,44,191,.12)}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{font:600 12px var(--font-ui);padding:6px 12px;border-radius:999px}
+.badge.purple{background:var(--pulse-light);color:var(--pulse-dark)}
+.badge.teal{background:rgba(0,245,212,.15);color:#0a8b76}
+.badge.amber{background:rgba(245,158,11,.16);color:#a3650a}
+.badge.dark{background:var(--pulse-navy);color:#fff}
+.badge.success{background:rgba(16,185,129,.15);color:#0a7a5b}
+.kpi{background:#fff;border:1px solid var(--pulse-border);border-radius:18px;padding:24px}
+.kpi .label{font:600 11px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.14em;text-transform:uppercase}
+.kpi .val{font:800 34px/1 var(--font-display);margin-top:14px;letter-spacing:-0.02em}
+.kpi .sub{font:500 13px var(--font-ui);color:var(--pulse-text-2);margin-top:6px}
+.event-card{background:#fff;border:1px solid var(--pulse-border);border-radius:18px;overflow:hidden}
+.event-card .cover{height:140px;background:linear-gradient(135deg,#7b2cbf,#00f5d4);position:relative}
+.event-card .cover .date{position:absolute;top:14px;right:14px;background:rgba(15,23,42,.85);color:#fff;font:700 11px var(--font-ui);padding:6px 12px;border-radius:999px;letter-spacing:.08em}
+.event-card .body{padding:18px}
+.event-card .body .cat{font:700 11px var(--font-ui);color:var(--pulse-teal);letter-spacing:.14em;text-transform:uppercase}
+.event-card .body .ttl{font:700 17px var(--font-display);margin-top:6px;letter-spacing:-0.01em}
+.event-card .body .loc{font:500 12px var(--font-ui);color:var(--pulse-text-2);margin-top:6px}
+
+/* ===== Produtor mockup ===== */
+.mock-frame{background:var(--pulse-bg);border:1px solid var(--pulse-border);border-radius:22px;overflow:hidden;display:grid;grid-template-columns:260px 1fr;min-height:620px}
+.mock-side{background:var(--pulse-navy);color:#fff;padding:22px}
+.mock-side .lockup{display:flex;align-items:center;gap:8px;margin-bottom:32px}
+.mock-side .lockup .wm{font:800 italic 22px var(--font-display);letter-spacing:-0.04em}
+.mock-side .lockup .pro{font:700 9px var(--font-ui);letter-spacing:.2em;background:#1e293b;padding:3px 8px;border-radius:6px;color:#94a3b8}
+.mock-side .nav-h{font:600 10px var(--font-ui);color:#475569;letter-spacing:.18em;text-transform:uppercase;margin:24px 0 8px}
+.mock-side .nav-i{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;font:500 14px var(--font-ui);color:#94a3b8;cursor:pointer}
+.mock-side .nav-i.active{background:var(--pulse-purple);color:#fff}
+.mock-side .nav-i .ico{width:18px;height:18px}
+.mock-side .acct{margin-top:auto;background:#1e293b;border-radius:14px;padding:14px;display:flex;gap:10px;align-items:center;margin-top:200px}
+.mock-side .acct .av{width:36px;height:36px;border-radius:10px;background:var(--pulse-purple);display:flex;align-items:center;justify-content:center;font:700 13px var(--font-ui);color:#fff}
+.mock-side .acct .nm{font:600 13px var(--font-ui)}
+.mock-side .acct .vr{font:500 10px var(--font-ui);color:var(--pulse-teal);margin-top:2px;letter-spacing:.08em;text-transform:uppercase}
+.mock-main{padding:28px;background:#fff;overflow:auto}
+.mock-main .pg-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.mock-main h2{font:700 28px var(--font-display);letter-spacing:-0.02em;margin:0}
+.mock-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.mock-kpi{background:#fff;border:1px solid var(--pulse-border);border-radius:14px;padding:18px}
+.mock-kpi .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.mock-kpi .lb{font:600 10px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.16em;text-transform:uppercase}
+.mock-kpi .vl{font:800 24px var(--font-display);margin-top:8px;letter-spacing:-0.02em}
+.mock-kpi .sb{font:500 11px var(--font-ui);color:var(--pulse-text-2);margin-top:4px}
+.mock-chart{background:#fff;border:1px solid var(--pulse-border);border-radius:14px;padding:22px;height:240px;display:flex;flex-direction:column}
+.mock-chart .ch-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.mock-chart h3{font:700 16px var(--font-display);margin:0;letter-spacing:-0.01em}
+.mock-chart .sub{font:600 10px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.16em;text-transform:uppercase;margin-top:4px}
+.bars{display:flex;align-items:flex-end;gap:18px;height:100%;padding-bottom:8px}
+.bars .b{flex:1;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#9d4edd,#7b2cbf)}
+.bars .day{font:500 10px var(--font-ui);color:var(--pulse-text-2);text-align:center;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
+
+.mock-app{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+.phone{width:290px;border-radius:38px;background:#0a0a0a;padding:10px;box-shadow:0 30px 80px rgba(15,23,42,.25)}
+.phone .screen{background:var(--pulse-navy);border-radius:30px;overflow:hidden;height:580px;position:relative}
+.notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:110px;height:28px;background:#000;border-radius:14px;z-index:2}
+
+/* ===== Client ===== */
+.client-web-mock{background:#0a0a14;border-radius:22px;overflow:hidden;border:1px solid var(--pulse-border);position:relative;min-height:560px}
+.client-web-mock .cwh{padding:24px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);position:relative;z-index:2}
+.client-web-mock .lk-w{display:flex;align-items:center;gap:14px;color:#fff}
+.client-web-mock .lk-w svg{height:28px;color:#fff}
+.client-web-mock .search{flex:1;max-width:420px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:12px 18px;color:#94a3b8;font:500 13px var(--font-ui)}
+.client-web-mock .download{background:#fff;color:var(--pulse-navy);font:700 12px var(--font-ui);padding:11px 22px;border-radius:999px;letter-spacing:.04em}
+.client-web-mock .hero-w{padding:60px 32px 70px;position:relative;background:linear-gradient(135deg,rgba(123,44,191,.35),rgba(0,245,212,.18)),radial-gradient(circle at 20% 60%, rgba(157,78,221,.4), transparent 50%);color:#fff}
+.client-web-mock .pill{display:inline-block;background:rgba(239,68,68,.16);border:1px solid rgba(239,68,68,.4);color:#fecaca;font:700 10px var(--font-ui);padding:6px 14px;border-radius:999px;letter-spacing:.16em;text-transform:uppercase}
+.client-web-mock h1{font:800 44px/1.05 var(--font-display);letter-spacing:-0.02em;margin:18px 0 14px;max-width:600px}
+.client-web-mock .meta{display:flex;gap:24px;color:#cbd5e1;font:500 12px var(--font-ui);letter-spacing:.1em;text-transform:uppercase}
+.client-web-mock .grab{margin-top:32px;background:var(--pulse-purple);color:#fff;font:700 13px var(--font-ui);padding:14px 28px;border-radius:12px;letter-spacing:.06em;display:inline-block}
+.cats{display:flex;gap:10px;padding:14px 32px;background:rgba(0,0,0,.4);border-top:1px solid rgba(255,255,255,.06)}
+.cats .c{font:600 11px var(--font-ui);color:#94a3b8;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.1);letter-spacing:.12em;text-transform:uppercase}
+.cats .c.on{background:var(--pulse-teal);color:#0a0a14;border-color:var(--pulse-teal)}
+
+/* ===== Marketing (landing rebuild preview iframe-style inside tab) ===== */
+.lp-wrap{background:#0a0a14;border-radius:22px;overflow:hidden;border:1px solid #1f1f2c;color:#fff;position:relative}
+.lp-ann{background:linear-gradient(90deg,#7b2cbf,#5a189a);text-align:center;padding:11px;font:700 11px var(--font-ui);letter-spacing:.16em;color:#fff;text-transform:uppercase}
+.lp-ann .star{color:var(--pulse-teal)}
+.lp-nav{display:flex;align-items:center;justify-content:space-between;padding:22px 40px;border-bottom:1px solid rgba(255,255,255,.06)}
+.lp-nav .lk{display:flex;align-items:center;gap:18px;color:#fff}
+.lp-nav .lk svg{height:30px;color:#fff}
+.lp-nav .lk .sep{width:1px;height:24px;background:rgba(255,255,255,.2)}
+.lp-nav .lk .partner{font:600 11px var(--font-ui);color:#94a3b8;letter-spacing:.16em;text-transform:uppercase}
+.lp-nav .links{display:flex;gap:32px}
+.lp-nav .links a{color:#cbd5e1;font:500 14px var(--font-ui);text-decoration:none}
+.lp-nav .links a:hover{color:#fff}
+.lp-nav .cta{display:flex;gap:12px}
+.lp-nav .cta a{font:600 14px var(--font-ui);text-decoration:none;padding:11px 22px;border-radius:999px}
+.lp-nav .cta a.ghost{color:#fff;border:1px solid rgba(255,255,255,.2)}
+.lp-nav .cta a.fill{background:var(--pulse-teal);color:#0a0a14}
+
+.lp-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;padding:80px 40px 100px;align-items:center;position:relative;overflow:hidden}
+.lp-hero::before{content:"";position:absolute;width:600px;height:600px;left:-200px;top:-100px;background:radial-gradient(circle, rgba(123,44,191,.4), transparent 60%);pointer-events:none}
+.lp-hero::after{content:"";position:absolute;width:500px;height:500px;right:-150px;bottom:-100px;background:radial-gradient(circle, rgba(0,245,212,.22), transparent 60%);pointer-events:none}
+.lp-hero > *{position:relative;z-index:1}
+.lp-hero .badge-hero{display:inline-flex;align-items:center;gap:8px;background:rgba(0,245,212,.1);border:1px solid rgba(0,245,212,.3);color:var(--pulse-teal);font:600 12px var(--font-ui);padding:8px 16px;border-radius:999px;letter-spacing:.14em;text-transform:uppercase}
+.lp-hero .badge-hero .dot{width:6px;height:6px;background:var(--pulse-teal);border-radius:50%;box-shadow:0 0 8px var(--pulse-teal)}
+.lp-hero h1{font:800 72px/.98 var(--font-display);letter-spacing:-0.035em;margin:24px 0 18px}
+.lp-hero h1 .grad{background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lp-hero p.sub{font:400 18px/1.5 var(--font-ui);color:#cbd5e1;max-width:520px;margin:0 0 36px}
+.lp-hero .ctas{display:flex;gap:14px}
+.lp-hero .ctas a{font:700 14px var(--font-ui);padding:16px 28px;border-radius:14px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;letter-spacing:.04em}
+.lp-hero .ctas a.primary{background:#fff;color:var(--pulse-navy)}
+.lp-hero .ctas a.secondary{color:#fff;border:1px solid rgba(255,255,255,.25)}
+
+.lp-stats{display:flex;gap:48px;margin-top:48px;border-top:1px solid rgba(255,255,255,.1);padding-top:32px}
+.lp-stats .st .v{font:800 32px var(--font-display);background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em}
+.lp-stats .st .l{font:600 11px var(--font-ui);color:#94a3b8;letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
+
+.lp-phone-wrap{position:relative;display:flex;justify-content:center}
+.lp-phone{width:300px;height:600px;background:#0a0a0a;border-radius:42px;padding:10px;box-shadow:0 40px 100px rgba(123,44,191,.4)}
+.lp-phone .scr{background:linear-gradient(160deg,#0f172a,#1e0b3a);height:100%;border-radius:32px;padding:50px 24px;color:#fff;position:relative;overflow:hidden}
+.lp-phone .scr::before{content:"";position:absolute;top:0;left:0;right:0;height:30px;background:radial-gradient(ellipse at center top, rgba(0,0,0,.6), transparent 80%);z-index:0}
+.lp-phone .face{width:140px;height:140px;border-radius:50%;border:2px dashed rgba(0,245,212,.5);margin:60px auto 20px;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(circle, rgba(0,245,212,.1), transparent 70%)}
+.lp-phone .face::before{content:"";width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#9d4edd,#00f5d4);opacity:.4}
+.lp-phone .face-h{font:700 18px var(--font-display);text-align:center;margin-top:18px}
+.lp-phone .face-s{font:500 13px var(--font-ui);color:#94a3b8;text-align:center;margin-top:6px}
+.lp-phone .scan-line{position:absolute;left:30px;right:30px;height:2px;background:linear-gradient(90deg,transparent,var(--pulse-teal),transparent);top:50%;box-shadow:0 0 18px var(--pulse-teal);animation:scan 2.4s ease-in-out infinite}
+@keyframes scan{0%{top:32%}50%{top:62%}100%{top:32%}}
+.lp-phone .checkin-pill{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);background:rgba(0,245,212,.16);border:1px solid rgba(0,245,212,.5);color:var(--pulse-teal);font:700 11px var(--font-ui);padding:8px 18px;border-radius:999px;letter-spacing:.14em;text-transform:uppercase;display:flex;gap:8px;align-items:center}
+
+.lp-section{padding:96px 40px;position:relative}
+.lp-section h2{font:800 52px/1 var(--font-display);letter-spacing:-0.025em;margin:0 0 16px;max-width:900px}
+.lp-section h2 .grad{background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lp-section p.lead{font:400 18px/1.5 var(--font-ui);color:#cbd5e1;max-width:680px}
+.lp-features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.lp-feat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:32px;transition:all .3s}
+.lp-feat:hover{border-color:rgba(0,245,212,.3);transform:translateY(-2px)}
+.lp-feat .ic{width:48px;height:48px;border-radius:14px;background:rgba(123,44,191,.2);display:flex;align-items:center;justify-content:center;color:var(--pulse-purple);margin-bottom:18px}
+.lp-feat .ic svg{width:24px;height:24px}
+.lp-feat h3{font:700 22px var(--font-display);letter-spacing:-0.01em;margin:0 0 10px}
+.lp-feat p{font:500 14px/1.5 var(--font-ui);color:#94a3b8;margin:0}
+.lp-feat .num{font:800 13px var(--font-mono);color:var(--pulse-teal);letter-spacing:.1em}
+
+/* Pricing */
+.lp-pricing{padding:96px 40px;background:linear-gradient(180deg,transparent,rgba(123,44,191,.06))}
+.pricing-card{background:linear-gradient(160deg,rgba(123,44,191,.15),rgba(0,245,212,.08));border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:48px;margin-top:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
+.pricing-card .left .eb{font:600 11px var(--font-ui);color:var(--pulse-teal);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.pricing-card h3{font:800 42px var(--font-display);letter-spacing:-0.02em;margin:0 0 16px}
+.pricing-card .price{display:flex;align-items:baseline;gap:8px;margin:16px 0 18px}
+.pricing-card .price .big{font:900 96px/1 var(--font-display);background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.04em}
+.pricing-card .price .pct{font:700 28px var(--font-display)}
+.pricing-card .price .un{font:500 14px var(--font-ui);color:#94a3b8}
+.pricing-card ul{list-style:none;padding:0;margin:24px 0 0}
+.pricing-card ul li{font:500 15px var(--font-ui);color:#e2e8f0;padding:10px 0;display:flex;gap:12px;align-items:center}
+.pricing-card ul li::before{content:"";width:18px;height:18px;border-radius:50%;background:rgba(0,245,212,.15);border:1px solid var(--pulse-teal);flex-shrink:0;display:flex;align-items:center;justify-content:center;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2300f5d4' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+.pricing-card .right{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px}
+.pricing-card .right .ln{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06);font:500 14px var(--font-ui);color:#94a3b8}
+.pricing-card .right .ln:last-child{border-bottom:0;border-top:1px solid rgba(0,245,212,.3);margin-top:12px;padding-top:18px;color:var(--pulse-teal);font:700 16px var(--font-ui)}
+.pricing-card .right .ln b{color:#fff;font:600 14px var(--font-mono)}
+
+.lp-cta-final{padding:120px 40px;text-align:center;background:linear-gradient(180deg,transparent,rgba(0,245,212,.04))}
+.lp-cta-final h2{font:800 64px/1 var(--font-display);letter-spacing:-0.03em;margin:0 0 18px}
+.lp-cta-final p{font:400 19px/1.5 var(--font-ui);color:#cbd5e1;max-width:580px;margin:0 auto 36px}
+.lp-cta-final a{display:inline-flex;align-items:center;gap:12px;background:var(--pulse-teal);color:var(--pulse-navy);font:700 15px var(--font-ui);padding:18px 36px;border-radius:14px;text-decoration:none;letter-spacing:.04em;box-shadow:0 16px 48px rgba(0,245,212,.3)}
+.lp-foot{padding:32px 40px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;color:#64748b;font:500 12px var(--font-ui);letter-spacing:.06em}
+
+/* Common */
+.callout{background:linear-gradient(135deg,rgba(123,44,191,.06),rgba(0,245,212,.04));border:1px solid var(--pulse-border);border-radius:20px;padding:32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:32px}
+.callout h3{font:700 24px var(--font-display);margin:0 0 8px;letter-spacing:-0.01em}
+.callout p{margin:0;color:var(--pulse-text-2);font-size:15px}
+
+/* Lockup recipes */
+.recipes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.recipe{background:#fff;border:1px solid var(--pulse-border);border-radius:18px;padding:32px;display:flex;align-items:center;justify-content:center;min-height:140px;position:relative}
+.recipe .lbl{position:absolute;top:12px;left:14px;font:600 10px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.14em;text-transform:uppercase}
+.recipe.dark{background:var(--pulse-navy);border-color:var(--pulse-navy)}
+.recipe.dark .lbl{color:#64748b}
+
+.lockup-pro{display:flex;align-items:center;gap:10px}
+.lockup-pro svg{height:42px;color:var(--pulse-purple)}
+.lockup-pro.white svg{color:#fff}
+.lockup-pro .chip{font-family:var(--font-ui);font-weight:700;font-size:10px;letter-spacing:.2em;background:var(--pulse-navy);color:#fff;padding:4px 10px;border-radius:6px}
+.lockup-pro.white .chip{background:#1e293b;color:#94a3b8}
+
+/* Footer */
+.footer-note{margin-top:80px;padding-top:32px;border-top:1px solid var(--pulse-border);text-align:center;color:var(--pulse-text-2);font:500 13px var(--font-ui)}
+
+@media (max-width: 980px){
+  .palette,.lp-features,.comp-grid,.mock-kpis,.recipes{grid-template-columns:1fr 1fr}
+  .logo-grid,.lp-hero,.pricing-card{grid-template-columns:1fr}
+  .panel-hero h1{font-size:40px}
+  .lp-hero h1{font-size:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- ICONS (reusable defs) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ic-pulse" viewBox="0 0 320 320">
+      <mask id="m-pulse-cut"><rect width="320" height="320" fill="white"/>
+        <path d="M 10 168 L 70 168 L 88 138 L 108 210 L 138 96 L 170 226 L 200 168 L 310 168" stroke="black" stroke-width="22" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </mask>
+      <g mask="url(#m-pulse-cut)" fill="currentColor">
+        <rect x="64" y="40" width="56" height="240" rx="12"/>
+        <path d="M 120 40 H 190 a 70 70 0 0 1 0 140 H 120 Z"/>
+      </g>
+      <path d="M 10 168 L 70 168 L 88 138 L 108 210 L 138 96 L 170 226 L 200 168 L 310 168" stroke="currentColor" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-wm" viewBox="0 0 720 200">
+      <mask id="m-wm-cut"><rect width="200" height="200" fill="white"/>
+        <path d="M 0 105 L 44 105 L 55 86 L 67 131 L 86 60 L 106 141 L 125 105 L 200 105" stroke="black" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </mask>
+      <g fill="currentColor">
+        <g mask="url(#m-wm-cut)">
+          <rect x="40" y="25" width="35" height="150" rx="8"/>
+          <path d="M 75 25 H 119 a 44 44 0 0 1 0 88 H 75 Z"/>
+        </g>
+        <path d="M 0 105 L 44 105 L 55 86 L 67 131 L 86 60 L 106 141 L 125 105 L 200 105" stroke="currentColor" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g font-family="Outfit, Inter, sans-serif" font-weight="800" font-style="italic" font-size="128" letter-spacing="-6">
+        <text x="218" y="142" fill="currentColor">PULSE</text>
+        <text x="585" y="142" fill="currentColor">!</text>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-lockup">
+      <svg viewBox="0 0 720 200" style="height:34px"><use href="#ic-wm"/></svg>
+      <span class="chip">BRAND KIT</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="brand">Marca</button>
+      <button class="tab" data-tab="producer">Produtor</button>
+      <button class="tab" data-tab="client">Cliente</button>
+      <button class="tab" data-tab="marketing">Marketing</button>
+    </nav>
+    <div class="actions">
+      <a class="btn btn-ghost" href="Pitch Produtores.html" target="_blank">Pitch Deck →</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MARCA ============ -->
+<main class="panel active" data-panel="brand">
+  <div class="shell">
+    <div class="panel-hero">
+      <div>
+        <div class="eyebrow">01 — Identidade</div>
+        <h1>A marca Pulse!</h1>
+        <p>Logotipo final, paleta oficial, sistema tipográfico e componentes-base que sustentam todo o ecossistema — produtor, cliente e marketing.</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;color:var(--pulse-text-2);font:600 12px var(--font-ui);letter-spacing:.14em;text-transform:uppercase">
+        <span>v1.0</span> · <span>maio 2026</span>
+      </div>
+    </div>
+
+    <div class="section-title"><small>Logotipo</small>Versão final</div>
+    <div class="logo-grid">
+      <div class="logo-hero">
+        <svg viewBox="0 0 720 200" style="height:120px;width:auto"><use href="#ic-wm"/></svg>
+      </div>
+      <div class="logo-tiles">
+        <div class="logo-tile"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <div class="logo-tile dark"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <div class="logo-tile gradient"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <div class="logo-tile mono"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+      </div>
+    </div>
+    <div class="logo-meta">
+      <span>Símbolo · Roxo · Branco · Gradiente · Preto</span>
+      <span>Vetorial · escalável até favicon</span>
+    </div>
+
+    <div class="section-title" style="margin-top:48px"><small>Construções aprovadas</small>Lockups</div>
+    <div class="recipes">
+      <div class="recipe"><span class="lbl">Horizontal · Roxo</span><svg viewBox="0 0 720 200" style="height:54px;color:var(--pulse-purple)"><use href="#ic-wm"/></svg></div>
+      <div class="recipe dark"><span class="lbl">Horizontal · Branco</span><svg viewBox="0 0 720 200" style="height:54px;color:#fff"><use href="#ic-wm"/></svg></div>
+      <div class="recipe"><span class="lbl">Co-brand · PRO</span>
+        <div class="lockup-pro"><svg viewBox="0 0 720 200"><use href="#ic-wm"/></svg><span class="chip">PRO</span></div>
+      </div>
+    </div>
+
+    <div class="section-title"><small>Usos · faça e não faça</small>Regras de aplicação</div>
+    <div class="usage-grid">
+      <div class="usage ok"><b>Respiro</b>Mínimo igual à altura do "P" em todas as bordas.</div>
+      <div class="usage ok"><b>Cor sólida</b>Sempre 1 cor por aplicação — roxo, branco ou preto.</div>
+      <div class="usage no"><b>Não distorcer</b>Manter proporção. Sem stretch horizontal ou vertical.</div>
+      <div class="usage no"><b>Não redesenhar</b>Não trocar a linha de pulso por outra forma.</div>
+    </div>
+
+    <div class="section-title" style="margin-top:64px"><small>Sistema cromático</small>Paleta oficial</div>
+    <div class="palette">
+      <div class="swatch"><div class="sw" style="background:#7b2cbf"></div><div class="meta"><div class="name">Pulse Purple</div><div class="hex">#7B2CBF</div><div class="use">Primária</div></div></div>
+      <div class="swatch"><div class="sw" style="background:#5a189a"></div><div class="meta"><div class="name">Pulse Dark</div><div class="hex">#5A189A</div><div class="use">Hover / pressed</div></div></div>
+      <div class="swatch"><div class="sw" style="background:#00f5d4"></div><div class="meta"><div class="name">Pulse Teal</div><div class="hex">#00F5D4</div><div class="use">Acento neon</div></div></div>
+      <div class="swatch"><div class="sw" style="background:#f59e0b"></div><div class="meta"><div class="name">Pulse Amber</div><div class="hex">#F59E0B</div><div class="use">VIP / premium</div></div></div>
+      <div class="swatch"><div class="sw" style="background:#0f172a"></div><div class="meta"><div class="name">Pulse Navy</div><div class="hex">#0F172A</div><div class="use">Sidebar / dark</div></div></div>
+    </div>
+
+    <div class="section-title" style="margin-top:32px">Escala roxa &amp; gradiente assinatura</div>
+    <div class="scale" style="margin-bottom:18px">
+      <div class="light" style="background:#f3e8ff">50</div>
+      <div class="light" style="background:#e0aaff">100</div>
+      <div class="light" style="background:#c77dff">200</div>
+      <div style="background:#9d4edd">300</div>
+      <div style="background:#7b2cbf">400</div>
+      <div style="background:#6a1bb0">500</div>
+      <div style="background:#5a189a">600</div>
+      <div style="background:#3c096c">700</div>
+      <div style="background:#240046">800</div>
+    </div>
+    <div class="gradient-bar">LAVANDA · VIOLETA · TEAL</div>
+
+    <div class="section-title" style="margin-top:64px"><small>Tipografia</small>Sistema de tipos</div>
+    <div class="card" style="padding:0">
+      <div class="type-row" style="padding:24px">
+        <div class="type-tag">Marca</div>
+        <div class="type-sample-wm">PULSE<span style="color:var(--pulse-purple)">!</span></div>
+        <div class="type-spec">Outfit / Italic 800<br>tracking −0.04em<br>uso: wordmark</div>
+      </div>
+      <div class="type-row" style="padding:24px">
+        <div class="type-tag">Display</div>
+        <div class="type-sample-display">Controle total. Fraude Zero.</div>
+        <div class="type-spec">Outfit / 800<br>tracking −0.03em<br>uso: H1, hero</div>
+      </div>
+      <div class="type-row" style="padding:24px">
+        <div class="type-tag">UI</div>
+        <div class="type-sample-ui">Seu rosto é o ingresso — venda, check-in facial e gestão financeira num único ecossistema brasileiro.</div>
+        <div class="type-spec">Inter / 400–700<br>tracking 0<br>uso: corpo, interface</div>
+      </div>
+      <div class="type-row" style="padding:24px">
+        <div class="type-tag">Dado / Mono</div>
+        <div style="font:600 32px var(--font-mono)">R$ 284.500,00</div>
+        <div class="type-spec">JetBrains Mono / 600<br>uso: números financeiros</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:64px"><small>Componentes base</small>UI Kit</div>
+    <div class="comp-grid">
+      <div class="card">
+        <div class="field"><label>Botões</label>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <button class="btn btn-primary">Criar Evento</button>
+            <button class="btn" style="background:var(--pulse-teal);color:var(--pulse-navy)">Ver Demo</button>
+            <button class="btn btn-ghost">Acessar Painel</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="field"><label>Input</label><input class="input" placeholder="seu@email.com"></div>
+      </div>
+      <div class="card">
+        <div class="field"><label>Badges</label>
+          <div class="badges">
+            <span class="badge purple">Produtor verificado</span>
+            <span class="badge teal">Check-in OK</span>
+            <span class="badge amber">VIP</span>
+            <span class="badge success">Disponível</span>
+            <span class="badge dark">PRO</span>
+          </div>
+        </div>
+      </div>
+      <div class="kpi"><div class="label">Vendas Totais</div><div class="val" style="font-family:var(--font-mono)">R$ 284.500</div><div class="sub">+ 12,5% últimos 30 dias</div></div>
+      <div class="kpi"><div class="label">Ingressos vendidos</div><div class="val">2.847</div><div class="sub">Consolidado hoje</div></div>
+      <div class="event-card"><div class="cover"><div class="date">04 JUN</div></div><div class="body"><div class="cat">Eletrônico</div><div class="ttl">Serra Limpa — circuito cênico</div><div class="loc">Mirante das Araucárias · Campos do Jordão</div></div></div>
+    </div>
+
+    <div class="callout">
+      <div><h3>Frases-chave da marca</h3><p>Fila Zero · Fraude Zero · Seu rosto é o ingresso · Antecipação inteligente · Controle total · Menos de 1 minuto · Score de produtor</p></div>
+      <span class="badge purple" style="font-size:13px">Universo verbal</span>
+    </div>
+  </div>
+</main>
+
+<!-- ============ PRODUTOR ============ -->
+<main class="panel" data-panel="producer">
+  <div class="shell">
+    <div class="panel-hero">
+      <div>
+        <div class="eyebrow">02 — Produtor (B2B)</div>
+        <h1>Pulse! PRO</h1>
+        <p>Web desktop-first + app mobile. Sidebar escura, dados em evidência, tom profissional. "Controle total. Fraude Zero."</p>
+      </div>
+      <a class="btn btn-primary" href="Pitch Produtores.html" target="_blank">Abrir Pitch Deck →</a>
+    </div>
+
+    <div class="section-title"><small>Painel Web · Dashboard</small>Pulse! PRO no navegador</div>
+    <div class="mock-frame">
+      <aside class="mock-side">
+        <div class="lockup">
+          <svg viewBox="0 0 320 320" style="height:24px;color:#fff"><use href="#ic-pulse"/></svg>
+          <span class="wm">PULSE!</span>
+          <span class="pro">PRO</span>
+        </div>
+        <div class="nav-h">Principal</div>
+        <div class="nav-i active">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-7"/></svg>Dashboard
+        </div>
+        <div class="nav-i"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Eventos</div>
+        <div class="nav-i"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9 12 2"/></svg>VIP</div>
+        <div class="nav-i"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3h6l3 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7z"/><path d="M9 13h6M9 17h6"/></svg>Listas</div>
+        <div class="nav-i"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 11h20"/></svg>Financeiro</div>
+        <div class="nav-i"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4"/></svg>Configurações</div>
+        <div class="acct">
+          <div class="av">RP</div>
+          <div><div class="nm">Ross Produções</div><div class="vr">Produtor verificado</div></div>
+        </div>
+      </aside>
+      <section class="mock-main">
+        <div class="pg-h">
+          <div>
+            <h2>Dashboard</h2>
+            <div style="font:500 13px var(--font-ui);color:var(--pulse-text-2);margin-top:4px">Bem-vinda, Renata · São Paulo · Quinta, 12 mai</div>
+          </div>
+          <button class="btn btn-primary">+ Criar Evento</button>
+        </div>
+        <div class="mock-kpis">
+          <div class="mock-kpi">
+            <div class="ic" style="background:rgba(16,185,129,.12);color:#10b981"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div class="lb">Vendas Totais</div>
+            <div class="vl" style="font-family:var(--font-mono)">R$ 284.500</div>
+            <div class="sb" style="color:#10b981">▲ 12,5% últimos 30 dias</div>
+          </div>
+          <div class="mock-kpi">
+            <div class="ic" style="background:rgba(123,44,191,.12);color:#7b2cbf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h18l-1 12H4z"/><path d="M8 8V4h8v4"/></svg></div>
+            <div class="lb">Ingressos vendidos</div>
+            <div class="vl">2.847</div>
+            <div class="sb">Consolidado hoje</div>
+          </div>
+          <div class="mock-kpi">
+            <div class="ic" style="background:rgba(245,158,11,.12);color:#f59e0b"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+            <div class="lb">Eventos ativos</div>
+            <div class="vl">7</div>
+            <div class="sb">2 vendendo agora</div>
+          </div>
+          <div class="mock-kpi">
+            <div class="ic" style="background:rgba(0,245,212,.12);color:#0a8b76"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 14a4 4 0 0 1-8 0"/><circle cx="9" cy="10" r=".7" fill="currentColor"/><circle cx="15" cy="10" r=".7" fill="currentColor"/></svg></div>
+            <div class="lb">Check-in facial</div>
+            <div class="vl">98,4%</div>
+            <div class="sb">Primeira tentativa</div>
+          </div>
+        </div>
+        <div class="mock-chart">
+          <div class="ch-h">
+            <div><h3>Vendas diárias</h3><div class="sub">Últimos 7 dias · R$</div></div>
+            <span class="badge purple">Receita</span>
+          </div>
+          <div class="bars">
+            <div style="display:flex;flex-direction:column;flex:1;height:100%;justify-content:flex-end"><div class="b" style="height:34%"></div><div class="day">TER</div></div>
+            <div style="display:flex;flex-direction:column;flex:1;height:100%;justify-content:flex-end"><div class="b" style="height:58%"></div><div class="day">QUA</div></div>
+            <div style="display:flex;flex-direction:column;flex:1;height:100%;justify-content:flex-end"><div class="b" style="height:42%"></div><div class="day">QUI</div></div>
+            <div style="display:flex;flex-direction:column;flex:1;height:100%;justify-content:flex-end"><div class="b" style="height:72%"></div><div class="day">SEX</div></div>
+            <div style="display:flex;flex-direction:column;flex:1;height:100%;justify-content:flex-end"><div class="b" style="height:96%;background:linear-gradient(180deg,#00f5d4,#9d4edd)"></div><div class="day">SÁB</div></div>
+            <div style="display:flex;flex-direction:column;flex:1;height:100%;justify-content:flex-end"><div class="b" style="height:78%"></div><div class="day">DOM</div></div>
+            <div style="display:flex;flex-direction:column;flex:1;height:100%;justify-content:flex-end"><div class="b" style="height:46%"></div><div class="day">SEG</div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-title" style="margin-top:64px"><small>App Produtor</small>Operação em campo · Check-in facial</div>
+    <div class="mock-app">
+      <div class="phone">
+        <div class="screen" style="padding:0">
+          <div class="notch"></div>
+          <div style="padding:60px 22px 0;color:#fff">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <svg viewBox="0 0 320 320" style="height:24px;color:#fff"><use href="#ic-pulse"/></svg>
+              <span style="font:700 9px var(--font-ui);letter-spacing:.2em;background:#1e293b;padding:4px 10px;border-radius:6px;color:#94a3b8">PRO</span>
+            </div>
+            <div style="font:500 11px var(--font-ui);color:#94a3b8;margin-top:24px;letter-spacing:.16em;text-transform:uppercase">Evento ao vivo</div>
+            <div style="font:700 22px var(--font-display);margin-top:6px;letter-spacing:-0.01em">Serra Limpa</div>
+            <div style="font:500 12px var(--font-ui);color:#94a3b8">Mirante das Araucárias</div>
+            <div style="background:rgba(0,245,212,.08);border:1px solid rgba(0,245,212,.25);border-radius:14px;padding:18px;margin-top:24px">
+              <div style="font:600 10px var(--font-ui);color:#00f5d4;letter-spacing:.18em;text-transform:uppercase">Check-in ao vivo</div>
+              <div style="font:800 38px var(--font-display);margin-top:8px;letter-spacing:-0.02em;font-family:var(--font-mono),var(--font-display)">1.247 / 1.800</div>
+              <div style="height:6px;background:rgba(255,255,255,.08);border-radius:6px;margin-top:10px;overflow:hidden"><div style="width:69%;height:100%;background:linear-gradient(90deg,#9d4edd,#00f5d4)"></div></div>
+              <div style="font:500 11px var(--font-ui);color:#94a3b8;margin-top:8px">69% · 9,4s/pessoa em média</div>
+            </div>
+            <div style="background:#1e293b;border-radius:14px;padding:16px;margin-top:14px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+                <span style="font:500 11px var(--font-ui);color:#94a3b8;letter-spacing:.14em;text-transform:uppercase">Última entrada</span>
+                <span style="font:600 11px var(--font-ui);color:#00f5d4">agora</span>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#9d4edd,#00f5d4)"></div>
+                <div><div style="font:600 14px var(--font-ui)">Júlio Tavares</div><div style="font:500 11px var(--font-ui);color:#94a3b8">Pista · Lote 2</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="screen" style="padding:0;background:linear-gradient(180deg,#0f172a,#1e0b3a)">
+          <div class="notch"></div>
+          <div style="padding:60px 22px 0;color:#fff;text-align:center">
+            <div style="font:600 10px var(--font-ui);color:#00f5d4;letter-spacing:.22em;text-transform:uppercase">Identificando</div>
+            <div style="font:700 19px var(--font-display);margin-top:6px">Aponte para o rosto</div>
+            <div style="width:200px;height:200px;border-radius:50%;border:2px dashed rgba(0,245,212,.5);margin:38px auto;position:relative;background:radial-gradient(circle,rgba(0,245,212,.08),transparent 70%)">
+              <div style="position:absolute;inset:30px;border-radius:50%;background:linear-gradient(135deg,#9d4edd,#00f5d4);opacity:.35"></div>
+              <div style="position:absolute;left:18px;right:18px;height:2px;background:linear-gradient(90deg,transparent,#00f5d4,transparent);top:50%;box-shadow:0 0 16px #00f5d4;animation:scan 2s infinite"></div>
+            </div>
+            <div style="background:rgba(0,245,212,.16);border:1px solid rgba(0,245,212,.4);color:#00f5d4;font:700 12px var(--font-ui);padding:14px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.08em">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              ENTRADA LIBERADA
+            </div>
+            <div style="font:500 11px var(--font-ui);color:#94a3b8;margin-top:14px">9,2 segundos · ingresso #A472</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:48px">
+      <div><h3>Headlines de produto · Produtor</h3><p>"Controle total. Fraude Zero." · "Seus dados conversam com você." · "Seu histórico vira limite."</p></div>
+      <span class="badge dark" style="font-size:12px">B2B</span>
+    </div>
+  </div>
+</main>
+
+<!-- ============ CLIENTE ============ -->
+<main class="panel" data-panel="client">
+  <div class="shell">
+    <div class="panel-hero">
+      <div>
+        <div class="eyebrow">03 — Cliente final (B2C)</div>
+        <h1>Pulse! para todo mundo</h1>
+        <p>Dark vibrante, gradiente lavanda → teal, animações fluidas. App primeiro, web complementar. "A festa começa aqui."</p>
+      </div>
+    </div>
+
+    <div class="section-title"><small>Web Cliente</small>Home pública</div>
+    <div class="client-web-mock">
+      <div class="cwh">
+        <div class="lk-w">
+          <svg viewBox="0 0 720 200" style="height:24px;color:#fff"><use href="#ic-wm"/></svg>
+          <div style="font:500 10px var(--font-ui);color:#94a3b8;letter-spacing:.16em;text-transform:uppercase;border-left:1px solid rgba(255,255,255,.15);padding-left:14px;margin-left:6px">Localização<br><span style="color:#fff;font-weight:600;font-size:13px;text-transform:none;letter-spacing:0">São Paulo</span></div>
+        </div>
+        <div class="search">🔍  Busque por eventos, festas ou cidades...</div>
+        <div class="download">BAIXAR APP</div>
+      </div>
+      <div class="hero-w">
+        <span class="pill">🔥 Destaque da semana</span>
+        <h1>Serra Limpa: circuito cênico e eletrônica</h1>
+        <div class="meta">
+          <span>📍 Mirante das Araucárias — Campos do Jordão</span>
+          <span>📅 04 de junho</span>
+        </div>
+        <div class="grab">GARANTIR INGRESSO</div>
+      </div>
+      <div class="cats">
+        <span class="c on">Tudo</span>
+        <span class="c">Festas &amp; Shows</span>
+        <span class="c">Gastronomia</span>
+        <span class="c">Eletrônico</span>
+        <span class="c">Universitário</span>
+        <span class="c">Teatro</span>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:64px"><small>App Cliente</small>Fluxo "Compre · Cadastre · Entre"</div>
+    <div class="mock-app">
+      <!-- 1. Detalhe do evento -->
+      <div class="phone">
+        <div class="screen" style="padding:0;background:#0a0a14">
+          <div class="notch"></div>
+          <div style="height:280px;background:linear-gradient(180deg,rgba(10,10,20,0),rgba(10,10,20,.9)),linear-gradient(135deg,#7b2cbf,#00f5d4);position:relative">
+            <div style="position:absolute;top:60px;left:20px;display:flex;gap:8px">
+              <div style="width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;color:#fff;backdrop-filter:blur(8px)">‹</div>
+            </div>
+            <div style="position:absolute;top:60px;right:20px;display:flex;gap:8px">
+              <div style="width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;color:#fff;backdrop-filter:blur(8px)">♡</div>
+            </div>
+            <div style="position:absolute;bottom:18px;left:20px;right:20px;color:#fff">
+              <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,245,212,.18);border:1px solid rgba(0,245,212,.4);color:#00f5d4;font:700 9px var(--font-ui);padding:5px 10px;border-radius:999px;letter-spacing:.14em;text-transform:uppercase">🔥 Em alta</div>
+              <div style="font:800 22px/1.1 var(--font-display);margin-top:8px;letter-spacing:-0.01em">Serra Limpa<br>04 · JUN</div>
+            </div>
+          </div>
+          <div style="padding:18px 20px;color:#fff">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font:600 9px var(--font-ui);color:#00f5d4;letter-spacing:.18em;text-transform:uppercase">Eletrônico</div><div style="font:500 13px var(--font-ui);color:#94a3b8;margin-top:4px">Campos do Jordão</div></div>
+              <div style="text-align:right"><div style="font:500 9px var(--font-ui);color:#94a3b8;letter-spacing:.12em;text-transform:uppercase">A partir de</div><div style="font:800 22px var(--font-display);background:linear-gradient(90deg,#e0aaff,#00f5d4);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.02em">R$ 120</div></div>
+            </div>
+            <div style="background:linear-gradient(135deg,rgba(123,44,191,.3),rgba(0,245,212,.15));border:1px solid rgba(0,245,212,.2);border-radius:14px;padding:14px;margin-top:14px;color:#fff">
+              <div style="font:700 11px var(--font-ui);color:#00f5d4;letter-spacing:.12em;text-transform:uppercase">⚡ Pulse facial</div>
+              <div style="font:500 12px var(--font-ui);color:#cbd5e1;margin-top:6px">Compre, cadastre o rosto. Entre sem fila em menos de 10s.</div>
+            </div>
+            <div style="background:#9d4edd;color:#fff;padding:14px;border-radius:14px;text-align:center;font:700 13px var(--font-ui);margin-top:14px;letter-spacing:.06em">GARANTIR INGRESSO</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Onboarding facial -->
+      <div class="phone">
+        <div class="screen" style="background:linear-gradient(180deg,#0a0a14,#1e0b3a);padding:0">
+          <div class="notch"></div>
+          <div style="padding:60px 22px;text-align:center;color:#fff">
+            <div style="font:500 10px var(--font-ui);color:#00f5d4;letter-spacing:.22em;text-transform:uppercase">Passo 2 de 2</div>
+            <div style="font:800 24px/1.1 var(--font-display);margin-top:8px;letter-spacing:-0.02em">Seu rosto<br>é o ingresso.</div>
+            <div style="width:200px;height:200px;border-radius:50%;border:2px dashed rgba(0,245,212,.5);margin:32px auto;position:relative">
+              <div style="position:absolute;inset:18px;border-radius:50%;background:linear-gradient(135deg,#9d4edd,#00f5d4);opacity:.5"></div>
+              <div style="position:absolute;left:18px;right:18px;height:2px;background:linear-gradient(90deg,transparent,#00f5d4,transparent);top:50%;box-shadow:0 0 16px #00f5d4;animation:scan 2s infinite"></div>
+            </div>
+            <div style="font:500 13px var(--font-ui);color:#cbd5e1;line-height:1.5;max-width:220px;margin:0 auto">Posicione o rosto no centro. Levamos 4 segundos.</div>
+            <div style="background:#fff;color:#0a0a14;padding:14px;border-radius:14px;font:700 13px var(--font-ui);margin-top:28px;letter-spacing:.06em">CONTINUAR</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Ticket -->
+      <div class="phone">
+        <div class="screen" style="background:#0a0a14;padding:0">
+          <div class="notch"></div>
+          <div style="padding:60px 22px;color:#fff">
+            <div style="font:500 10px var(--font-ui);color:#00f5d4;letter-spacing:.22em;text-transform:uppercase">Seu ingresso</div>
+            <div style="background:#fff;color:#0a0a14;border-radius:18px;padding:20px;margin-top:14px;position:relative;overflow:hidden">
+              <div style="position:absolute;left:-8px;top:50%;width:16px;height:16px;background:#0a0a14;border-radius:50%"></div>
+              <div style="position:absolute;right:-8px;top:50%;width:16px;height:16px;background:#0a0a14;border-radius:50%"></div>
+              <div style="font:700 11px var(--font-ui);color:var(--pulse-purple);letter-spacing:.16em;text-transform:uppercase">Pulse Ticket</div>
+              <div style="font:800 19px/1.1 var(--font-display);margin-top:6px;letter-spacing:-0.01em">Serra Limpa</div>
+              <div style="font:500 11px var(--font-ui);color:#6b7280;margin-top:4px">04 jun · Mirante das Araucárias</div>
+              <div style="display:flex;gap:18px;margin-top:16px;padding-top:16px;border-top:1px dashed #e5e7eb">
+                <div><div style="font:500 9px var(--font-ui);color:#6b7280;letter-spacing:.12em;text-transform:uppercase">Setor</div><div style="font:700 13px var(--font-ui);margin-top:2px">Pista</div></div>
+                <div><div style="font:500 9px var(--font-ui);color:#6b7280;letter-spacing:.12em;text-transform:uppercase">Lote</div><div style="font:700 13px var(--font-ui);margin-top:2px">2</div></div>
+                <div style="margin-left:auto;text-align:right"><div style="font:500 9px var(--font-ui);color:#6b7280;letter-spacing:.12em;text-transform:uppercase">Valor</div><div style="font:700 13px var(--font-mono);margin-top:2px">R$ 120</div></div>
+              </div>
+            </div>
+            <div style="background:rgba(0,245,212,.1);border:1px solid rgba(0,245,212,.3);border-radius:14px;padding:14px;margin-top:14px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:36px;height:36px;border-radius:50%;background:rgba(0,245,212,.2);display:flex;align-items:center;justify-content:center;color:#00f5d4">😊</div>
+                <div><div style="font:700 11px var(--font-ui);color:#00f5d4;letter-spacing:.12em;text-transform:uppercase">Rosto cadastrado</div><div style="font:500 12px var(--font-ui);color:#cbd5e1;margin-top:2px">Sem QR. Sem fila. Sem bateria.</div></div>
+              </div>
+            </div>
+            <div style="font:500 10px var(--font-ui);color:#475569;text-align:center;margin-top:18px;letter-spacing:.1em">INTRANSFERÍVEL · BLINDADO CONTRA CHARGEBACK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:48px">
+      <div><h3>Headlines de produto · Cliente</h3><p>"Seu rosto é o ingresso. O fim das filas." · "Compre. Cadastre. Entre. Menos de 1 minuto." · "A experiência VIP que começa antes mesmo de entrar."</p></div>
+      <span class="badge teal" style="font-size:12px">B2C</span>
+    </div>
+  </div>
+</main>
+
+<!-- ============ MARKETING (nova landing) ============ -->
+<main class="panel" data-panel="marketing">
+  <div class="shell">
+    <div class="panel-hero">
+      <div>
+        <div class="eyebrow">04 — Marketing</div>
+        <h1>Nova landing page</h1>
+        <p>Mantive o que estava bom (paleta dark + acento teal, partnership com Ross) e ataquei o que faltava: hierarquia no hero, prova social numérica, seção clara de preço (10% por venda + antecipação).</p>
+      </div>
+      <a class="btn btn-ghost" href="https://pulse-landing-page-production-e0ce.up.railway.app/" target="_blank">Ver versão atual ↗</a>
+    </div>
+
+    <div class="lp-wrap">
+      <div class="lp-ann"><span class="star">✦</span> &nbsp; A ROSS PRODUÇÕES AGORA TEM SUA PRÓPRIA TICKETERIA INTELIGENTE &nbsp; <span class="star">✦</span></div>
+      <nav class="lp-nav">
+        <div class="lk">
+          <svg viewBox="0 0 720 200" style="height:30px;color:#fff"><use href="#ic-wm"/></svg>
+          <span class="sep"></span>
+          <span class="partner">Powered by Ross Produções</span>
+        </div>
+        <div class="links">
+          <a href="#">Para Produtores</a>
+          <a href="#">Para o Público</a>
+          <a href="#">IA no WhatsApp</a>
+          <a href="#">Preço</a>
+        </div>
+        <div class="cta">
+          <a class="ghost" href="#">Acessar Painel</a>
+          <a class="fill" href="#">Ver Demo</a>
+        </div>
+      </nav>
+
+      <section class="lp-hero">
+        <div>
+          <span class="badge-hero"><span class="dot"></span> O futuro dos eventos chegou</span>
+          <h1>Seu rosto é<br>o ingresso.<br><span class="grad">O fim das filas.</span></h1>
+          <p class="sub">A primeira plataforma brasileira que une venda, check-in facial e gestão financeira num único ecossistema. Adeus às filas quilométricas. Adeus aos chargebacks.</p>
+          <div class="ctas">
+            <a class="primary" href="#">Falar com vendas
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a class="secondary" href="#">Ver MVP ao vivo</a>
+          </div>
+          <div class="lp-stats">
+            <div class="st"><div class="v">0%</div><div class="l">Chargebacks em produção</div></div>
+            <div class="st"><div class="v">9,4s</div><div class="l">Por pessoa na portaria</div></div>
+            <div class="st"><div class="v">&lt;1min</div><div class="l">Da compra ao cadastro facial</div></div>
+          </div>
+        </div>
+        <div class="lp-phone-wrap">
+          <div class="lp-phone">
+            <div class="scr">
+              <div style="font:500 10px var(--font-ui);color:var(--pulse-teal);letter-spacing:.22em;text-transform:uppercase;text-align:center">Pulse Check-in</div>
+              <div class="face"></div>
+              <div class="scan-line"></div>
+              <div class="face-h">Aponte para o rosto</div>
+              <div class="face-s">Reconhecimento em segundos</div>
+              <div class="checkin-pill">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                ENTRADA LIBERADA
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-section">
+        <div style="max-width:900px">
+          <span class="badge-hero"><span class="dot" style="background:var(--pulse-purple);box-shadow:0 0 8px var(--pulse-purple)"></span> Para o produtor</span>
+          <h2 style="margin-top:18px">Controle total. <span class="grad">Fraude Zero.</span></h2>
+          <p class="lead">A operação inteira numa plataforma só: vender, blindar a portaria, antecipar caixa e operar sem cambismo. Sem QR transferível, sem chargeback, sem dor de cabeça.</p>
+        </div>
+        <div class="lp-features">
+          <div class="lp-feat">
+            <div class="ic" style="background:rgba(123,44,191,.18)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 10c0-.5.5-1 1-1M14 9c.5 0 1 .5 1 1M9 15c1 1 2 1.5 3 1.5s2-.5 3-1.5"/></svg></div>
+            <div class="num">01</div>
+            <h3>Check-in facial em 10s</h3>
+            <p>Câmera + IA em tablet. Fila zero, mesmo em casas com 5.000 pessoas. Validação biométrica antes da catraca.</p>
+          </div>
+          <div class="lp-feat">
+            <div class="ic" style="background:rgba(0,245,212,.16);color:var(--pulse-teal)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+            <div class="num">02</div>
+            <h3>Blindagem contra chargeback</h3>
+            <p>Rosto cadastrado é prova irrefutável de presença. Disputas vencidas em 1 clique — fim do "não reconheço a compra".</p>
+          </div>
+          <div class="lp-feat">
+            <div class="ic" style="background:rgba(245,158,11,.16);color:var(--pulse-amber)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg></div>
+            <div class="num">03</div>
+            <h3>Antecipação inteligente</h3>
+            <p>Seu histórico vira limite. Sem score externo, sem burocracia bancária — recebe antes mesmo das portas abrirem.</p>
+          </div>
+          <div class="lp-feat">
+            <div class="ic" style="background:rgba(123,44,191,.18)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-7"/></svg></div>
+            <div class="num">04</div>
+            <h3>Dashboard ao vivo</h3>
+            <p>Vendas, lotação, fluxo na portaria — tudo em tempo real. Sem planilhas, sem ligar pro fornecedor.</p>
+          </div>
+          <div class="lp-feat">
+            <div class="ic" style="background:rgba(0,245,212,.16);color:var(--pulse-teal)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+            <div class="num">05</div>
+            <h3>IA no WhatsApp</h3>
+            <p>"Como tá vendendo hoje?" — sua bilheteria responde por mensagem. Relatório, KPI, alerta de sold out.</p>
+          </div>
+          <div class="lp-feat">
+            <div class="ic" style="background:rgba(245,158,11,.16);color:var(--pulse-amber)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></div>
+            <div class="num">06</div>
+            <h3>Adeus cambismo</h3>
+            <p>Ingresso atrelado ao rosto. Sem QR transferível por print. Quem comprou, é quem entra — e ponto final.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-pricing">
+        <div style="text-align:center;max-width:720px;margin:0 auto">
+          <span class="badge-hero"><span class="dot"></span> Modelo de negócio</span>
+          <h2 style="margin-top:18px;text-align:center">Um plano. <span class="grad">Sem letra miúda.</span></h2>
+          <p class="lead" style="margin:14px auto 0">Você só paga quando vende. Sem mensalidade, sem setup, sem taxa de portaria. E ainda pode antecipar.</p>
+        </div>
+        <div class="pricing-card">
+          <div class="left">
+            <div class="eb">Taxa única</div>
+            <h3>Pulse! por ingresso vendido</h3>
+            <div class="price">
+              <span class="big">10</span><span class="pct">%</span>
+              <span class="un">/ ingresso · sem mensalidade</span>
+            </div>
+            <ul>
+              <li>Bilheteria + check-in facial inclusos</li>
+              <li>Dashboard ao vivo + IA no WhatsApp</li>
+              <li>Antecipação de recebíveis por histórico</li>
+              <li>Zero chargeback · zero cambismo</li>
+              <li>Onboarding e suporte dedicado</li>
+            </ul>
+          </div>
+          <div class="right">
+            <div style="font:600 11px var(--font-ui);color:var(--pulse-teal);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px">Exemplo · evento médio</div>
+            <div class="ln">Ingressos vendidos<b>1.800</b></div>
+            <div class="ln">Ticket médio<b>R$ 160</b></div>
+            <div class="ln">Receita bruta<b>R$ 288.000</b></div>
+            <div class="ln">Taxa Pulse! (10%)<b style="color:#ef9a9a">−R$ 28.800</b></div>
+            <div class="ln">Você recebe<b>R$ 259.200</b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-cta-final">
+        <h2>Pronta pra <span style="background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent">acabar com as filas</span>?</h2>
+        <p>Agende uma demo de 20 minutos. Te mostro o painel, o check-in facial ao vivo e simulamos o número do seu próximo evento.</p>
+        <a href="#">Agendar demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </section>
+
+      <footer class="lp-foot">
+        <div>© 2026 Pulse! · Powered by Ross Produções</div>
+        <div>contato@pulse.live</div>
+      </footer>
+    </div>
+  </div>
+</main>
+
+<footer style="padding:32px 0;text-align:center;color:var(--pulse-text-2);font:500 13px var(--font-ui);background:#fff;border-top:1px solid var(--pulse-border)">
+  Pulse! Brand Kit · maio 2026 · todas as variações em <a href="#" style="color:var(--pulse-purple)">SVG editável</a>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelector(`.panel[data-panel="${t.dataset.tab}"]`).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }));
+</script>
+
+</body>
+</html>

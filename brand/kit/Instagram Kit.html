@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pulse! — Instagram Kit (Produtores)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+:root{
+  --neutral-bg:#f4f4f6;
+  --asset-shadow: 0 8px 32px rgba(15,23,42,.10), 0 2px 6px rgba(15,23,42,.04);
+}
+body{background:var(--neutral-bg);font-family:var(--font-ui);color:var(--pulse-text)}
+.shell{max-width:1320px;margin:0 auto;padding:0 32px 96px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--pulse-border)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1320px;margin:0 auto}
+.brand-lockup{display:flex;align-items:center;gap:10px}
+.brand-lockup svg{height:30px;width:auto;color:var(--pulse-purple)}
+.brand-lockup .chip{font-weight:700;font-size:11px;letter-spacing:.18em;background:var(--pulse-navy);color:#fff;padding:4px 10px;border-radius:999px}
+.topnav{display:flex;gap:8px;flex-wrap:wrap}
+.topnav a{font:600 13px var(--font-ui);color:var(--pulse-text-2);text-decoration:none;padding:8px 14px;border-radius:10px;letter-spacing:.02em}
+.topnav a:hover{color:var(--pulse-text);background:#fff}
+
+.kit-hero{padding:56px 0 32px;border-bottom:1px solid var(--pulse-border);margin-bottom:48px}
+.kit-hero .eyebrow{font:600 12px var(--font-ui);letter-spacing:.22em;color:var(--pulse-purple);text-transform:uppercase;margin-bottom:14px}
+.kit-hero h1{font:800 56px/1.02 var(--font-display);letter-spacing:-0.03em;margin:0}
+.kit-hero .meta{display:flex;gap:48px;margin-top:24px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.kit-hero .meta p{color:var(--pulse-text-2);font-size:17px;max-width:560px;margin:0}
+.kit-hero .specs{display:flex;gap:32px}
+.kit-hero .specs .it .l{font:600 10px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.2em;text-transform:uppercase}
+.kit-hero .specs .it .v{font:700 14px var(--font-mono);color:var(--pulse-text);margin-top:6px}
+
+.sec{margin-bottom:96px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;gap:32px}
+.sec-head .lt h2{font:800 32px var(--font-display);letter-spacing:-0.02em;margin:0}
+.sec-head .lt .eb{font:600 11px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px;display:block}
+.sec-head .lt .ds{color:var(--pulse-text-2);font-size:14px;max-width:520px;margin-top:8px}
+.sec-head .rt{display:flex;gap:18px;align-items:center;color:var(--pulse-text-2);font:600 11px var(--font-ui);letter-spacing:.16em;text-transform:uppercase}
+.sec-head .rt .sz{background:#fff;border:1px solid var(--pulse-border);padding:8px 14px;border-radius:999px;font-family:var(--font-mono);letter-spacing:.02em;text-transform:none;color:var(--pulse-text)}
+
+.label{font:600 10px var(--font-ui);color:var(--pulse-text-2);letter-spacing:.16em;text-transform:uppercase;margin-top:10px}
+.label b{color:var(--pulse-text);font-weight:700}
+
+/* ===== PROFILE ===== */
+.profile-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:start}
+.pf-avatar-card{background:#fff;border:1px solid var(--pulse-border);border-radius:24px;padding:36px;text-align:center;box-shadow:var(--asset-shadow)}
+.pf-avatar{width:240px;height:240px;border-radius:50%;margin:0 auto;background:var(--pulse-purple);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pf-avatar::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 60%)}
+.pf-avatar svg{height:140px;color:#fff;position:relative;z-index:1}
+.pf-alt-row{display:flex;gap:14px;justify-content:center;margin-top:24px}
+.pf-alt{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--pulse-border)}
+.pf-alt svg{height:28px}
+.pf-alt.purple{background:var(--pulse-purple);border-color:var(--pulse-purple)}.pf-alt.purple svg{color:#fff}
+.pf-alt.dark{background:var(--pulse-navy);border-color:var(--pulse-navy)}.pf-alt.dark svg{color:#fff}
+.pf-alt.grad{background:var(--grad-signature);border-color:transparent}.pf-alt.grad svg{color:#fff}
+.pf-alt.white{background:#fff}.pf-alt.white svg{color:var(--pulse-purple)}
+
+.pf-bio-mock{background:#fff;border:1px solid var(--pulse-border);border-radius:24px;padding:36px;box-shadow:var(--asset-shadow)}
+.pf-bio-mock .ig-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--pulse-border);margin-bottom:24px}
+.pf-bio-mock .ig-header .h{font:700 16px var(--font-ui);color:#111}
+.pf-bio-mock .ig-header .icns{display:flex;gap:18px;color:var(--pulse-text-2)}
+.pf-row{display:flex;gap:32px;align-items:center;margin-bottom:24px}
+.pf-row .av{width:96px;height:96px;border-radius:50%;background:var(--pulse-purple);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden}
+.pf-row .av::before{content:"";position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from 180deg,#e0aaff,#9d4edd,#00f5d4,#e0aaff);padding:3px;mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;z-index:0}
+.pf-row .av svg{height:54px;color:#fff;position:relative;z-index:1}
+.pf-row .nums{display:flex;gap:24px;flex:1;justify-content:space-around}
+.pf-row .nums .v{font:700 19px var(--font-ui);color:#111}
+.pf-row .nums .l{font:500 13px var(--font-ui);color:#666;margin-top:2px;text-align:center}
+.pf-name{font:700 16px var(--font-ui);color:#111}
+.pf-handle{font:500 13px var(--font-ui);color:#666;margin-top:2px}
+.pf-bio{font:400 14px/1.55 var(--font-ui);color:#111;margin-top:14px;max-width:520px}
+.pf-bio .em{color:var(--pulse-purple);font-weight:600}
+.pf-bio .link{color:#00376b;font-weight:500}
+.pf-cats{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.pf-cats .pill{font:600 11px var(--font-ui);background:#f3f4f6;color:#374151;padding:5px 11px;border-radius:6px;letter-spacing:.04em}
+.pf-btns{display:flex;gap:8px;margin-top:18px}
+.pf-btns .b{flex:1;text-align:center;font:700 14px var(--font-ui);padding:9px 12px;border-radius:10px;border:1px solid var(--pulse-border);background:#fff;color:#111}
+.pf-btns .b.primary{background:#3897f0;color:#fff;border-color:#3897f0}
+
+/* ===== HIGHLIGHTS ===== */
+.high-row{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.hi{display:flex;flex-direction:column;align-items:center;gap:10px}
+.hi-cover{width:100%;aspect-ratio:1/1;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:3px solid transparent;background:#fff}
+.hi-cover::before{content:"";position:absolute;inset:-5px;border-radius:50%;background:conic-gradient(from 180deg,#7b2cbf,#9d4edd,#00f5d4,#7b2cbf);z-index:-1}
+.hi-cover .inner{width:calc(100% - 8px);height:calc(100% - 8px);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;text-align:center;position:relative;overflow:hidden}
+.hi-cover .inner::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.16), transparent 55%)}
+.hi-cover .glyph{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
+.hi-cover .glyph svg{width:32%;height:auto}
+.hi-cover .glyph .nm{font:800 11px var(--font-display);letter-spacing:.16em;text-transform:uppercase}
+.hi .name{font:600 12px var(--font-ui);color:var(--pulse-text)}
+
+.hi-cover.demo .inner{background:var(--pulse-purple)}
+.hi-cover.face .inner{background:linear-gradient(135deg,#9d4edd,#00f5d4)}
+.hi-cover.dash .inner{background:var(--pulse-navy)}
+.hi-cover.cases .inner{background:linear-gradient(135deg,#5a189a,#7b2cbf)}
+.hi-cover.faq .inner{background:#1e293b}
+.hi-cover.press .inner{background:linear-gradient(135deg,#f59e0b,#7b2cbf)}
+
+/* ===== FEED GRID 3x3 ===== */
+.feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#fff;border:1px solid var(--pulse-border);border-radius:18px;padding:6px;box-shadow:var(--asset-shadow)}
+.fc{aspect-ratio:1/1;background:#0a0a14;color:#fff;border-radius:4px;overflow:hidden;position:relative;padding:24px;display:flex;flex-direction:column;justify-content:space-between}
+.fc .corner-wm{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:6px;font:800 italic 12px var(--font-display);color:rgba(255,255,255,.7);letter-spacing:-0.02em}
+.fc .corner-wm svg{height:14px;color:rgba(255,255,255,.7)}
+.fc .reel-ic{position:absolute;top:14px;right:14px;width:22px;height:22px;color:#fff}
+
+/* Color treatments */
+.fc.t-dark{background:#0a0a14}
+.fc.t-purple{background:radial-gradient(circle at 25% 30%, rgba(157,78,221,.5), transparent 60%), #5a189a}
+.fc.t-teal-grad{background:linear-gradient(135deg,#7b2cbf,#00f5d4)}
+.fc.t-navy{background:linear-gradient(160deg,#0f172a,#1e0b3a)}
+.fc.t-light{background:#f3e8ff;color:var(--pulse-navy)}
+.fc.t-amber{background:linear-gradient(135deg,#f59e0b,#7b2cbf)}
+
+.fc h3{font:800 19px/1.05 var(--font-display);letter-spacing:-0.01em;margin:0}
+.fc h3 .em{background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fc .tag{display:inline-block;font:700 9px var(--font-ui);padding:4px 9px;border-radius:999px;letter-spacing:.16em;text-transform:uppercase;background:rgba(0,245,212,.18);color:#00f5d4;border:1px solid rgba(0,245,212,.4);align-self:flex-start}
+.fc .tag.amber{background:rgba(245,158,11,.18);color:#fcd34d;border-color:rgba(245,158,11,.4)}
+.fc .tag.light{background:#7b2cbf;color:#fff;border-color:transparent}
+.fc .swipe{font:600 10px var(--font-ui);color:rgba(255,255,255,.6);letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.fc .stat{font:900 56px/.85 var(--font-display);letter-spacing:-0.04em}
+.fc .stat .sm{font-size:24px}
+.fc.t-light .swipe{color:rgba(15,23,42,.5)}
+.fc .quote{font:700 italic 16px/1.15 var(--font-display);letter-spacing:-0.01em}
+
+/* ===== ASSET CARD WRAPPER ===== */
+.asset-row{display:grid;gap:24px}
+.asset-card{background:#fff;border-radius:24px;padding:20px;box-shadow:var(--asset-shadow);border:1px solid var(--pulse-border)}
+.asset-card .canvas{border-radius:14px;overflow:hidden}
+.asset-card .meta{display:flex;justify-content:space-between;margin-top:14px;align-items:center}
+.asset-card .meta .nm{font:700 13px var(--font-ui)}
+.asset-card .meta .sz{font:500 11px var(--font-mono);color:var(--pulse-text-2)}
+
+/* ===== POST 1080x1350 / 1080x1080 base ===== */
+.post-1x1{width:100%;aspect-ratio:1/1;color:#fff;position:relative;overflow:hidden;font-family:var(--font-ui)}
+.post-45{width:100%;aspect-ratio:4/5;color:#fff;position:relative;overflow:hidden;font-family:var(--font-ui)}
+.post-bg-dark{background:radial-gradient(ellipse at top left, rgba(123,44,191,.3), transparent 55%),radial-gradient(ellipse at bottom right, rgba(0,245,212,.15), transparent 55%),linear-gradient(180deg,#0a0a14,#1a0a2e)}
+.post-bg-purple{background:radial-gradient(circle at 25% 25%,#9d4edd,#5a189a 70%)}
+.post-bg-grad{background:linear-gradient(135deg,#7b2cbf 0%,#9d4edd 45%,#00f5d4 100%)}
+.post-bg-light{background:#f3e8ff;color:var(--pulse-navy)}
+.post-bg-navy{background:linear-gradient(180deg,#0f172a 0%,#1e0b3a 100%)}
+
+.post-pad{position:absolute;inset:0;padding:9%;display:flex;flex-direction:column;justify-content:space-between}
+.post-wm{display:flex;align-items:center;gap:8px;font:800 italic 18px var(--font-display);letter-spacing:-0.03em;color:rgba(255,255,255,.85)}
+.post-wm svg{height:24px;color:rgba(255,255,255,.85)}
+.post-wm.dark{color:rgba(15,23,42,.85)}.post-wm.dark svg{color:rgba(15,23,42,.85)}
+.post-eb{display:inline-flex;align-items:center;gap:7px;font:600 10px var(--font-ui);letter-spacing:.22em;text-transform:uppercase;color:#00f5d4}
+.post-eb .dot{width:6px;height:6px;background:#00f5d4;border-radius:50%;box-shadow:0 0 8px #00f5d4}
+.post-eb.purple{color:#9d4edd}.post-eb.purple .dot{background:#9d4edd;box-shadow:0 0 8px #9d4edd}
+.post-eb.amber{color:#f59e0b}.post-eb.amber .dot{background:#f59e0b;box-shadow:0 0 8px #f59e0b}
+.post-eb.dark{color:var(--pulse-purple)}.post-eb.dark .dot{background:var(--pulse-purple);box-shadow:none}
+.post-h{font:800 42px/.96 var(--font-display);letter-spacing:-0.03em;margin-top:14px}
+.post-h .gr{background:linear-gradient(90deg,#e0aaff 0%,#9d4edd 45%,#00f5d4 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.post-bottom-cta{display:flex;align-items:center;gap:10px;font:700 12px var(--font-ui);letter-spacing:.12em;text-transform:uppercase;color:#fff}
+.post-bottom-cta .arr{width:28px;height:28px;border-radius:50%;background:#00f5d4;color:#0a0a14;display:flex;align-items:center;justify-content:center}
+
+/* ===== CAROUSEL (horizontal scroll) ===== */
+.carousel{display:flex;gap:14px;overflow-x:auto;padding:8px 4px 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.carousel::-webkit-scrollbar{height:8px}
+.carousel::-webkit-scrollbar-track{background:transparent}
+.carousel::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+.car-slide{flex:0 0 280px;scroll-snap-align:start;background:#fff;border-radius:18px;padding:10px;box-shadow:var(--asset-shadow);border:1px solid var(--pulse-border)}
+.car-slide .post-45{border-radius:10px}
+.car-slide .pip{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:0 4px}
+.car-slide .pip .nm{font:600 12px var(--font-ui);color:var(--pulse-text)}
+.car-slide .pip .ix{font:600 11px var(--font-mono);color:var(--pulse-text-2)}
+
+/* Carousel slide content */
+.cs-num{font:900 18px var(--font-mono);color:#00f5d4;letter-spacing:.04em}
+.cs-title{font:800 34px/.97 var(--font-display);letter-spacing:-0.025em;margin-top:10px}
+.cs-title.lg{font-size:42px}
+.cs-cover{font:900 56px/.92 var(--font-display);letter-spacing:-0.035em}
+.cs-body{font:400 14px/1.45 var(--font-ui);color:#cbd5e1;margin-top:14px}
+.cs-mini-stat{font:900 64px/.85 var(--font-display);background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.04em;margin-top:8px}
+.cs-mini-stat .un{font-size:22px;color:#fff;-webkit-text-fill-color:#fff;background:none;margin-left:4px}
+.cs-mini-lb{font:600 10px var(--font-ui);color:#94a3b8;letter-spacing:.18em;text-transform:uppercase}
+
+/* Faces / icons inside slides */
+.face-circle{width:140px;height:140px;border-radius:50%;border:2px dashed rgba(0,245,212,.5);margin:18px auto;position:relative;background:radial-gradient(circle,rgba(0,245,212,.1),transparent 70%);display:flex;align-items:center;justify-content:center}
+.face-circle::after{content:"";width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#9d4edd,#00f5d4);opacity:.4}
+.face-circle .ln{position:absolute;left:14px;right:14px;height:2px;background:linear-gradient(90deg,transparent,#00f5d4,transparent);top:50%;box-shadow:0 0 14px #00f5d4}
+
+/* ===== STORIES (1080x1920 = 9:16) ===== */
+.stories-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.story-card{background:#fff;border-radius:24px;padding:14px;box-shadow:var(--asset-shadow);border:1px solid var(--pulse-border)}
+.story{width:100%;aspect-ratio:9/16;border-radius:14px;overflow:hidden;position:relative;color:#fff;font-family:var(--font-ui);container-type:inline-size}
+/* Internal story sizes scale with container (design baseline = 1080px width) */
+.story .post-eb{font-size:1.11cqw !important}
+.story .story-meta{font-size:1.02cqw !important}
+.story .story-meta .av{width:2.22cqw !important;height:2.22cqw !important}
+.story .story-meta .av svg{height:1.3cqw !important}
+.story .story-sticker{font-size:1.2cqw !important;padding:1cqw 1.3cqw !important;border-radius:1.3cqw !important}
+.story .story-h{font-size:3.33cqw !important;line-height:.96 !important}
+.story p{font-size:1.3cqw !important;line-height:1.45 !important}
+.story .story-cta{font-size:1.11cqw !important;padding:1cqw 1.67cqw !important}
+.story .story-poll{font-size:1.3cqw !important;padding:1.3cqw !important;border-radius:1.67cqw !important}
+.story .story-poll .q{font-size:1.02cqw !important;margin-bottom:.93cqw !important}
+.story .story-poll .opt{padding:.74cqw 1.11cqw !important;border-radius:.93cqw !important;margin-bottom:.56cqw !important}
+.story .big-stat{font-size:12.96cqw !important;line-height:.85 !important;letter-spacing:-0.05em}
+.story .big-stat .un{font-size:4.26cqw !important;color:#fff;-webkit-text-fill-color:#fff;background:none}
+.story .swipe-up{font-size:1.2cqw !important;padding:1.48cqw 1.85cqw !important;border-radius:1.3cqw !important;letter-spacing:.1em;text-align:center;text-transform:uppercase;font-weight:700}
+.story-pad{position:absolute;inset:0;padding:10% 8%;display:flex;flex-direction:column;justify-content:space-between}
+.story-h{font:800 36px/.96 var(--font-display);letter-spacing:-0.03em}
+.story-h .gr{background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent}
+.story .progress{position:absolute;top:3%;left:8%;right:8%;display:flex;gap:4px;z-index:5}
+.story .progress .bar{flex:1;height:3px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden}
+.story .progress .bar.active{background:#fff}
+.story .progress .bar.done{background:#fff}
+.story-meta{display:flex;align-items:center;gap:8px;font:600 11px var(--font-ui);color:rgba(255,255,255,.85);margin-top:14px}
+.story-meta .av{width:24px;height:24px;border-radius:50%;background:var(--pulse-purple);display:flex;align-items:center;justify-content:center}
+.story-meta .av svg{height:14px;color:#fff}
+.story-cta{background:#fff;color:var(--pulse-navy);font:700 12px var(--font-ui);padding:11px 18px;border-radius:999px;text-align:center;letter-spacing:.04em;align-self:center;display:inline-flex;align-items:center;gap:8px}
+.story-cta.teal{background:#00f5d4;color:#0a0a14}
+.story-sticker{background:rgba(255,255,255,.96);color:var(--pulse-navy);padding:11px 14px;border-radius:14px;font:700 13px var(--font-ui);transform:rotate(-3deg);box-shadow:0 8px 16px rgba(0,0,0,.18);align-self:flex-start}
+.story-poll{background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border-radius:18px;padding:14px;font:700 14px var(--font-ui)}
+.story-poll .q{font:600 11px var(--font-ui);color:rgba(255,255,255,.7);letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+.story-poll .opt{background:rgba(255,255,255,.1);border-radius:10px;padding:8px 12px;margin-bottom:6px}
+.story-poll .opt.lead{background:rgba(0,245,212,.3)}
+
+/* ===== ADS (paid) ===== */
+.ads-row{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.ad-card{background:#fff;border-radius:22px;padding:18px;box-shadow:var(--asset-shadow);border:1px solid var(--pulse-border)}
+.ad-mock{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb}
+.ad-mock .hdr{padding:11px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f3f4f6}
+.ad-mock .hdr .av{width:32px;height:32px;border-radius:50%;background:var(--pulse-purple);display:flex;align-items:center;justify-content:center}
+.ad-mock .hdr .av svg{height:18px;color:#fff}
+.ad-mock .hdr .nm{font:700 13px var(--font-ui);color:#111;display:flex;align-items:center;gap:6px}
+.ad-mock .hdr .nm .ck{color:#3897f0}
+.ad-mock .hdr .lb{font:500 11px var(--font-ui);color:#666}
+.ad-mock .image{aspect-ratio:1/1;background:#000}
+.ad-mock .swipe-bar{padding:10px 14px;background:#fafafa;border-top:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;font:600 12px var(--font-ui);color:#111}
+.ad-mock .swipe-bar .cta{color:#3897f0;display:flex;align-items:center;gap:4px}
+.ad-mock .actions{padding:10px 14px;display:flex;justify-content:space-between;color:#262626}
+.ad-mock .cap{padding:10px 14px;font:400 12px var(--font-ui);color:#111}
+.ad-mock .cap b{font-weight:700}
+
+/* Ad creative content */
+.ad-cr{width:100%;height:100%;position:relative;color:#fff;overflow:hidden;font-family:var(--font-ui)}
+.ad-cr .pad{position:absolute;inset:0;padding:7%;display:flex;flex-direction:column;justify-content:space-between}
+.ad-cr h2{font:800 38px/.98 var(--font-display);letter-spacing:-0.025em;margin:0}
+.ad-cr h2 .gr{background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ad-cr .ad-eb{display:inline-flex;align-items:center;gap:7px;font:700 10px var(--font-ui);letter-spacing:.2em;text-transform:uppercase;background:rgba(0,245,212,.18);color:#00f5d4;padding:6px 12px;border-radius:999px;align-self:flex-start;border:1px solid rgba(0,245,212,.4)}
+.ad-cr .ad-wm{display:flex;align-items:center;gap:7px;font:800 italic 16px var(--font-display);color:#fff}
+.ad-cr .ad-wm svg{height:20px;color:#fff}
+
+.numz{display:flex;gap:18px;margin-top:14px}
+.numz .it .v{font:900 42px/.9 var(--font-display);letter-spacing:-0.04em}
+.numz .it .v.grad{background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent}
+.numz .it .l{font:600 9px var(--font-ui);color:rgba(255,255,255,.7);letter-spacing:.16em;text-transform:uppercase;margin-top:4px}
+
+/* Footer */
+.kit-foot{margin-top:64px;padding-top:32px;border-top:1px solid var(--pulse-border);text-align:center;color:var(--pulse-text-2);font:500 13px var(--font-ui)}
+.kit-foot b{color:var(--pulse-text)}
+
+@media (max-width: 920px){
+  .feed-grid,.profile-wrap{grid-template-columns:1fr}
+  .high-row{grid-template-columns:repeat(3,1fr)}
+  .ads-row,.stories-row{grid-template-columns:1fr 1fr}
+  .kit-hero h1{font-size:36px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGO DEFS -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ic-pulse" viewBox="0 0 320 320">
+      <mask id="m-pulse-cut"><rect width="320" height="320" fill="white"/>
+        <path d="M 10 168 L 70 168 L 88 138 L 108 210 L 138 96 L 170 226 L 200 168 L 310 168" stroke="black" stroke-width="22" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </mask>
+      <g mask="url(#m-pulse-cut)" fill="currentColor">
+        <rect x="64" y="40" width="56" height="240" rx="12"/>
+        <path d="M 120 40 H 190 a 70 70 0 0 1 0 140 H 120 Z"/>
+      </g>
+      <path d="M 10 168 L 70 168 L 88 138 L 108 210 L 138 96 L 170 226 L 200 168 L 310 168" stroke="currentColor" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-wm" viewBox="0 0 720 200">
+      <mask id="m-wm-cut"><rect width="200" height="200" fill="white"/>
+        <path d="M 0 105 L 44 105 L 55 86 L 67 131 L 86 60 L 106 141 L 125 105 L 200 105" stroke="black" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </mask>
+      <g fill="currentColor">
+        <g mask="url(#m-wm-cut)">
+          <rect x="40" y="25" width="35" height="150" rx="8"/>
+          <path d="M 75 25 H 119 a 44 44 0 0 1 0 88 H 75 Z"/>
+        </g>
+        <path d="M 0 105 L 44 105 L 55 86 L 67 131 L 86 60 L 106 141 L 125 105 L 200 105" stroke="currentColor" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g font-family="Outfit, Inter, sans-serif" font-weight="800" font-style="italic" font-size="128" letter-spacing="-6">
+        <text x="218" y="142" fill="currentColor">PULSE</text>
+        <text x="585" y="142" fill="#7b2cbf">!</text>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-lockup">
+      <svg viewBox="0 0 720 200"><use href="#ic-wm"/></svg>
+      <span class="chip">INSTAGRAM KIT</span>
+    </div>
+    <nav class="topnav">
+      <a href="#perfil">Perfil</a>
+      <a href="#destaques">Destaques</a>
+      <a href="#feed">Feed</a>
+      <a href="#carrossel-1">Carrossel · Como funciona</a>
+      <a href="#carrossel-2">Carrossel · Antecipação</a>
+      <a href="#anuncios">Anúncios</a>
+      <a href="#stories">Stories</a>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+  <section class="kit-hero">
+    <div class="eyebrow">Kit Instagram · v1.0</div>
+    <h1>Instagram <span style="color:var(--pulse-purple)">@pulse</span> para produtores</h1>
+    <div class="meta">
+      <p>Conjunto completo de templates editoriais, anúncios pagos e stories — focado em conversar com produtor de festival e casa de show. Tom: confiante, direto, números no rosto.</p>
+      <div class="specs">
+        <div class="it"><div class="l">Feed</div><div class="v">1080 × 1350</div></div>
+        <div class="it"><div class="l">Carrossel</div><div class="v">1080 × 1350</div></div>
+        <div class="it"><div class="l">Story / Reels</div><div class="v">1080 × 1920</div></div>
+        <div class="it"><div class="l">Highlight</div><div class="v">1080 × 1920</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERFIL ============ -->
+  <section class="sec" id="perfil">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">01 — Identidade da conta</span>
+        <h2>Perfil &amp; Bio</h2>
+        <p class="ds">Avatar com aro gradiente que vira pulso quando o seguidor entra no perfil. Bio direta, sem emoji, com 3 CTAs claros: demo, casos, contato.</p>
+      </div>
+      <div class="rt"><span>Avatar</span><span class="sz">1080 × 1080 px</span></div>
+    </div>
+    <div class="profile-wrap">
+      <div class="pf-avatar-card">
+        <div class="pf-avatar">
+          <svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>
+        </div>
+        <div class="label" style="text-align:center">Avatar oficial · <b>Roxo Pulse</b></div>
+        <div class="pf-alt-row">
+          <div class="pf-alt purple"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+          <div class="pf-alt dark"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+          <div class="pf-alt grad"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+          <div class="pf-alt white"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        </div>
+        <div class="label" style="text-align:center;margin-top:14px">4 variantes · rotacionar por campanha</div>
+      </div>
+
+      <div class="pf-bio-mock">
+        <div class="ig-header">
+          <div class="h">@pulse</div>
+          <div class="icns">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </div>
+        </div>
+        <div class="pf-row">
+          <div class="av"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+          <div class="nums">
+            <div style="text-align:center"><div class="v">28</div><div class="l">publicações</div></div>
+            <div style="text-align:center"><div class="v">12,4 mil</div><div class="l">seguidores</div></div>
+            <div style="text-align:center"><div class="v">147</div><div class="l">seguindo</div></div>
+          </div>
+        </div>
+        <div class="pf-name">Pulse! · powered by Ross Produções</div>
+        <div class="pf-handle">@pulse · Aplicativo de eventos</div>
+        <div class="pf-bio">
+          Bilheteria + check-in facial num só ecossistema.<br>
+          Fila zero. Fraude zero. Antecipação por histórico.<br>
+          <span class="em">Para produtores · agendar demo ↓</span><br>
+          <span class="link">pulse.live/demo</span>
+        </div>
+        <div class="pf-cats">
+          <span class="pill">Tecnologia</span>
+          <span class="pill">Eventos</span>
+          <span class="pill">B2B</span>
+        </div>
+        <div class="pf-btns">
+          <div class="b primary">Seguir</div>
+          <div class="b">Mensagem</div>
+          <div class="b">Contato</div>
+          <div class="b" style="flex:0;padding:9px 14px">▼</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DESTAQUES ============ -->
+  <section class="sec" id="destaques">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">02 — Highlights</span>
+        <h2>Capas de destaque</h2>
+        <p class="ds">Seis capas curatoriais. Mesma linguagem, mesma diagonal. Cada uma carrega uma pasta de conteúdo permanente do perfil.</p>
+      </div>
+      <div class="rt"><span>Highlight</span><span class="sz">1080 × 1920 px · círculo</span></div>
+    </div>
+    <div class="high-row">
+      <div class="hi">
+        <div class="hi-cover"><div class="inner demo" style="background:var(--pulse-purple)"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"/></svg><div class="nm">DEMO</div></div></div></div>
+        <div class="name">Demo</div>
+      </div>
+      <div class="hi">
+        <div class="hi-cover"><div class="inner face" style="background:linear-gradient(135deg,#9d4edd,#00f5d4)"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r=".9" fill="currentColor"/><circle cx="15" cy="10" r=".9" fill="currentColor"/><path d="M8 15c1 1.5 2.4 2 4 2s3-.5 4-2"/></svg><div class="nm">FACIAL</div></div></div></div>
+        <div class="name">Facial</div>
+      </div>
+      <div class="hi">
+        <div class="hi-cover"><div class="inner dash" style="background:var(--pulse-navy)"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-7" stroke="#00f5d4"/></svg><div class="nm" style="color:#00f5d4">PAINEL</div></div></div></div>
+        <div class="name">Painel</div>
+      </div>
+      <div class="hi">
+        <div class="hi-cover"><div class="inner cases" style="background:linear-gradient(135deg,#5a189a,#7b2cbf)"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9 12 2"/></svg><div class="nm">CASES</div></div></div></div>
+        <div class="name">Cases</div>
+      </div>
+      <div class="hi">
+        <div class="hi-cover"><div class="inner faq" style="background:#1e293b"><div class="glyph"><div style="font:900 56px var(--font-display);color:#00f5d4;letter-spacing:-0.04em">?</div><div class="nm" style="color:#00f5d4">FAQ</div></div></div></div>
+        <div class="name">FAQ</div>
+      </div>
+      <div class="hi">
+        <div class="hi-cover"><div class="inner press" style="background:linear-gradient(135deg,#f59e0b,#7b2cbf)"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7h18M3 12h18M3 17h12"/></svg><div class="nm">IMPRENSA</div></div></div></div>
+        <div class="name">Imprensa</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEED GRID ============ -->
+  <section class="sec" id="feed">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">03 — Visão do grid</span>
+        <h2>Feed coeso · 9 posts</h2>
+        <p class="ds">Combinação alternada: dado bruto · headline com gradiente · prova social · arte gráfica. Lê bonito tanto vertical (no perfil) quanto isolado.</p>
+      </div>
+      <div class="rt"><span>Cada célula</span><span class="sz">1080 × 1080 px</span></div>
+    </div>
+
+    <div class="feed-grid">
+      <!-- row 1 -->
+      <div class="fc t-purple">
+        <div class="corner-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <span class="tag">Estreia</span>
+        <h3>Seu rosto<br>é o ingresso.</h3>
+        <div class="swipe">— @pulse</div>
+      </div>
+      <div class="fc t-navy">
+        <div class="corner-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <div class="cs-mini-lb">Tempo por pessoa</div>
+        <div class="stat">9,4<span class="sm">s</span></div>
+        <div class="swipe">vs. 38–60s no QR antigo</div>
+      </div>
+      <div class="fc t-light">
+        <div class="corner-wm" style="color:rgba(15,23,42,.6)"><svg viewBox="0 0 320 320" style="color:rgba(15,23,42,.6)"><use href="#ic-pulse"/></svg></div>
+        <span class="tag light">Carrossel</span>
+        <h3 style="color:var(--pulse-navy)">Controle total. <span class="em">Fraude Zero.</span></h3>
+        <div class="swipe" style="color:rgba(15,23,42,.55)">→ deslize</div>
+      </div>
+
+      <!-- row 2 -->
+      <div class="fc t-dark">
+        <div class="corner-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <div class="cs-mini-lb">Chargeback</div>
+        <div class="stat" style="background:linear-gradient(90deg,#00f5d4,#9d4edd);-webkit-background-clip:text;background-clip:text;color:transparent">0%</div>
+        <div class="swipe">em casas com check-in facial</div>
+      </div>
+      <div class="fc t-teal-grad">
+        <div class="corner-wm" style="color:rgba(255,255,255,.85)"><svg viewBox="0 0 320 320" style="color:rgba(255,255,255,.85)"><use href="#ic-pulse"/></svg></div>
+        <span class="tag" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.4)">Reels</span>
+        <h3>"Adeus à fila<br>da portaria."</h3>
+        <div class="swipe" style="color:rgba(255,255,255,.75)">▶ Ross Produções · jun/26</div>
+      </div>
+      <div class="fc t-purple">
+        <div class="corner-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <span class="tag amber">Pricing</span>
+        <h3>Você só paga<br>quando vende.</h3>
+        <div class="swipe"><span style="font:700 22px var(--font-display);color:#00f5d4">10%</span>&nbsp; · por ingresso</div>
+      </div>
+
+      <!-- row 3 -->
+      <div class="fc t-amber">
+        <div class="corner-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <span class="tag">Antecipação</span>
+        <h3>Seu histórico<br>vira limite.</h3>
+        <div class="swipe">crédito por desempenho próprio</div>
+      </div>
+      <div class="fc t-dark">
+        <div class="corner-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <div class="quote">"A primeira festa sem fila que a gente fez na história da casa."</div>
+        <div class="swipe">— Renata, Mirante das Araucárias</div>
+      </div>
+      <div class="fc t-navy">
+        <div class="corner-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+        <div class="face-circle" style="width:120px;height:120px;margin:auto"><div class="ln"></div></div>
+        <div class="swipe" style="text-align:center;width:100%">Reconhecimento facial · 98,4%</div>
+      </div>
+    </div>
+
+    <div class="label" style="text-align:center;margin-top:18px">Sequência sugerida · publica de cima pra baixo. <b>Pin nos 3 primeiros</b>: estreia · 9,4s · "Controle total".</div>
+  </section>
+
+  <!-- ============ CARROSSEL 1 — Como funciona ============ -->
+  <section class="sec" id="carrossel-1">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">04 — Carrossel principal</span>
+        <h2>"Seu rosto é o ingresso" — 7 slides</h2>
+        <p class="ds">A história do produto, contada pra produtor. Da dor (fila) → solução (rosto) → operação (segundos) → caixa (antecipação) → fechamento (CTA).</p>
+      </div>
+      <div class="rt"><span>Por slide</span><span class="sz">1080 × 1350 px (4:5)</span></div>
+    </div>
+    <div class="carousel">
+      <!-- Cover -->
+      <div class="car-slide">
+        <div class="post-45 post-bg-dark">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num">01 · CAPA</div>
+              <h2 class="cs-cover">Adeus à fila.<br><span class="post-h" style="margin:0;font-size:inherit;line-height:inherit"><span class="gr">Adeus aos chargebacks.</span></span></h2>
+              <p class="cs-body" style="max-width:90%">7 motivos pra trocar sua ticketeria antes do próximo evento.</p>
+            </div>
+            <div class="post-bottom-cta">deslize <span class="arr">→</span></div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">Capa</span><span class="ix">01/07</span></div>
+      </div>
+      <!-- Slide 2 — Problem -->
+      <div class="car-slide">
+        <div class="post-45 post-bg-dark">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num" style="color:#ef4444">02 · O PROBLEMA</div>
+              <h2 class="cs-title">42 minutos de fila.<br>Print sendo passado.<br>Chargeback chegando.</h2>
+              <p class="cs-body">A bilheteria brasileira de hoje trabalha contra o produtor — não a favor.</p>
+            </div>
+            <div class="post-bottom-cta">→</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">O problema</span><span class="ix">02/07</span></div>
+      </div>
+      <!-- Slide 3 — The shift -->
+      <div class="car-slide">
+        <div class="post-45 post-bg-grad">
+          <div class="post-pad" style="color:#0a0a14">
+            <div class="post-wm dark"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num" style="color:#0a0a14">03 · A VIRADA</div>
+              <h2 class="cs-title" style="color:#0a0a14;font-size:46px">Seu rosto<br>é o ingresso.</h2>
+              <p class="cs-body" style="color:rgba(15,23,42,.75)">Sem QR. Sem fila. Sem bateria. Em menos de 10 segundos.</p>
+            </div>
+            <div class="post-bottom-cta" style="color:#0a0a14"><span class="arr" style="background:#0a0a14;color:#00f5d4">→</span> continue</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">A virada</span><span class="ix">03/07</span></div>
+      </div>
+      <!-- Slide 4 — Numbers -->
+      <div class="car-slide">
+        <div class="post-45 post-bg-navy">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num">04 · DADOS REAIS</div>
+              <h2 class="cs-title">O que mudou na portaria.</h2>
+              <div class="numz" style="margin-top:24px;flex-direction:column;gap:18px">
+                <div class="it"><div class="v grad">9,4s</div><div class="l">por pessoa</div></div>
+                <div class="it"><div class="v grad">98,4%</div><div class="l">acerto no 1º tentativa</div></div>
+                <div class="it"><div class="v" style="color:#00f5d4">0%</div><div class="l">chargeback</div></div>
+              </div>
+            </div>
+            <div class="post-bottom-cta">→</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">Números</span><span class="ix">04/07</span></div>
+      </div>
+      <!-- Slide 5 — Anti chargeback -->
+      <div class="car-slide">
+        <div class="post-45 post-bg-dark">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num">05 · BLINDAGEM</div>
+              <h2 class="cs-title">Quem comprou,<br><span class="gr">é quem entra.</span></h2>
+              <p class="cs-body">Ingresso ancorado no rosto. Sem print que passa de mão em mão. Sem revenda por fora. Cambismo: zero.</p>
+              <div class="face-circle" style="margin-top:24px"><div class="ln"></div></div>
+            </div>
+            <div class="post-bottom-cta">→</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">Anti cambismo</span><span class="ix">05/07</span></div>
+      </div>
+      <!-- Slide 6 — Antecipação -->
+      <div class="car-slide">
+        <div class="post-45" style="background:linear-gradient(160deg,#1a0a2e,#3c096c)">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num" style="color:#f59e0b">06 · CAIXA</div>
+              <h2 class="cs-title">Seu histórico<br><span style="color:#f59e0b">vira limite.</span></h2>
+              <p class="cs-body">Antecipação por desempenho próprio na plataforma — sem score externo, sem burocracia, liberação D+0.</p>
+              <div style="margin-top:18px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);padding:14px;border-radius:12px;font:600 13px var(--font-mono);color:#fcd34d">2+ eventos → até 80% antecipável</div>
+            </div>
+            <div class="post-bottom-cta">→</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">Antecipação</span><span class="ix">06/07</span></div>
+      </div>
+      <!-- Slide 7 — CTA -->
+      <div class="car-slide">
+        <div class="post-45 post-bg-grad">
+          <div class="post-pad" style="color:#0a0a14">
+            <div class="post-wm dark"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div style="margin-top:auto">
+              <div class="cs-num" style="color:#0a0a14">07 · PRÓXIMO PASSO</div>
+              <h2 class="cs-title" style="color:#0a0a14;font-size:46px">20 minutos.<br>Sua próxima<br>portaria fluindo.</h2>
+              <p class="cs-body" style="color:rgba(15,23,42,.78)">Agende uma demo · simulamos os números do seu próximo evento ao vivo.</p>
+              <div style="margin-top:24px;background:#0a0a14;color:#00f5d4;padding:18px 22px;border-radius:14px;font:700 14px var(--font-ui);letter-spacing:.08em;text-align:center">AGENDAR DEMO · LINK NA BIO</div>
+            </div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">CTA</span><span class="ix">07/07</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CARROSSEL 2 — Antecipação ============ -->
+  <section class="sec" id="carrossel-2">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">05 — Carrossel financeiro</span>
+        <h2>"Antecipação inteligente" — 5 slides</h2>
+        <p class="ds">Carrossel curto pra alimentar o tópico de caixa. Quando o produtor mais sente: 30 dias antes do próximo festival.</p>
+      </div>
+      <div class="rt"><span>Por slide</span><span class="sz">1080 × 1350 px (4:5)</span></div>
+    </div>
+    <div class="carousel">
+      <div class="car-slide">
+        <div class="post-45" style="background:linear-gradient(135deg,#f59e0b 0%,#7b2cbf 100%)">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div style="margin-top:auto">
+              <div class="cs-num" style="color:#fff">01 · CAPA</div>
+              <h2 class="cs-cover">Crédito sem<br>burocracia.</h2>
+              <p class="cs-body" style="color:rgba(255,255,255,.85)">Antecipação inteligente pra produtor de festival.</p>
+            </div>
+            <div class="post-bottom-cta">→</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">Capa</span><span class="ix">01/05</span></div>
+      </div>
+      <div class="car-slide">
+        <div class="post-45 post-bg-dark">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num" style="color:#ef4444">02 · A DOR</div>
+              <h2 class="cs-title">Você vende.<br>O dinheiro<br><span style="color:#ef4444;text-decoration:line-through">demora 30 dias.</span></h2>
+              <p class="cs-body">Cachê do DJ, fornecedor de som, polícia, estrutura. Tudo pra ontem — e o caixa só chega depois do evento.</p>
+            </div>
+            <div class="post-bottom-cta">→</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">A dor</span><span class="ix">02/05</span></div>
+      </div>
+      <div class="car-slide">
+        <div class="post-45 post-bg-navy">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num" style="color:#f59e0b">03 · NOSSA TESE</div>
+              <h2 class="cs-title">Seu histórico<br><span class="gr">é a sua garantia.</span></h2>
+              <p class="cs-body">Não pedimos score externo. Não olhamos buró. Olhamos seus próprios eventos rodando na Pulse!.</p>
+              <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+                <span style="font:600 11px var(--font-ui);background:rgba(245,158,11,.18);color:#fcd34d;padding:8px 12px;border-radius:8px;letter-spacing:.06em">2+ eventos</span>
+                <span style="font:600 11px var(--font-ui);background:rgba(245,158,11,.18);color:#fcd34d;padding:8px 12px;border-radius:8px;letter-spacing:.06em">vendas auditadas</span>
+                <span style="font:600 11px var(--font-ui);background:rgba(245,158,11,.18);color:#fcd34d;padding:8px 12px;border-radius:8px;letter-spacing:.06em">presença biométrica</span>
+              </div>
+            </div>
+            <div class="post-bottom-cta">→</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">A tese</span><span class="ix">03/05</span></div>
+      </div>
+      <div class="car-slide">
+        <div class="post-45 post-bg-dark">
+          <div class="post-pad">
+            <div class="post-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div>
+              <div class="cs-num" style="color:#f59e0b">04 · NÚMEROS</div>
+              <h2 class="cs-title" style="font-size:30px">Exemplo · festival 4.500 pessoas</h2>
+              <div style="margin-top:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px">
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font:500 13px var(--font-ui);color:#cbd5e1"><span>Receita projetada</span><b style="color:#fff;font-family:var(--font-mono)">R$ 720K</b></div>
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font:500 13px var(--font-ui);color:#cbd5e1"><span>Limite (80%)</span><b style="color:#fff;font-family:var(--font-mono)">R$ 576K</b></div>
+                <div style="display:flex;justify-content:space-between;padding:12px 0 4px;font:700 14px var(--font-ui);color:#fcd34d"><span>Adiantamento D+0</span><b style="font-family:var(--font-mono);font-size:18px">R$ 400K</b></div>
+              </div>
+            </div>
+            <div class="post-bottom-cta">→</div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">Números</span><span class="ix">04/05</span></div>
+      </div>
+      <div class="car-slide">
+        <div class="post-45 post-bg-grad">
+          <div class="post-pad" style="color:#0a0a14">
+            <div class="post-wm dark"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div>
+            <div style="margin-top:auto">
+              <div class="cs-num" style="color:#0a0a14">05 · CTA</div>
+              <h2 class="cs-title" style="color:#0a0a14;font-size:42px">Faça a conta<br>do seu evento.</h2>
+              <p class="cs-body" style="color:rgba(15,23,42,.75)">Mando uma simulação personalizada em 24h. Só me chama no DM.</p>
+              <div style="margin-top:24px;background:#0a0a14;color:#00f5d4;padding:18px 22px;border-radius:14px;font:700 14px var(--font-ui);letter-spacing:.08em;text-align:center">ME CHAMA NO DIRECT →</div>
+            </div>
+          </div>
+        </div>
+        <div class="pip"><span class="nm">CTA</span><span class="ix">05/05</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ANÚNCIOS ============ -->
+  <section class="sec" id="anuncios">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">06 — Mídia paga</span>
+        <h2>Anúncios para Meta Ads</h2>
+        <p class="ds">Quatro criativos otimizados pra captura de produtor de festival/casa. Mensagem única por peça, headline que abre antes do "ver mais".</p>
+      </div>
+      <div class="rt"><span>Feed Ad</span><span class="sz">1080 × 1080 px</span></div>
+    </div>
+    <div class="ads-row">
+
+      <!-- AD 1 — Hook número -->
+      <div class="ad-card">
+        <div class="ad-mock">
+          <div class="hdr">
+            <div class="av"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+            <div><div class="nm">pulse <span class="ck">●</span></div><div class="lb">Patrocinado</div></div>
+          </div>
+          <div class="image">
+            <div class="ad-cr post-bg-dark">
+              <div class="pad">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="ad-eb">para festivais ▸</div><div class="ad-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div></div>
+                <div>
+                  <h2>9,4 segundos<br>por pessoa<br><span class="gr">na portaria.</span></h2>
+                  <p style="font:500 14px/1.45 var(--font-ui);color:#cbd5e1;margin-top:10px;max-width:80%">Check-in facial em festivais Ross. Sem QR. Sem fila. Sem chargeback.</p>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <div class="numz">
+                    <div class="it"><div class="v grad">0%</div><div class="l">Chargeback</div></div>
+                    <div class="it"><div class="v grad">98%</div><div class="l">1ª tentativa</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swipe-bar"><span>pulse.live/demo</span><span class="cta">Saiba mais ›</span></div>
+          <div class="actions">
+            <div style="display:flex;gap:14px"><span>♡</span><span>💬</span><span>↗</span></div><span>🔖</span>
+          </div>
+          <div class="cap"><b>pulse</b> 9,4s/pessoa na portaria. Sua próxima ativação sem fila. Demo de 20 min — chama no DM.</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px">
+          <span style="font:700 13px var(--font-ui)">AD-01 · Hook numérico</span>
+          <span style="font:500 11px var(--font-mono);color:var(--pulse-text-2)">Frio · top funnel</span>
+        </div>
+      </div>
+
+      <!-- AD 2 — Hook problema -->
+      <div class="ad-card">
+        <div class="ad-mock">
+          <div class="hdr">
+            <div class="av"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+            <div><div class="nm">pulse <span class="ck">●</span></div><div class="lb">Patrocinado</div></div>
+          </div>
+          <div class="image">
+            <div class="ad-cr" style="background:radial-gradient(circle at 30% 30%,#9d4edd,#3c096c 75%)">
+              <div class="pad">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="ad-eb" style="background:rgba(239,68,68,.18);color:#fca5a5;border-color:rgba(239,68,68,.4)">⚠ para produtores</div><div class="ad-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div></div>
+                <div>
+                  <h2>Cansada do<br>print que passa<br><span class="gr">de mão em mão?</span></h2>
+                  <p style="font:500 14px/1.45 var(--font-ui);color:rgba(255,255,255,.85);margin-top:10px;max-width:84%">Quem comprou, é quem entra. Ingresso ancorado no rosto, fim do cambismo silencioso.</p>
+                </div>
+                <div style="background:rgba(0,0,0,.4);border-radius:12px;padding:12px 14px;font:600 12px var(--font-ui);color:#fff;letter-spacing:.04em;display:flex;justify-content:space-between"><span>CAMBISMO NA PULSE!</span><span style="color:#00f5d4;font-weight:800">ZERO</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="swipe-bar"><span>pulse.live/demo</span><span class="cta">Agendar demo ›</span></div>
+          <div class="actions"><div style="display:flex;gap:14px"><span>♡</span><span>💬</span><span>↗</span></div><span>🔖</span></div>
+          <div class="cap"><b>pulse</b> O ingresso é da pessoa, não do print. Cambismo: zero. Chargeback: zero. Demo gratuita 👉</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px">
+          <span style="font:700 13px var(--font-ui)">AD-02 · Hook problema</span>
+          <span style="font:500 11px var(--font-mono);color:var(--pulse-text-2)">Frio · pain awareness</span>
+        </div>
+      </div>
+
+      <!-- AD 3 — Social proof -->
+      <div class="ad-card">
+        <div class="ad-mock">
+          <div class="hdr">
+            <div class="av"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+            <div><div class="nm">pulse <span class="ck">●</span></div><div class="lb">Patrocinado</div></div>
+          </div>
+          <div class="image">
+            <div class="ad-cr" style="background:linear-gradient(160deg,#0f172a,#1e0b3a)">
+              <div class="pad">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="ad-eb purple">case · ross produções</div><div class="ad-wm"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg>@pulse</div></div>
+                <div>
+                  <h2 style="font-size:34px">"A primeira festa<br>sem fila que a gente<br><span class="gr">fez na história<br>da casa."</span></h2>
+                </div>
+                <div style="display:flex;gap:14px;align-items:center;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)">
+                  <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#9d4edd,#00f5d4)"></div>
+                  <div>
+                    <div style="font:700 14px var(--font-ui);color:#fff">Renata Pacheco</div>
+                    <div style="font:500 12px var(--font-ui);color:#94a3b8">Mirante das Araucárias · 1.800 pessoas</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swipe-bar"><span>pulse.live/cases</span><span class="cta">Ler o case ›</span></div>
+          <div class="actions"><div style="display:flex;gap:14px"><span>♡</span><span>💬</span><span>↗</span></div><span>🔖</span></div>
+          <div class="cap"><b>pulse</b> Como o Mirante zerou fila + chargeback em uma só temporada. Case completo no link 🎯</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px">
+          <span style="font:700 13px var(--font-ui)">AD-03 · Prova social</span>
+          <span style="font:500 11px var(--font-mono);color:var(--pulse-text-2)">Morno · consideração</span>
+        </div>
+      </div>
+
+      <!-- AD 4 — Direct offer -->
+      <div class="ad-card">
+        <div class="ad-mock">
+          <div class="hdr">
+            <div class="av"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>
+            <div><div class="nm">pulse <span class="ck">●</span></div><div class="lb">Patrocinado</div></div>
+          </div>
+          <div class="image">
+            <div class="ad-cr post-bg-grad">
+              <div class="pad" style="color:#0a0a14">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="ad-eb" style="background:rgba(15,23,42,.85);color:#00f5d4;border-color:transparent">oferta direta</div><div class="ad-wm" style="color:#0a0a14"><svg viewBox="0 0 320 320" style="color:#0a0a14"><use href="#ic-pulse"/></svg>@pulse</div></div>
+                <div>
+                  <h2 style="color:#0a0a14;font-size:42px">Só paga<br>quando vende.<br><span style="color:#5a189a">10% por ingresso.</span></h2>
+                  <p style="font:500 14px/1.45 var(--font-ui);color:rgba(15,23,42,.78);margin-top:10px;max-width:84%">Sem mensalidade. Sem setup. Sem taxa de portaria. Inclui antecipação.</p>
+                </div>
+                <div style="background:#0a0a14;color:#fff;padding:14px 18px;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+                  <span style="font:600 11px var(--font-ui);letter-spacing:.16em;text-transform:uppercase;color:#94a3b8">SEU PRÓXIMO EVENTO</span>
+                  <span style="font:800 18px var(--font-mono);color:#00f5d4">→</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swipe-bar"><span>pulse.live/demo</span><span class="cta">Simular ›</span></div>
+          <div class="actions"><div style="display:flex;gap:14px"><span>♡</span><span>💬</span><span>↗</span></div><span>🔖</span></div>
+          <div class="cap"><b>pulse</b> 10% por ingresso. Inclui tudo — facial, antecipação, dashboard. Simula a sua na bio.</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px">
+          <span style="font:700 13px var(--font-ui)">AD-04 · Oferta direta</span>
+          <span style="font:500 11px var(--font-mono);color:var(--pulse-text-2)">Quente · conversão</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ STORIES ============ -->
+  <section class="sec" id="stories">
+    <div class="sec-head">
+      <div class="lt">
+        <span class="eb">07 — Stories / Reels capa</span>
+        <h2>Templates verticais</h2>
+        <p class="ds">Quatro frames pra rotina diária: bastidor de evento, enquete, soft CTA, oferta. Reels capa segue o mesmo grid.</p>
+      </div>
+      <div class="rt"><span>Cada frame</span><span class="sz">1080 × 1920 px</span></div>
+    </div>
+    <div class="stories-row">
+
+      <!-- Story 1 — bastidor -->
+      <div class="story-card">
+        <div class="story post-bg-dark">
+          <div class="progress"><div class="bar done"></div><div class="bar active"></div><div class="bar"></div><div class="bar"></div></div>
+          <div class="story-pad">
+            <div>
+              <div class="story-meta"><div class="av"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>@pulse · agora</div>
+              <div class="story-sticker" style="margin-top:14px">📍 Mirante das Araucárias</div>
+            </div>
+            <div>
+              <div class="post-eb">▶ Bastidor · sáb</div>
+              <h2 class="story-h" style="margin-top:14px">1.247 entraram em <span class="gr">menos de 3h.</span></h2>
+              <p style="font:500 14px/1.45 var(--font-ui);color:#cbd5e1;margin-top:14px">Câmera apontada, tablet na mão, fila zero. Assim que vai ser todo evento Ross daqui pra frente.</p>
+            </div>
+            <div class="story-cta teal">Veja o vídeo no perfil <span>→</span></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px">
+          <span style="font:700 13px var(--font-ui)">ST-01 · Bastidor</span>
+          <span style="font:500 11px var(--font-mono);color:var(--pulse-text-2)">Orgânico</span>
+        </div>
+      </div>
+
+      <!-- Story 2 — Enquete -->
+      <div class="story-card">
+        <div class="story post-bg-purple">
+          <div class="progress"><div class="bar done"></div><div class="bar done"></div><div class="bar active"></div><div class="bar"></div></div>
+          <div class="story-pad">
+            <div>
+              <div class="story-meta"><div class="av"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>@pulse · 2h</div>
+            </div>
+            <div>
+              <div class="post-eb">pergunta rápida</div>
+              <h2 class="story-h" style="margin-top:14px">Qual seu maior pesadelo de portaria?</h2>
+              <div class="story-poll" style="margin-top:22px">
+                <div class="q">Toque pra votar</div>
+                <div class="opt lead">Fila travada <span style="float:right">62%</span></div>
+                <div class="opt">QR duplicado <span style="float:right">21%</span></div>
+                <div class="opt">Chargeback <span style="float:right">12%</span></div>
+                <div class="opt">Cambismo na porta <span style="float:right">5%</span></div>
+              </div>
+            </div>
+            <div class="story-cta">DM pra resolver isso <span>→</span></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px">
+          <span style="font:700 13px var(--font-ui)">ST-02 · Enquete</span>
+          <span style="font:500 11px var(--font-mono);color:var(--pulse-text-2)">Engajamento</span>
+        </div>
+      </div>
+
+      <!-- Story 3 — Soft CTA / arrasta -->
+      <div class="story-card">
+        <div class="story post-bg-grad">
+          <div class="progress"><div class="bar done"></div><div class="bar active"></div><div class="bar"></div></div>
+          <div class="story-pad" style="color:#0a0a14">
+            <div>
+              <div class="story-meta" style="color:rgba(15,23,42,.85)"><div class="av" style="background:#0a0a14"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>@pulse · 1h</div>
+            </div>
+            <div>
+              <div class="post-eb dark">novo no canal</div>
+              <h2 class="story-h" style="margin-top:14px;color:#0a0a14">10% por<br>ingresso<br>vendido.</h2>
+              <p style="font:500 15px/1.45 var(--font-ui);color:rgba(15,23,42,.78);margin-top:18px">Sem mensalidade. Sem setup. Inclui check-in facial e antecipação.</p>
+            </div>
+            <div class="swipe-up" style="background:#0a0a14;color:#00f5d4;font-family:var(--font-ui)">ARRASTA PRA CIMA ↑</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px">
+          <span style="font:700 13px var(--font-ui)">ST-03 · Oferta</span>
+          <span style="font:500 11px var(--font-mono);color:var(--pulse-text-2)">Tráfego</span>
+        </div>
+      </div>
+
+      <!-- Story 4 — Number teaser -->
+      <div class="story-card">
+        <div class="story post-bg-navy">
+          <div class="progress"><div class="bar active"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+          <div class="story-pad">
+            <div>
+              <div class="story-meta"><div class="av"><svg viewBox="0 0 320 320"><use href="#ic-pulse"/></svg></div>@pulse · agora</div>
+            </div>
+            <div style="margin-top:auto">
+              <div class="post-eb">tempo médio · jun/26</div>
+              <div class="big-stat" style="font-family:var(--font-display);font-weight:900;background:var(--grad-signature);-webkit-background-clip:text;background-clip:text;color:transparent;margin-top:1.3cqw">9,4<span class="un">s</span></div>
+              <div style="font:600 13px var(--font-ui);color:#94a3b8;letter-spacing:.14em;text-transform:uppercase;margin-top:8px">Por pessoa · check-in facial</div>
+              <p style="font:500 14px/1.45 var(--font-ui);color:#cbd5e1;margin-top:16px">vs. 38–60s no leitor de QR antigo. A portaria virou outra coisa.</p>
+            </div>
+            <div class="story-cta teal">Como medimos →</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding:0 4px">
+          <span style="font:700 13px var(--font-ui)">ST-04 · Dado puro</span>
+          <span style="font:500 11px var(--font-mono);color:var(--pulse-text-2)">Autoridade</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="kit-foot">
+    <b>Pulse! Instagram Kit · v1.0 · maio 2026</b><br>
+    Templates editáveis · todas as artes em SVG/HTML · paleta segue tokens da marca · powered by Ross Produções
+  </div>
+
+</div>
+
+</body>
+</html>
