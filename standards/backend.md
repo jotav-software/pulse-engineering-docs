@@ -46,8 +46,11 @@ Alguns endpoints legados retornam payload direto — tratar como dívida técnic
 
 ## Lint
 
-- Biome 2.4 (`bun run lint`)
+- Biome 2.4 (`bun run lint` — legado completo)
+- CI/PR: `bun run lint:ci` (`biome check --changed --since=origin/develop`)
+- Módulos novos KYC: `bun run lint:hu-kyc`
 - `tests/` e `scripts/` excluídos do lint principal
+- Workflow: `pulse-backend/.github/workflows/ci.yml` (lint incremental + `build` + `test:unit`)
 
 ## Gaps prioritários
 

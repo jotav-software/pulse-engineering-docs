@@ -28,12 +28,15 @@
 | Área | Status |
 |------|--------|
 | Better Auth | ✅ (15 min / 100 — revisar para produção) |
-| OTP resend | Documentado 60s |
-| HTTP global por rota | ❌ gap |
+| OTP resend | ✅ cooldown 60s nos use cases |
+| HTTP login produtor/admin | ✅ `httpRateLimitMiddleware` (30 req / 15 min por IP; `HTTP_RATE_LIMIT_ENABLED=false` para desligar) |
+
+Variáveis: `HTTP_RATE_LIMIT_MAX`, `HTTP_RATE_LIMIT_WINDOW_MS`, `HTTP_RATE_LIMIT_ENABLED`.
 
 ## CORS
 
-- `origin: true` (reflete qualquer origin) — **revisar em produção**
+- Padrão legado: `origin: true` se `CORS_ALLOWED_ORIGINS` não estiver definida (dev e prod continuam iguais até configurar).
+- Produção recomendada: `CORS_ALLOWED_ORIGINS=https://...,http://localhost:3001` (lista separada por vírgula).
 
 ## Secrets
 
@@ -56,7 +59,7 @@
 
 ## Ações prioritárias
 
-1. Restringir CORS por ambiente
-2. Rate limit em rotas sensíveis (login, OTP, upload)
+1. Definir `CORS_ALLOWED_ORIGINS` em staging/prod (Railway)
+2. Rate limit em upload KYC e AUTH-004 (5 falhas / 15 min) — pendente
 3. Alinhar formato 401 com `errorHandler`
 4. Remover segredos do workspace `docs/` local (chaves `.p8` — não versionar)
