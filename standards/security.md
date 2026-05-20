@@ -35,8 +35,11 @@ Variáveis: `HTTP_RATE_LIMIT_MAX`, `HTTP_RATE_LIMIT_WINDOW_MS`, `HTTP_RATE_LIMIT
 
 ## CORS
 
-- Padrão legado: `origin: true` se `CORS_ALLOWED_ORIGINS` não estiver definida (dev e prod continuam iguais até configurar).
-- Produção recomendada: `CORS_ALLOWED_ORIGINS=https://...,http://localhost:3001` (lista separada por vírgula).
+- Variável canônica no backend: **`CORS_ORIGINS`** (lista separada por vírgula, implementação em `runtimeEnv.ts` + `@elysiajs/cors`).
+- **Desenvolvimento:** se `CORS_ORIGINS` estiver vazia, o código usa defaults (localhost + domínios `*.pulse.app`).
+- **Produção (Railway):** definir allowlist explícita — ver [Variáveis de ambiente — pulse-backend](../ops/environment-variables.md#pulse-backend-railway). Origens Railway atuais incluem client-web, pulse-producer-web e landing; incluir domínios custom quando forem para produção.
+- Comportamento: a origem da requisição só é refletida se estiver na lista (fail-closed para browsers fora da allowlist).
+- **Não usar** `CORS_ALLOWED_ORIGINS` (nome legado em docs antigos).
 
 ## Secrets
 

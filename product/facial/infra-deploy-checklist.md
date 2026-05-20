@@ -132,6 +132,10 @@ Substitua placeholders; **não** commitar valores reais.
 | `DATABASE_URL` | Sempre | `mysql://...` | Plugin MySQL Railway |
 | `BETTER_AUTH_SECRET` | Sempre | `<segredo>` | Já existente |
 | `BETTER_AUTH_URL` | Sempre | `https://<backend>.up.railway.app` | URL pública do backend |
+| `CORS_ORIGINS` | **Prod** | URLs dos frontends + `*.pulse.app` | Ver [ops/environment-variables.md](../../../ops/environment-variables.md) |
+| `QR_SECRET` | **Prod** | `<segredo>` | HMAC QR dinâmico; `openssl rand -base64 32` |
+| `WEBHOOK_ALLOW_UNSIGNED` | Não em prod | omitir | Só dev local |
+| `SWAGGER_ENABLED` | Opcional prod | `false` / `true` | OpenAPI desligado em prod por default |
 | `BIOMETRIC_ENCRYPTION_KEY` | Enrollment V2 | `<64 hex chars>` | `openssl rand -hex 32` |
 | `BIOMETRIC_HASH_SECRET` | Opcional | `<segredo>` | HMAC auditoria |
 | `PULSE_INTERNAL_API_KEY` | Crons internos | `<segredo>` | Header `x-pulse-internal-key` |
@@ -157,7 +161,7 @@ Substitua placeholders; **não** commitar valores reais.
 | `ENABLE_FACE_GALLERY_PURGE_JOB` | Alternativa ao cron | `false` | Job embutido no processo |
 | `FACE_GALLERY_PURGE_JOB_INTERVAL_MS` | Se job embutido | `86400000` | 24h |
 
-Referência completa: `backend/.env.example` (seção biometria facial).
+Referência completa: [ops/environment-variables.md](../../../ops/environment-variables.md) e `backend/.env.example` (seção biometria facial).
 
 ### Cron no Railway (purge galerias) — HTTP alternativo
 

@@ -86,6 +86,7 @@ pulse-engineering-docs/
 - **Índice de mocks HTML:** [prototypes/README.md](./prototypes/README.md)
 
 ### Ops
+- [Variáveis de ambiente (por sistema)](./ops/environment-variables.md)
 - [App Store Connect API (metadata, sem `.p8`)](./ops/app-store-connect-api.md) — chaves privadas em `~/workspace/keys/`
 
 ## Convivência com os repositórios
