@@ -56,7 +56,7 @@ Rotas limitadas: `/auth/login`, `/auth/register`, `/api/admin/v1/auth/login`, `/
 | Tokens em cookies sem `httpOnly` em alguns fluxos | Avaliar cookies httpOnly + SameSite |
 | client-web sem middleware | Adicionar guard de rotas protegidas |
 | SecureStore mobile | ✅ padrão Expo |
-| Convite equipe sem `temporaryPassword` na API | Usar `accessCodeSentByEmail` + reenvio (`ResendTeamInviteAccess`) |
+| Convite equipe sem `temporaryPassword` na API | E-mail com **Esqueci minha senha** + `inviteEmailSent` + reenvio (`ResendTeamInviteAccess`) |
 
 ## Biometria
 
@@ -83,11 +83,11 @@ Auditoria inicial: relatório em conversa de segurança (subagente OWASP). Legen
 | M2 | OTP no stdout | fechado | Removido |
 | M3 | Rate limit HTTP fraco | fechado | `httpRateLimitMiddleware` |
 | M4 | Senha Better Auth 6 vs 8 | fechado | `minPasswordLength: 8` |
-| M5 | `temporaryPassword` na API | fechado | Removido do JSON; frontends devem usar reenvio |
+| M5 | `temporaryPassword` na API | fechado | Removido; convite por e-mail + Esqueci minha senha |
 | M6 | KYC sem magic bytes | backlog | Avaliar lib file-type |
 | M7 | Fallback hash biométrico | fechado | `resolveBiometricHashSecret()` |
 | M8 | CPF integral no check-in QR | fechado | `maskCpfLast3` em `ValidateCheckinUseCase` |
-| M9 | Dependências (`xlsx`, transitivos) | pendente | `xlsx` usado em export financeiro; `bun audit` — ver abaixo |
+| M9 | Dependências (`xlsx`, transitivos) | fechado | `xlsx` removido; export financeiro só CSV (incl. bundle) |
 | M10 | Role via `expo-origin` | fechado | Com H4 — signup produtor bloqueado |
 | M11 | Sessão em texto claro no DB | backlog | Hash de token — mudança ampla |
 | M12 | PII em `system_logs` | parcial | Check-in QR sem nome completo no log; política global pendente |
@@ -101,15 +101,15 @@ Auditoria inicial: relatório em conversa de segurança (subagente OWASP). Legen
 
 | Pacote | Severidade | Uso | Ação |
 |--------|------------|-----|------|
-| `xlsx@0.18.5` | alta (2 CVEs) | Export financeiro produtor (`ExportFinanceReportsUseCase`) | Monitorar; avaliar `xlsx` ≥0.19.3 ou CSV-only |
+| ~~`xlsx@0.18.5`~~ | — | Removido (maio/2026) | Export financeiro CSV-only |
 | `kysely` (via better-auth) | alta | transitivo | `bun update` quando adapter permitir |
 | `esbuild` (drizzle-kit) | moderada | dev tooling | Atualizar drizzle-kit |
 | `uuid` (typeorm) | moderada | transitivo | Atualizar quando typeorm permitir |
 
 ## Ações prioritárias
 
-1. Definir `BIOMETRIC_HASH_SECRET` e `QR_SECRET` no Railway prod
-2. Atualizar apps produtor (web/mobile) para fluxo de convite sem `temporaryPassword` na resposta
+1. ~~Definir `BIOMETRIC_HASH_SECRET` e `QR_SECRET` no Railway prod~~ (configurados)
+2. ~~Atualizar apps produtor para convite sem `temporaryPassword`~~ (fechado)
 3. Rate limit AUTH-004 (5 falhas / 15 min) — endurecer Better Auth em produção
 4. Alinhar formato 401 com `errorHandler`
 5. Remover segredos do workspace `docs/` local (chaves `.p8` — não versionar)
