@@ -22,6 +22,10 @@
 |----|------|-----|
 | M11 | Session token hashing | [session-token-hashing.md](./session-token-hashing.md) |
 
+## Plano de prontidão para lançamento (Trilhas A/B/C)
+
+Plano consolidado da auditoria 2026-05-24: [`../ops/launch-readiness-plan.md`](../ops/launch-readiness-plan.md). Trilha A (hardening técnico) está em execução nesta sprint.
+
 ## Implementado na sessão inicial
 
 - Helper `buildApiErrorResponse` no backend + testes
