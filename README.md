@@ -8,11 +8,11 @@ Repositório central de **arquitetura, padrões, segurança, produto e backlog t
 |-------------|-----------|
 | [pulse-backend](https://github.com/jotav-software/pulse-backend) | API Bun + Elysia + Prisma |
 | [pulse-producer-web](https://github.com/jotav-software/pulse-producer-web) | Portal produtor/admin (Next.js) |
-| [client-web](https://github.com/jotav-software/client-web) | Web B2C (Next.js) |
+| [client-web](https://github.com/jotav-software/client-web) | Web B2C + landing marketing (Next.js) |
 | [pulse-app-client](https://github.com/jotav-software/pulse-app-client) | App cliente (Expo) |
 | [pulse-app-producer](https://github.com/jotav-software/pulse-app-producer) | App organizador (Expo) |
 | [pulse-face](https://github.com/jotav-software/pulse-face) | Microserviço biometria (FastAPI) |
-| [pulse-landing-page](https://github.com/jotav-software/pulse-landing-page) | Landing estática |
+| ~~[pulse-landing-page](https://github.com/jotav-software/pulse-landing-page)~~ | **Descontinuado** — migrado para client-web |
 
 ## Estrutura
 

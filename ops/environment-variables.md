@@ -13,7 +13,8 @@ Documento **canônico** de configuração por sistema. Valores secretos **nunca*
 | pulse-producer-web (admin) | `https://admin.pulse.jotav.com.br` | `https://pulse-producer-web-production.up.railway.app` |
 | pulse-face | `https://face.jotav.com.br` | `https://pulse-face-production.up.railway.app` |
 | pulse-brand-assets (CDN + docs) | — | `https://pulse-brand-assets-production.up.railway.app` |
-| pulse-landing-page | — | `https://pulse-landing-page-production-e0ce.up.railway.app` |
+
+> **Nota (mai/2026):** O serviço `pulse-landing-page` foi **descontinuado**. Landing, páginas legais e catálogo de eventos são servidos pelo **client-web** em `https://pulse.jotav.com.br` (`/` = marketing, `/eventos` = catálogo).
 
 Frontends e apps mobile devem usar **`NEXT_PUBLIC_API_URL` / `EXPO_PUBLIC_API_URL` = `https://api.pulse.jotav.com.br`** (com `https://`).
 
@@ -49,7 +50,7 @@ Deploy: serviço **pulse-backend**, branch acordada (`develop`).
 
 | Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
 |----------|--------|----------|---------|------|----------------------|
-| `CORS_ORIGINS` | **Sim prod** | prod | Sim | Sim | Lista vírgula, **sem espaços**. Prod: incluir `https://pulse.jotav.com.br`, `https://admin.pulse.jotav.com.br` e hosts Railway/legado conforme necessário (ex.: `https://client-web-production-be7d.up.railway.app`, `https://pulse-producer-web-production.up.railway.app`, `https://pulse-landing-page-production-e0ce.up.railway.app`, `https://pulse.app`, `https://www.pulse.app`, `https://admin.pulse.app`, `https://app.pulse.app`). Dev: incluir `http://localhost:3000`, `http://localhost:3001`, `http://localhost:8081`. |
+| `CORS_ORIGINS` | **Sim prod** | prod | Sim | Sim | Lista vírgula, **sem espaços**. Prod: incluir `https://pulse.jotav.com.br`, `https://admin.pulse.jotav.com.br` e hosts Railway/legado conforme necessário (ex.: `https://client-web-production-be7d.up.railway.app`, `https://pulse-producer-web-production.up.railway.app`, `https://pulse.app`, `https://www.pulse.app`, `https://admin.pulse.app`, `https://app.pulse.app`). Dev: incluir `http://localhost:3000`, `http://localhost:3001`, `http://localhost:8081`. |
 | `QR_SECRET` | **Sim prod** | prod | Sim | Sim | HMAC do QR dinâmico. `openssl rand -base64 32`. |
 | `WEBHOOK_ALLOW_UNSIGNED` | Não | dev only | Sim | **Não** | `true` só dev local. Ignorado em `NODE_ENV=production`. |
 | `SWAGGER_ENABLED` | Não | staging | Sim | Não | Em prod OpenAPI desligado salvo `true`. |
@@ -269,23 +270,23 @@ Sentry e GTM: mesmas variáveis que producer-web (`NEXT_PUBLIC_SENTRY_*`, `SENTR
 
 ---
 
-## pulse-landing-page (Railway)
+## ~~pulse-landing-page~~ (descontinuado — migrado para client-web)
 
-Site **estático** (HTML). Variável de build/deploy para logos em `<img>`.
+> **Mai/2026:** Landing estática e páginas legais foram migradas para **client-web** (`/` = marketing, `/eventos` = catálogo). Serviço Railway `pulse-landing-page` removido. Repositório `landing-page/` mantido apenas como referência histórica.
 
-| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
-|----------|--------|----------|---------|------|----------------------|
-| `BRAND_CDN_URL` | Opc. | prod | Sim | Sim | Default: `https://pulse-brand-assets-production.up.railway.app`. HTML já aponta para este host; override via `landing-page/scripts/apply-brand-cdn-url.sh` antes do deploy. |
+Rotas equivalentes no client-web:
 
-| Item | Notas |
-|------|-------|
-| Deploy | Railway serve arquivos estáticos de `landing-page/`. |
-| Logos runtime | `<img>` → CDN (`/assets/svg/logo-horizontal-white.svg`). Cópias locais em `assets/` mantidas para offline/`file://`. |
-| Screenshots | `images/app-cliente-*.png` permanecem locais (não estão no CDN). |
-| CORS | Se passar a chamar API autenticada, incluir origem em `CORS_ORIGINS` no backend (já incluída URL Railway prod). |
-| Analytics | GTM/Meta/GA4 embutidos no HTML ou via tag manager externo — não via env vars. |
-
-Domínio prod: `https://pulse-landing-page-production-e0ce.up.railway.app`.
+| Antigo (landing-page) | Novo (client-web) |
+|-----------------------|-------------------|
+| `/` | `/` (marketing) |
+| `/contact/` | `/contact` |
+| `/help/` | `/help` |
+| `/privacy/` | `/privacy` |
+| `/about/` | `/about` |
+| `/produtor/` | `/produtor` |
+| `/cliente/privacidade/` | `/cliente/privacidade` |
+| `/produtor/privacidade/` | `/produtor/privacidade` |
+| — | `/eventos` (catálogo B2C) |
 
 ---
 
