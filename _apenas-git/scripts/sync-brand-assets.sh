@@ -23,7 +23,7 @@ for repo in client-web/public producer-web/public \
   app-client/assets/images app-producer/assets/images; do
   target="$ROOT/$repo"
   [[ -d "$target" ]] || continue
-  for svg in logo-horizontal.svg logo-mark.svg logo-stacked.svg; do
+  for svg in logo-horizontal.svg logo-horizontal-white.svg logo-mark.svg logo-stacked.svg; do
     copy "$ASSETS/svg/$svg" "$target/$svg"
   done
 done
