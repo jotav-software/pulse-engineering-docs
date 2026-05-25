@@ -1,9 +1,5 @@
 # Encarregado pelo Tratamento de Dados Pessoais (DPO) — Pulse
 
-**Versão:** 1.0 — DRAFT TÉCNICO
-**Última atualização:** 2026-05-24
-
-> ⚠️ Draft técnico — finalizar com advogado/DPO antes da publicação.
 
 ## 1. Designação
 

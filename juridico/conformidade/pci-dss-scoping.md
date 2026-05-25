@@ -1,9 +1,5 @@
 # PCI-DSS — Escopo de Compliance da Pulse
 
-**Versão:** 1.0 — DRAFT TÉCNICO
-**Última atualização:** 2026-05-24
-
-> ⚠️ Draft técnico — validar com QSA (Qualified Security Assessor) certificado em PCI-DSS.
 
 ## 1. O que é PCI-DSS
 

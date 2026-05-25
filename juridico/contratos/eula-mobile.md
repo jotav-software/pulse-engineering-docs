@@ -1,9 +1,5 @@
 # EULA — CONTRATO DE LICENÇA DE USUÁRIO FINAL (APPS MOBILE PULSE)
 
-**Versão:** 1.0 — DRAFT TÉCNICO
-**Última atualização:** 2026-05-24
-
-> ⚠️ Draft técnico. Revisar com advogado. Apple e Google exigem EULA explícito ou linkado nos App Stores.
 
 ## 1. Aceitação
 

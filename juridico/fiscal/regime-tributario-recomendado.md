@@ -1,9 +1,5 @@
 # Análise: Regime Tributário Recomendado para a Pulse
 
-**Versão:** 1.0 — DRAFT TÉCNICO (análise de engenharia/produto, **não substitui contador**)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é uma **análise técnica preliminar** para subsidiar a discussão com contador(a) habilitado(a). **Não tome decisão fiscal com base apenas neste doc.**
 
 ## 1. Contexto
 

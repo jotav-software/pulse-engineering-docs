@@ -1,9 +1,5 @@
 # PLANO DE EMISSÃO DE NF-e / NFS-e — ANÁLISE TÉCNICA
 
-**Versão:** 1.0 — DRAFT TÉCNICO (não revisado por contador)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é um **draft técnico** preparado por engenharia/produto a partir do funcionamento real da plataforma. **Deve ser revisado por contador(a) habilitado(a) e por advogado(a) tributarista antes de qualquer implementação.** Itens entre `[colchetes em maiúsculas]` precisam ser preenchidos/decididos pela empresa antes do go-live.
 
 Este documento analisa o desafio fiscal da Pulse — **quem emite NF para quem** —, compara 3 (três) provedores de emissão automatizada e recomenda um caminho técnico-econômico para o MVP.
 

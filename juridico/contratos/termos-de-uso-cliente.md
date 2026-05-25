@@ -1,11 +1,5 @@
 # TERMOS DE USO — PLATAFORMA PULSE (CONSUMIDOR FINAL)
 
-**Versão:** 1.0 — DRAFT TÉCNICO (não revisado por advogado)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é um **draft técnico** preparado por engenharia/produto. **Deve ser revisado por advogado(a) habilitado(a) antes da publicação.** Itens entre `[colchetes em maiúsculas]` precisam ser preenchidos pela empresa.
-
----
 
 ## 1. Quem somos e o que é a Pulse
 

@@ -1,9 +1,5 @@
 # RIPD — Relatório de Impacto à Proteção de Dados Pessoais (Geral, Pulse)
 
-**Versão:** 1.0 — DRAFT TÉCNICO
-**Última atualização:** 2026-05-24
-
-> ⚠️ Draft técnico — revisar com DPO/advogado. Esta análise é o ponto de partida; refinar com base em incidentes e mudanças do produto.
 
 > Para a análise específica de **biometria facial**, ver [`produto/biometria/lgpd-security.md`](../../produto/biometria/lgpd-security.md), que já está em estado avançado.
 

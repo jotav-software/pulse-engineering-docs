@@ -1,9 +1,5 @@
 # Lei 14.046/2020 — "Lei do Ingresso" — Aplicação na Pulse
 
-**Versão:** 1.0 — DRAFT TÉCNICO
-**Última atualização:** 2026-05-24
-
-> ⚠️ Draft técnico — revisar com advogado.
 
 ## 1. Sumário
 

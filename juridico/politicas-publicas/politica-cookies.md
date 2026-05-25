@@ -1,11 +1,5 @@
 # POLÍTICA DE COOKIES — PLATAFORMA PULSE
 
-**Versão:** 1.0 — DRAFT TÉCNICO (não revisado por advogado)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é um **draft técnico** preparado por engenharia/produto a partir do funcionamento real da plataforma. **Deve ser revisado por advogado(a) habilitado(a) antes de qualquer publicação.** Itens entre `[colchetes em maiúsculas]` precisam ser preenchidos/decididos pela empresa antes da publicação.
-
----
 
 ## 1. O QUE SÃO COOKIES
 

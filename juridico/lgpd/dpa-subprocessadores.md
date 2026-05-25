@@ -1,9 +1,5 @@
 # LISTA DE SUBPROCESSADORES (DPA)
 
-**Versão:** 1.0 — DRAFT TÉCNICO (não revisado por advogado)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é um **draft técnico** preparado por engenharia/produto a partir do funcionamento real da plataforma. **Deve ser revisado por advogado(a) habilitado(a) e/ou DPO antes de qualquer publicação.** Itens entre `[colchetes em maiúsculas]` precisam ser preenchidos/decididos pela empresa antes da publicação.
 
 A presente lista cumpre o compromisso da PULSE (controladora) de informar quais **operadores e subprocessadores** atuam sobre dados pessoais tratados na Plataforma (Art. 18, VII e Art. 33 LGPD), bem como descrever o **mecanismo de transferência internacional** quando aplicável.
 

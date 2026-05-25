@@ -1,11 +1,5 @@
 # POLÍTICA DE PRIVACIDADE — PULSE
 
-**Versão:** 1.0 — DRAFT TÉCNICO (não revisado por advogado)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é um **draft técnico** preparado por engenharia/produto, baseado no funcionamento real da plataforma. **Deve ser revisado por advogado(a) habilitado(a) e pelo DPO antes da publicação.** Itens entre `[colchetes em maiúsculas]` precisam ser preenchidos pela empresa.
-
----
 
 A Pulse leva sua privacidade muito a sério. Esta Política explica, em linguagem simples e direta, **quais dados coletamos**, **por que**, **com quem compartilhamos**, **quanto tempo guardamos** e **quais direitos você tem** — em conformidade com a Lei Geral de Proteção de Dados (Lei 13.709/2018, "LGPD").
 

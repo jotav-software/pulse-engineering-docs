@@ -1,9 +1,5 @@
 # Retenções Fiscais no Repasse ao Produtor — Análise Técnica
 
-**Versão:** 1.0 — DRAFT TÉCNICO
-**Última atualização:** 2026-05-24
-
-> ⚠️ Análise preliminar — confirmar com contador(a).
 
 ## 1. Cenário
 

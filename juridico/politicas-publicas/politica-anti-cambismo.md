@@ -1,9 +1,5 @@
 # POLÍTICA ANTI-CAMBISMO — PULSE
 
-**Versão:** 1.0 — DRAFT TÉCNICO
-**Última atualização:** 2026-05-24
-
-> ⚠️ Draft técnico — revisar com advogado antes da publicação.
 
 ## 1. O que é cambismo (e por que combatemos)
 

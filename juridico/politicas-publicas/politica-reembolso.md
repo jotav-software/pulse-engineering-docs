@@ -1,9 +1,5 @@
 # POLÍTICA DE REEMBOLSO — PULSE
 
-**Versão:** 1.0 — DRAFT TÉCNICO (não revisado por advogado)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é um **draft técnico** preparado por engenharia/produto. **Deve ser revisado por advogado(a) antes da publicação.**
 
 Esta Política integra os [Termos de Uso](../contratos/termos-de-uso-cliente.md) e descreve quando, como e em quanto tempo você pode obter reembolso de ingressos adquiridos na Pulse.
 

@@ -1,9 +1,5 @@
 # BASE LEGAL POR TRATAMENTO — MAPA LGPD
 
-**Versão:** 1.0 — DRAFT TÉCNICO (não revisado por advogado)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é um **draft técnico** preparado por engenharia/produto a partir do funcionamento real da plataforma. **Deve ser revisado por advogado(a) habilitado(a) e/ou DPO antes de qualquer publicação.** Itens entre `[colchetes em maiúsculas]` precisam ser preenchidos/decididos pela empresa antes da publicação.
 
 Este documento complementa o [`ROPA.md`](./ROPA.md) e justifica, por seção, a escolha da base legal aplicada a cada finalidade de tratamento. Sempre que possível, citamos o inciso específico da Lei 13.709/2018.
 

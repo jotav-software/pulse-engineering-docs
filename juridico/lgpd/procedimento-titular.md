@@ -1,9 +1,5 @@
 # PROCEDIMENTO DE ATENDIMENTO AOS DIREITOS DO TITULAR — ART. 18 LGPD
 
-**Versão:** 1.0 — DRAFT TÉCNICO (não revisado por advogado)
-**Última atualização:** 2026-05-24
-
-> ⚠️ Este documento é um **draft técnico** preparado por engenharia/produto a partir do funcionamento real da plataforma. **Deve ser revisado por advogado(a) habilitado(a) e/ou DPO antes de qualquer publicação.** Itens entre `[colchetes em maiúsculas]` precisam ser preenchidos/decididos pela empresa antes da publicação.
 
 Este documento descreve como a PULSE atende solicitações dos titulares previstas no **Art. 18 da Lei 13.709/2018 (LGPD)**, definindo canais, prazos, procedimento interno e templates de resposta.
 
