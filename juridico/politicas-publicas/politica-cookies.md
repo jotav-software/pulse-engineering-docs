@@ -1,167 +1,114 @@
-# POLÍTICA DE COOKIES — PLATAFORMA PULSE
+# POLÍTICA DE COOKIES — PULSE
 
-
-## 1. O QUE SÃO COOKIES
-
-1.1. **Cookies** são pequenos arquivos de texto armazenados pelo seu navegador (ou tecnologias equivalentes — `localStorage`, `sessionStorage`, `IndexedDB`, pixels de rastreamento e SDKs em aplicativos móveis) quando você acessa a Plataforma Pulse (sites `pulse.com.br`, `pulse.app`, painéis administrativos e apps móveis Pulse Cliente e Pulse Produtor).
-
-1.2. Esta Política descreve **quais tecnologias usamos**, **para que finalidade**, **qual a base legal** sob a Lei 13.709/2018 (LGPD) e **como você pode controlar** essas tecnologias.
-
-1.3. Esta Política integra a [Política de Privacidade](./politica-privacidade.md) e os [Termos de Uso](../contratos/termos-de-uso-cliente.md). Em caso de conflito, prevalece a redação mais protetiva ao titular.
+Esta página explica, de forma simples, **o que são cookies**, **como a Pulse os utiliza** e **como você pode controlá-los**. Ela complementa nossa [Política de Privacidade](./politica-privacidade.md) e os [Termos de Uso](../contratos/termos-de-uso-cliente.md), em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei 13.709/2018).
 
 ---
 
-## 2. CATEGORIZAÇÃO
+## 1. O que são cookies?
 
-A PULSE classifica seus cookies em **4 (quatro) categorias**, conforme orientação do Guia de Cookies da ANPD (Autoridade Nacional de Proteção de Dados — Guia Orientativo "Cookies e Proteção de Dados Pessoais", outubro/2023):
+Cookies são pequenos arquivos que o seu navegador guarda quando você visita um site. Eles ajudam o site a funcionar, lembrar preferências e, em alguns casos, entender como as pessoas usam a plataforma.
 
-### 2.1. Cookies **estritamente necessários** (essenciais)
-
-São indispensáveis ao funcionamento da Plataforma. **Não exigem consentimento prévio** (base legal: **legítimo interesse** — Art. 7º, IX LGPD — e/ou **execução de contrato** — Art. 7º, V LGPD).
-
-### 2.2. Cookies **funcionais** (preferências)
-
-Memorizam escolhas do usuário (idioma, layout, preferências de checkout, "lembrar dispositivo"). Operam mediante **consentimento** (Art. 7º, I LGPD), com exceção quando essenciais à entrega do serviço solicitado.
-
-### 2.3. Cookies **analíticos** (estatísticos / desempenho)
-
-Mensuram uso agregado da Plataforma. Exigem **consentimento prévio e granular** do titular. Hoje a Pulse opera **sem ferramentas analíticas externas em produção**; quando GA4 / GTM forem ativados, este documento será atualizado e novo consentimento será coletado.
-
-### 2.4. Cookies **de marketing / publicidade**
-
-Personalização de comunicações e remarketing. **Atualmente não utilizados pela Pulse.** Quando ativados, dependerão de consentimento expresso, opt-in, com possibilidade de revogação a qualquer momento.
+Também usamos tecnologias parecidas — como armazenamento local do navegador — para as mesmas finalidades descritas aqui. Nos aplicativos Pulse Cliente e Pulse Produtor, funções equivalentes são feitas por meio de armazenamento seguro no dispositivo.
 
 ---
 
-## 3. INVENTÁRIO DE COOKIES E TECNOLOGIAS ATUAIS
+## 2. Quais cookies usamos e por quê?
 
-### 3.1. Cookies estritamente necessários
+Organizamos os cookies em quatro categorias:
 
-| Nome / Chave | Origem | Categoria técnica | Finalidade | Retenção |
-|---|---|---|---|---|
-| `better-auth.session_token` | Pulse (primário) | Cookie HTTP-only, Secure, SameSite=Lax | Sessão autenticada via Better Auth | Até logout ou expiração (`[DEFINIR — 7 DIAS PADRÃO BETTER AUTH]`) |
-| `better-auth.session_data` | Pulse (primário) | Cookie HTTP-only | Cache de dados da sessão | Vinculado ao token |
-| `better-auth.csrf_token` | Pulse (primário) | Cookie HTTP-only, Secure | Proteção CSRF em fluxos sensíveis | Sessão |
-| `pulse.checkout.session` | Pulse (primário) | Cookie ou `sessionStorage` | Manter `CheckoutSession.id` durante reserva de 10 min | 10 minutos (alinhado a `expiresAt`) |
-| `pulse.idempotency.<rota>` | Pulse (primário) | `localStorage` | Header `Idempotency-Key` em retries de pagamento (`IdempotencyKey` no backend) | 24 horas |
-| `pulse.compliance.lastChecked` | Pulse (primário) | `localStorage` | Cache de `GET /compliance/pending` (HU06) para evitar round-trips | Sessão |
-| `pulse.locale` | Pulse (primário) | Cookie | Idioma da interface (pt-BR default) | 365 dias |
-| `__cf_bm` / `cf_clearance` | Cloudflare | Cookie de terceiro (essencial) | Mitigação de bots / WAF na CDN | Sessão a 30 minutos |
+### Essenciais (sempre ativos)
 
-### 3.2. Cookies funcionais
+Necessários para o site e os apps funcionarem: manter você logado, concluir uma compra, proteger contra fraudes e garantir a segurança da plataforma.
 
-| Nome / Chave | Finalidade | Retenção |
-|---|---|---|
-| `pulse.consent.choices` | Armazena as opções do usuário no banner de cookies (categorias aceitas/recusadas + timestamp + versão) | 12 meses |
-| `pulse.ui.theme` | Tema claro/escuro | 365 dias |
-| `pulse.recent.events` | Últimos eventos vistos para "Continuar onde parou" | 30 dias |
+**Base legal:** execução do contrato e legítimo interesse em segurança. **Não exigem consentimento prévio.**
 
-### 3.3. Cookies analíticos
+Exemplos: sessão de login, proteção contra ataques, cookies de segurança da nossa infraestrutura (como Cloudflare).
 
-| Nome | Status | Observação |
-|---|---|---|
-| `_ga`, `_ga_<ID>` (Google Analytics 4) | `[NÃO ATIVO — ATIVAR POR FEATURE FLAG ANALYTICS_ENABLED]` | Quando ativo: anonimização de IP, `ad_storage=denied` por padrão até consentimento |
-| `_gid`, `_gat` | `[NÃO ATIVO]` | — |
-| Google Tag Manager (`GTM-XXXX`) | `[NÃO ATIVO — CONTAINER NÃO CRIADO]` | Roteamento de tags só será carregado **após** o consentimento |
-| Sentry (`sentry-trace`, `baggage`) | Operacional | Headers de tracing distribuído de erros — não cookie persistido em navegador; coleta IP truncado |
+### Funcionais (preferências)
 
-### 3.4. SDKs em aplicativos móveis (Expo / React Native)
+Lembram escolhas que você fez para personalizar a experiência — idioma, tema claro/escuro, preferências do banner de cookies e eventos recentemente visitados.
 
-Em apps Pulse Cliente e Pulse Produtor (Expo / React Native), tecnologias equivalentes a cookies incluem:
+**Base legal:** consentimento, quando não forem estritamente necessários ao serviço.
 
-| Tecnologia | Finalidade | Categoria |
-|---|---|---|
-| `expo-secure-store` | Token de sessão Better Auth, refresh tokens | Essencial |
-| `AsyncStorage` (`pulse.*`) | Preferências, último evento, drafts de checkout | Funcional |
-| Push tokens (`expo-notifications`) | Notificações de evento / aprovação KYC | Funcional (depende de permissão nativa do SO) |
-| Sentry SDK | Crash reporting / performance | Essencial (legítimo interesse — segurança) |
+### Analíticos (estatísticos)
+
+Nos ajudam a entender, de forma agregada, como a plataforma é usada — por exemplo, quais páginas são mais visitadas — para melhorar o produto.
+
+**Base legal:** consentimento prévio. **Hoje não utilizamos ferramentas analíticas de terceiros em produção.** Se passarmos a usar, pediremos seu consentimento e atualizaremos esta política.
+
+### Marketing e publicidade
+
+Usados para personalizar anúncios ou remarketing.
+
+**Base legal:** consentimento expresso. **Atualmente não utilizamos cookies de marketing.**
 
 ---
 
-## 4. BASE LEGAL E CONSENTIMENTO
+## 3. Consentimento e seus direitos
 
-4.1. Sob a LGPD:
+Na primeira visita, exibimos um banner para você **aceitar todos**, **recusar todos** ou **personalizar** por categoria — conforme orientações da Autoridade Nacional de Proteção de Dados (ANPD).
 
-| Categoria | Base legal | Necessita consentimento? |
-|---|---|---|
-| Essenciais | Art. 7º, V (execução de contrato) e/ou IX (legítimo interesse — segurança) | Não |
-| Funcionais | Art. 7º, I (consentimento) — quando não essenciais | Sim |
-| Analíticos | Art. 7º, I (consentimento) | Sim, granular |
-| Marketing | Art. 7º, I (consentimento) | Sim, opt-in expresso |
+Você pode **alterar suas escolhas a qualquer momento** em `pulse.com.br/cookies` ou pelo link "Preferências de cookies" no rodapé do site.
 
-4.2. O **banner de consentimento** (CMP — Consent Management Platform) será exibido no primeiro acesso e oferecerá, no mínimo:
+A revogação vale para o futuro: não desfaz tratamentos já realizados de forma legítima enquanto o consentimento estava vigente.
 
-- (a) botão **"Aceitar todos"**;
-- (b) botão **"Recusar todos"** (com o mesmo destaque visual do "Aceitar" — conforme Guia ANPD);
-- (c) botão **"Personalizar"** abrindo painel com chaves de toggle por categoria;
-- (d) link para esta Política de Cookies;
-- (e) data e versão desta Política aceita.
-
-4.3. A escolha é registrada em `pulse.consent.choices` e (para usuários autenticados) também no backend, em campo equivalente a `UserTermsAcceptance` / `ProducerTermsAcceptance`, vinculado ao `userId` e à versão do documento.
-
-4.4. **Revogação**: o usuário pode revisar e alterar suas escolhas a qualquer momento em `pulse.com.br/cookies` (link permanente no rodapé). A revogação tem efeito **prospectivo** — não desfaz tratamentos anteriores legítimos.
+Sob a LGPD, você também pode solicitar informações, correção ou exclusão de dados pessoais tratados via cookies. Veja como em nossa [Política de Privacidade](./politica-privacidade.md).
 
 ---
 
-## 5. COMO CONTROLAR
+## 4. Como desativar cookies
 
-5.1. **No banner Pulse**: aceitar, recusar ou personalizar por categoria.
+**No site Pulse:** use o banner ou a página de preferências mencionada acima.
 
-5.2. **No navegador**: cada navegador permite gerenciar/excluir cookies. Links:
+**No navegador:** você pode bloquear ou apagar cookies nas configurações:
 
-- Chrome: `chrome://settings/cookies`
-- Firefox: `about:preferences#privacy`
-- Safari: Ajustes → Safari → Avançado → Dados de sites
-- Edge: `edge://settings/content/cookies`
+- **Chrome:** Configurações → Privacidade e segurança → Cookies
+- **Firefox:** Configurações → Privacidade e segurança
+- **Safari:** Ajustes → Safari → Avançado → Dados de sites
+- **Edge:** Configurações → Cookies e permissões de site
 
-5.3. **Atenção**: bloquear cookies essenciais poderá **impedir login, checkout e operação** da Plataforma — esta é uma limitação técnica, não contratual.
+**Atenção:** desativar cookies essenciais pode impedir login, checkout e outras funções da plataforma.
 
-5.4. **Apps móveis**: as preferências equivalentes ficam em "Configurações → Privacidade" dentro do app, e em "Permissões" no sistema operacional.
-
----
-
-## 6. COMPARTILHAMENTO COM TERCEIROS
-
-6.1. A lista completa de subprocessadores que atuam sobre dados eventualmente coletados via cookies está em [`dpa-subprocessadores.md`](../lgpd/dpa-subprocessadores.md).
-
-6.2. Resumo:
-
-| Terceiro | Finalidade | Dado vinculado a cookie/ID |
-|---|---|---|
-| Cloudflare | CDN, WAF, mitigação de bots | `__cf_bm`, IP, fingerprint mínimo de requisição |
-| Sentry | Telemetria de erros | `userId` (quando logado), IP truncado |
-| Better Auth (self-hosted) | Sessão | Token de sessão |
-| Google Analytics 4 (`[QUANDO ATIVADO]`) | Estatísticas de uso | `_ga`, `_ga_<ID>` |
-| Google Tag Manager (`[QUANDO ATIVADO]`) | Orquestração de tags | — |
+**Nos apps móveis:** acesse Configurações → Privacidade no app, ou gerencie permissões nas configurações do seu celular.
 
 ---
 
-## 7. DADOS DE MENORES
+## 5. Compartilhamento com terceiros
 
-7.1. A Plataforma é destinada exclusivamente a **maiores de 18 anos**, conforme [Termos de Uso](../contratos/termos-de-uso-cliente.md).
+Alguns cookies essenciais são definidos por parceiros que nos ajudam a operar a plataforma com segurança:
 
-7.2. **Não direcionamos publicidade ou rastreamento a crianças** (Art. 14 LGPD). Nenhum cookie de marketing é ativado para usuários identificados como menores.
+| Parceiro | Finalidade |
+|---|---|
+| Cloudflare | Proteção contra bots e ataques |
+| Sentry | Detecção de erros para manter a estabilidade do serviço |
 
----
-
-## 8. ATUALIZAÇÕES
-
-8.1. Esta Política pode ser atualizada. Mudanças materiais (novos terceiros, novas categorias, novas finalidades) exigirão **novo consentimento** via banner re-exibido.
-
-8.2. A versão e a data desta Política ficam registradas no documento `LegalDocument` (tipo `[DEFINIR — COOKIE_POLICY]`) e no campo de aceite (`UserTermsAcceptance`).
+Não vendemos dados coletados por cookies. A lista completa de subprocessadores está em [`dpa-subprocessadores.md`](../lgpd/dpa-subprocessadores.md).
 
 ---
 
-## 9. CONTATO
+## 6. Menores de idade
 
-9.1. Dúvidas sobre esta Política ou pedidos relativos aos seus direitos:
-
-- **Encarregado (DPO)**: `[NOME / RAZÃO SOCIAL DO DPO]` — e-mail: `dpo@pulse.com.br`
-- **Formulário web**: `https://pulse.com.br/privacidade/solicitacao`
-- Procedimento detalhado em [`procedimento-titular.md`](../lgpd/procedimento-titular.md).
+A Pulse é destinada a **maiores de 18 anos**. Não direcionamos rastreamento ou publicidade a menores.
 
 ---
 
-| Versão | Data       | Mudança principal                                  |
-|--------|------------|----------------------------------------------------|
-| 1.0    | 2026-05-24 | Draft inicial — inventário pré-GA4/GTM             |
+## 7. Atualizações
+
+Podemos atualizar esta política quando houver mudanças relevantes — por exemplo, ao ativar novas categorias de cookies. Nesses casos, solicitaremos novo consentimento quando necessário.
+
+---
+
+## 8. Contato
+
+Dúvidas sobre cookies ou exercício de direitos:
+
+- **Encarregado (DPO):** `dpo@pulse.com.br`
+- **Formulário:** `https://pulse.com.br/privacidade/solicitacao`
+- Procedimento detalhado em [`procedimento-titular.md`](../lgpd/procedimento-titular.md)
+
+---
+
+| Versão | Data | Mudança principal |
+|--------|------|-------------------|
+| 1.1 | 2026-05-25 | Redação simplificada para leitura do titular |
+| 1.0 | 2026-05-24 | Versão inicial |
