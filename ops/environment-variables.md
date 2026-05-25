@@ -2,6 +2,8 @@
 
 Documento **canônico** de configuração por sistema. Valores secretos **nunca** entram neste repositório — use placeholders e a coluna **Onde obter**.
 
+**Referências locais:** `backend/.env.example`, `client-web/.env.example`, `producer-web/.env.example`, `app-client/.env.example`, `app-producer/.env.example`, `pulse-face/.env.example`.
+
 **URLs públicas Railway (produção, maio/2026)**
 
 | Sistema | Domínio |
@@ -16,78 +18,173 @@ Descobrir domínios atualizados: Railway → projeto **Pulse** → serviço → 
 
 ---
 
+## Legenda das colunas (matriz de auditoria)
+
+| Coluna | Significado |
+|--------|-------------|
+| **example** | Presente em `.env.example` do projeto |
+| **docs** | Documentado neste arquivo |
+| **prod** | Configurado ou esperado em Railway / EAS produção |
+| **Ambiente** | `dev` · `staging` · `prod` · `all` |
+
+---
+
 ## pulse-backend (Railway)
 
-Referência local: `backend/.env.example`. Deploy: serviço **pulse-backend**, branch acordada (`develop`).
+Deploy: serviço **pulse-backend**, branch acordada (`develop`).
+
+### Core / runtime
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `NODE_ENV` | Sim prod | prod | — | Sim | Railway define `production`. Local: omitir ou `development`. |
+| `PORT` | Sim | all | Sim | Sim (inj.) | Railway injeta; local default `3000`. |
+| `HOST` | Não | all | Sim | Não | Bind do servidor. Default `0.0.0.0`. |
+| `SHUTDOWN_TIMEOUT_MS` | Não | prod | Sim | Recom. | Default `25000`. Graceful shutdown no SIGTERM (Railway grace = 30s). |
 
 ### Segurança HTTP / OWASP
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `CORS_ORIGINS` | **Sim (prod)** | Lista separada por vírgula, **sem espaços** entre origens. Produção (configurado): `https://client-web-production-be7d.up.railway.app`, `https://pulse-producer-web-production.up.railway.app`, `https://pulse-landing-page-production-e0ce.up.railway.app`, `https://pulse.app`, `https://www.pulse.app`, `https://admin.pulse.app`, `https://app.pulse.app`. Dev local: incluir `http://localhost:3000`, `http://localhost:3001`, `http://localhost:8081` conforme apps. Se omitida fora de prod, usa defaults em código (`runtimeEnv.ts`). |
-| `QR_SECRET` | **Sim (prod)** | Segredo HMAC do QR dinâmico. Gerar: `openssl rand -base64 32` (ou string longa aleatória). Railway: `railway variables --set 'QR_SECRET=<segredo>'` no serviço pulse-backend. **Nunca** commitar. |
-| `WEBHOOK_ALLOW_UNSIGNED` | Não | **`true` só em dev local.** Em `NODE_ENV=production` o código **ignora** esta flag (fail-closed). Não definir em Railway prod. |
-| `SWAGGER_ENABLED` | Não | Em prod, OpenAPI fica **desligado** salvo `SWAGGER_ENABLED=true`. Homolog: opcional `true` para debug. |
-| `HOST` | Não | Bind do servidor (default `0.0.0.0`). Railway normalmente não precisa alterar. |
-| `PORT` | Sim | Railway injeta `PORT`; local default `3000`. |
-| `HTTP_RATE_LIMIT_ENABLED` | Não | Default ligado; `false` desliga rate limit HTTP. |
-| `HTTP_RATE_LIMIT_MAX` | Não | Default 30 req / janela. |
-| `HTTP_RATE_LIMIT_WINDOW_MS` | Não | Default 15 min. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `CORS_ORIGINS` | **Sim prod** | prod | Sim | Sim | Lista vírgula, **sem espaços**. Prod: `https://client-web-production-be7d.up.railway.app,https://pulse-producer-web-production.up.railway.app,https://pulse-landing-page-production-e0ce.up.railway.app,https://pulse.app,https://www.pulse.app,https://admin.pulse.app,https://app.pulse.app`. Dev: incluir `http://localhost:3000`, `http://localhost:3001`, `http://localhost:8081`. |
+| `QR_SECRET` | **Sim prod** | prod | Sim | Sim | HMAC do QR dinâmico. `openssl rand -base64 32`. |
+| `WEBHOOK_ALLOW_UNSIGNED` | Não | dev only | Sim | **Não** | `true` só dev local. Ignorado em `NODE_ENV=production`. |
+| `SWAGGER_ENABLED` | Não | staging | Sim | Não | Em prod OpenAPI desligado salvo `true`. |
+| `HTTP_RATE_LIMIT_ENABLED` | Não | all | Sim | Sim | Default ligado; `false` desliga. |
+| `HTTP_RATE_LIMIT_MAX` | Não | all | Sim | Opc. | Default 30 req/janela. |
+| `HTTP_RATE_LIMIT_WINDOW_MS` | Não | all | Sim | Opc. | Default 15 min (900000). |
 
 ### Autenticação
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `BETTER_AUTH_SECRET` | Sim | Segredo longo aleatório; **mesmo valor** nos frontends Next que usam Better Auth. |
-| `BETTER_AUTH_URL` | Sim | URL pública do backend, ex.: `https://pulse-backend-production-653f.up.railway.app` (sem barra final). |
-| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Opcional | Google Cloud Console → OAuth client. |
-| `APPLE_CLIENT_ID` / `APPLE_CLIENT_SECRET` | Opcional | Apple Developer → Sign in with Apple. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | Segredo longo aleatório; **mesmo valor** em client-web e producer-web. |
+| `BETTER_AUTH_URL` | Sim | all | Sim | Sim | URL pública do backend, ex.: `https://pulse-backend-production-653f.up.railway.app` (sem `/` final). |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Opc. | all | Sim | Opc. | Google Cloud Console → OAuth client. |
+| `APPLE_CLIENT_ID` / `APPLE_CLIENT_SECRET` | Opc. | all | Sim | Opc. | Apple Developer → Sign in with Apple. |
+| `APPLE_APP_BUNDLE_IDENTIFIER` | Opc. | all | — | Opc. | Default `com.pulse.fan`. Bundle do app cliente iOS. |
 
 ### Banco de dados
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `DATABASE_URL` | Sim* | String MySQL ou montada a partir de `MYSQL_*` (Railway plugin). |
-| `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DATABASE` | Sim* | Variáveis do plugin MySQL no Railway (*use URL única **ou** conjunto `MYSQL_*`). |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `DATABASE_URL` | Sim* | all | Sim | Sim | `mysql://USER:PASS@HOST:3306/DB` |
+| `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DATABASE` | Sim* | prod | Sim | Sim | Plugin MySQL Railway (`${{ MySQL.*}}`). Aliases: `MYSQLHOST`, `MYSQLUSER`, etc. (*URL única **ou** conjunto `MYSQL_*`). |
 
 ### Pagamentos
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `PAYMENT_PROVIDER` | Não | `pagarme` (default) ou `stripe`. |
-| `PAYMENTS_ENABLED` | Não | `true` / `false` — endpoints de pagamento 503 se `false`. |
-| `STRIPE_SECRET_KEY` | Se Stripe | Dashboard Stripe → API keys. |
-| `STRIPE_WEBHOOK_SECRET` | Se Stripe webhooks | Stripe → Webhooks → signing secret (`whsec_...`). |
-| `STRIPE_PUBLISHABLE_KEY` | Opcional | Stripe → publishable key ( também no app via `EXPO_PUBLIC_*`). |
-| `PAGARME_SECRET_KEY` | Se Pagar.me | Dashboard Pagar.me. |
-| `PAGARME_WEBHOOK_SECRET` | Se Pagar.me webhooks | Pagar.me → webhook HMAC; se omitido, fallback `PAGARME_SECRET_KEY`. |
-| `PAGARME_MOCK_PIX_AUTO_CONFIRM` | Não | **`true` só dev** — auto-confirma Pix mock. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `PAYMENT_PROVIDER` | Não | all | Sim | Sim | `pagarme` (default) ou `stripe`. |
+| `PAYMENTS_ENABLED` | Não | prod | Sim | Sim | `true`/`false` — endpoints `/payment` retornam 503 se `false`. |
+| `STRIPE_SECRET_KEY` | Se Stripe | all | Sim | Se Stripe | Dashboard Stripe → Secret key (`sk_live_...` / `sk_test_...`). |
+| `STRIPE_WEBHOOK_SECRET` | Se Stripe WH | all | Sim | Se Stripe | Stripe → Webhooks → signing secret (`whsec_...`). |
+| `STRIPE_PUBLISHABLE_KEY` | Opc. | all | Sim | Se Stripe | Stripe → Publishable key. Apps usam `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY`. |
+| `PAGARME_SECRET_KEY` | Se Pagar.me | all | Sim | Se Pagar.me | Dashboard Pagar.me. Omitir = mock (`sk_test_mock`). |
+| `PAGARME_WEBHOOK_SECRET` | Se Pagar.me WH | all | Sim | Se Pagar.me | HMAC webhook; fallback `PAGARME_SECRET_KEY`. |
+| `PAGARME_MOCK_PIX_AUTO_CONFIRM` | Não | dev only | Sim | **Não** | `true` só dev — auto-confirma Pix mock após 7s. |
+| `ADVANCE_FEE_BPS` | Não | all | — | Opc. | Taxa de antecipação financeira produtor (basis points). |
 
-### E-mail / produtor
+### E-mail / convites / URLs de acesso
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `MAIL_PROVIDER` | Não | `brevo` ou fallback (log). |
-| `BREVO_API_KEY` | Se Brevo | Brevo → SMTP & API. |
-| `BREVO_SENDER_EMAIL` / `BREVO_SENDER_NAME` | Se Brevo | Remetente verificado no Brevo. |
-| `PRODUCER_WEB_URL` | Recomendado prod | URL do portal produtor nos e-mails, ex.: `https://pulse-producer-web-production.up.railway.app` ou domínio custom `https://app.pulse.app`. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `MAIL_PROVIDER` | Não | all | Sim | Sim | `brevo` ou fallback (log). |
+| `BREVO_API_KEY` | Se Brevo | all | Sim | Sim | Brevo → SMTP & API. |
+| `BREVO_SENDER_EMAIL` / `BREVO_SENDER_NAME` | Se Brevo | all | Sim | Sim | Remetente verificado. Ex.: `"Pulse Eventos"`. |
+| `MAIL_DELIVERY_SYNC` | Não | dev/test | Sim | Não | `true` = entrega síncrona (testes). |
+| `MAIL_LOG_OTP_IN_DEV` | Não | dev only | Sim | **Não** | `true` = loga OTP no console (fallback mail). |
+| `PRODUCER_WEB_URL` | Recom. prod | prod | Sim | Sim | Links nos e-mails produtor. Ex.: `https://pulse-producer-web-production.up.railway.app` ou `https://app.pulse.app`. Alias: `PRODUCER_PORTAL_URL`. |
+| `CLIENT_WEB_URL` | Recom. prod | prod | Sim | Sim | Fallback web nos convites de cadastro cliente. Ex.: `https://client-web-production-be7d.up.railway.app` ou `https://pulse.app`. Alias: `CLIENT_PORTAL_URL`. |
+| `RAILWAY_SERVICE_CLIENT_WEB_URL` | Não | prod | — | Auto | Railway injeta host do serviço client-web quando linkado no mesmo projeto — usado como fallback de `CLIENT_WEB_URL`. |
+| `CLIENT_APP_SCHEME` | Não | all | Sim | Sim | Deeplink Expo nos convites. Default `pulse-client`. Alias: `EXPO_PUBLIC_APP_SCHEME`. |
+| `CLIENT_IOS_STORE_URL` | Opc. | prod | Sim | Opc. | `https://apps.apple.com/app/idXXXXXXXX` |
+| `CLIENT_ANDROID_STORE_URL` | Opc. | prod | Sim | Opc. | `https://play.google.com/store/apps/details?id=com.pulse.fan` |
 
-### Biometria facial (backend)
+### Rate limit — convites de cadastro (transferência)
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `BIOMETRIC_ENCRYPTION_KEY` | Prod + enrollment V2 | `openssl rand -hex 32` (64 chars hex). |
-| `BIOMETRIC_HASH_SECRET` | **Sim (prod)** | Segredo HMAC do hash biométrico. Em `NODE_ENV=production` o backend falha no startup/uso sem esta variável (`resolveBiometricHashSecret`). Dev: fallback `BIOMETRIC_ENCRYPTION_KEY` ou constante local. Gerar: `openssl rand -base64 32`. |
-| `PULSE_FACE_SERVICE_URL` | Extract / identify | `https://pulse-face-production.up.railway.app` |
-| `PULSE_FACE_SERVICE_API_KEY` | Extract / identify | Gerar segredo forte; **igual** no serviço pulse-face (`x-api-key`). |
-| `PULSE_INTERNAL_API_KEY` | Crons `/internal/*` | Segredo forte; header `x-pulse-internal-key`. |
-| Flags `FACIAL_*`, `PULSE_FACE_*`, `FACE_GALLERY_*` | Por fase | Ver [infra deploy facial](../product/facial/infra-deploy-checklist.md) e `backend/.env.example`. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `CLIENT_SIGNUP_INVITE_RATE_LIMIT_ENABLED` | Não | prod | Sim | Sim | Default `true`. |
+| `CLIENT_SIGNUP_INVITE_RATE_LIMIT_SENDER_MAX` | Não | prod | Sim | Sim | Default `5` convites/hora por remetente. |
+| `CLIENT_SIGNUP_INVITE_RATE_LIMIT_SENDER_WINDOW_MS` | Não | prod | Sim | Sim | Default `3600000` (1h). |
+| `CLIENT_SIGNUP_INVITE_RATE_LIMIT_DESTINATION_MAX` | Não | prod | Sim | Sim | Default `3`/dia por e-mail destino. |
+| `CLIENT_SIGNUP_INVITE_RATE_LIMIT_DESTINATION_WINDOW_MS` | Não | prod | Sim | Sim | Default `86400000` (24h). |
 
-### KYC / storage
+### Criptografia PII em repouso
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `KYC_STORAGE_PATH` | MVP Railway | Volume montado, ex.: `./storage/kyc`. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `PII_ENCRYPTION_KEY` | **Sim prod** | prod | Sim | Sim | AES-256-GCM para CPF/CNPJ/dados bancários. `openssl rand -hex 32` (64 chars hex). **Perder = dados irrecuperáveis.** |
+| `PII_HASH_PEPPER` | **Sim prod** | prod | Sim | Sim | HMAC para lookup hash. `openssl rand -hex 32`. Independente da encryption key. |
+| — | — | dev | — | — | Fallback dev: deriva de `BETTER_AUTH_SECRET`. **Não usar em produção.** |
+
+### Object storage (KYC / documentos)
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `STORAGE_DRIVER` | Não | all | Sim | Sim | `local` (default, volume Railway) ou `r2`/`s3`. Alias legado: `KYC_STORAGE_DRIVER`. |
+| `KYC_STORAGE_PATH` | Se local | all | Sim | Sim | Path do volume. Ex.: `./storage/kyc`. |
+| `S3_ENDPOINT` | Se r2/s3 | prod | Sim | Sim | Cloudflare R2: `https://<accountId>.r2.cloudflarestorage.com` |
+| `S3_REGION` | Se r2/s3 | prod | Sim | Sim | R2: `auto`. |
+| `S3_ACCESS_KEY_ID` | Se r2/s3 | prod | Sim | Sim | Cloudflare R2 → Manage R2 API Tokens. |
+| `S3_SECRET_ACCESS_KEY` | Se r2/s3 | prod | Sim | Sim | Par da access key. |
+| `S3_BUCKET` | Se r2/s3 | prod | Sim | Sim | Ex.: `pulse-kyc`. |
+| `S3_PUBLIC_BASE_URL` | Opc. | prod | Sim | Opc. | Domínio custom do bucket (se servir público). |
+
+### Observabilidade (Sentry)
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `SENTRY_DSN` | Recom. prod | prod | Sim | Sim | Sentry → Project → Client Keys (DSN). Sem DSN = no-op silencioso. |
+| `SENTRY_RELEASE` | Opc. | prod | Sim | Opc. | Git SHA do deploy. Ex.: `abc1234`. |
+| `SENTRY_TRACES_SAMPLE_RATE` | Não | prod | Sim | Sim | Default `0.1` (10% spans). |
+| `SENTRY_PROFILES_SAMPLE_RATE` | Não | prod | Sim | Não | Default `0` (profiling off). |
+
+### Rate-limit distribuído (Upstash Redis)
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `UPSTASH_REDIS_REST_URL` | Recom. prod | prod | Sim | Sim | [Upstash Console](https://console.upstash.com) → Database → REST URL. |
+| `UPSTASH_REDIS_REST_TOKEN` | Recom. prod | prod | Sim | Sim | Par da REST URL. Sem envs = fallback in-memory (ok dev / 1 instância). |
+
+### Biometria facial
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `FACIAL_ENABLED` | Por fase | all | Sim | Por fase | Master switch opcional. `true`/`false`/omitido — ver `facialFlags.ts`. |
+| `BIOMETRIC_ENCRYPTION_KEY` | Prod+V2 | prod | Sim | Sim | `openssl rand -hex 32`. Vetores 512-d criptografados. |
+| `BIOMETRIC_HASH_SECRET` | **Sim prod** | prod | Sim | Sim | HMAC hash biométrico. `openssl rand -base64 32`. |
+| `FACIAL_ENROLLMENT_V2` / `FACIAL_ENROLLMENT_ENABLED` | Por fase | all | Sim | Por fase | Cadastro vetor real (US-FAC-004). |
+| `FACIAL_GALLERY_ENABLED` | Por fase | all | Sim | Por fase | Galeria 1:N por evento (US-FAC-006). |
+| `FACIAL_CHECKIN_ENABLED` | Por fase | all | Sim | Por fase | Check-in facial portaria (US-FAC-008). |
+| `FACIAL_AUTO_CHECKIN_THRESHOLD` | Não | all | Sim | Opc. | Default `0.55`. |
+| `FACIAL_REQUIRE_CONFIRMATION_BELOW` | Não | all | Sim | Opc. | Default `0.55`. |
+| `FACIAL_VERIFY_AFTER_QR_ENABLED` | Por fase | all | Sim | Por fase | Verificação 1:1 pós-QR (US-FAC-009). |
+| `PULSE_FACE_IDENTIFY_THRESHOLD` | Não | all | Sim | Opc. | Default `0.45`. |
+| `PULSE_FACE_VERIFY_THRESHOLD` | Não | all | Sim | Opc. | Default `0.50`. |
+| `PULSE_FACE_MIN_SCORE_GAP` | Não | all | Sim | Opc. | Default `0.05`. |
+| `PULSE_FACE_SERVICE_URL` | Extract/identify | prod | Sim | Sim | `https://pulse-face-production.up.railway.app` |
+| `PULSE_FACE_SERVICE_API_KEY` | Extract/identify | prod | Sim | Sim | Segredo forte; **igual** no pulse-face (`x-api-key`). |
+| `PULSE_FACE_HEALTH_TIMEOUT_MS` | Não | all | Sim | Opc. | Default `3000`. |
+| `PULSE_FACE_IDENTIFY_TIMEOUT_MS` | Não | all | Sim | Opc. | Default `5000`. |
+| `PULSE_FACE_EXTRACT_ENABLED` | Por fase | all | Sim | Por fase | Extração ONNX no pulse-face. |
+| `PULSE_FACE_EXTRACT_TIMEOUT_MS` | Não | all | Sim | Opc. | Default `15000`. |
+| `PULSE_FACE_GALLERY_SYNC` | Por fase | all | Sim | Por fase | Sync embeddings ao pulse-face no rebuild. |
+| `PULSE_FACE_USE_IDENTIFY` | Por fase | all | Sim | Por fase | Delegar 1:N ao pulse-face. |
+| `PULSE_INTERNAL_API_KEY` | Crons | prod | Sim | Sim | Header `x-pulse-internal-key` para `/internal/*`. |
+| `FACE_GALLERY_RETENTION_DAYS` | Não | prod | Sim | Sim | Default `30`. LGPD retenção galeria. |
+| `ENABLE_FACE_GALLERY_PURGE_JOB` | Não | prod | Sim | Sim | `true` = cron purge diário. |
+| `FACE_GALLERY_PURGE_JOB_INTERVAL_MS` | Não | prod | Sim | Opc. | Default `86400000` (24h). |
+
+Detalhes de rollout: [Checklist deploy facial](../product/facial/infra-deploy-checklist.md).
+
+### Jobs em background
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `ENABLE_PAYOUT_RELEASE_JOB` | Não | prod | — | Sim | Default ligado; `false` desliga job de liberação de repasses. |
+| `PAYOUT_RELEASE_JOB_INTERVAL_MS` | Não | prod | — | Opc. | Default `3600000` (1h). |
 
 ### Comandos Railway (pulse-backend)
 
@@ -96,41 +193,59 @@ cd backend   # ou repo pulse-backend linkado
 railway link   # projeto Pulse, serviço pulse-backend, environment production
 railway variables -k
 railway variables --set 'CORS_ORIGINS=https://client-web-production-be7d.up.railway.app,...'
+railway variables --set 'PII_ENCRYPTION_KEY=<openssl rand -hex 32>'
+railway variables --set 'UPSTASH_REDIS_REST_URL=https://<id>.upstash.io'
 ```
 
 ---
 
 ## pulse-face (Railway)
 
-Referência: `pulse-face/.env.example`. Serviço **separado** do Bun (Docker).
+Referência: `pulse-face/.env.example`. Serviço **separado** (Docker/Python).
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `PULSE_FACE_SERVICE_API_KEY` | Sim | **Mesmo valor** que `PULSE_FACE_SERVICE_API_KEY` no backend. |
-| `PULSE_FACE_MODEL_PATH` | Não | `/models` (default Dockerfile). |
-| `PULSE_FACE_GALLERY_BACKEND` | Sim prod | `memory` (dev) / `persistent` ou `sqlite` + volume. |
-| `PULSE_FACE_GALLERY_PATH` | Com persistent | Volume Railway, ex.: `/data/gallery`. |
-| `PULSE_FACE_IDENTIFY_THRESHOLD` | Não | Default `0.45`. |
-| `PULSE_FACE_VERIFY_THRESHOLD` | Não | Default `0.50`. |
-| `PULSE_FACE_MIN_SCORE_GAP` | Não | Default `0.05`. |
-| `PORT` | Sim | Railway injeta; app escuta `0.0.0.0:${PORT}`. |
-| `REDIS_URL` | Futuro | Só se `PULSE_FACE_GALLERY_BACKEND=redis`. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `PULSE_FACE_SERVICE_API_KEY` | Sim | all | Sim | Sim | **Mesmo valor** que no backend. |
+| `PULSE_FACE_MODEL_PATH` | Não | all | Sim | Sim | `/models` (default Dockerfile). |
+| `PULSE_FACE_GALLERY_BACKEND` | Sim prod | all | Sim | Sim | `memory` (dev) / `persistent` / `sqlite` + volume. |
+| `PULSE_FACE_GALLERY_PATH` | Com persistent | prod | Sim | Sim | Volume Railway, ex.: `/data/gallery`. |
+| `PULSE_FACE_IDENTIFY_THRESHOLD` | Não | all | Sim | Opc. | Default `0.45`. |
+| `PULSE_FACE_VERIFY_THRESHOLD` | Não | all | Sim | Opc. | Default `0.50`. |
+| `PULSE_FACE_MIN_SCORE_GAP` | Não | all | Sim | Opc. | Default `0.05`. |
+| `PORT` | Sim | all | Sim | Sim (inj.) | Railway injeta; app escuta `0.0.0.0:${PORT}`. |
+| `REDIS_URL` | Futuro | — | Sim | Não | Só se `PULSE_FACE_GALLERY_BACKEND=redis`. |
 
-**Não colocar no pulse-face:** segredos do backend, `DATABASE_URL`, chaves Stripe/Pagar.me.
+**Não colocar no pulse-face:** segredos do backend, `DATABASE_URL`, chaves Stripe/Pagar.me, PII keys.
 
 ---
 
 ## producer-web (Railway — pulse-producer-web)
 
-Referência: `producer-web/.env.example`.
+Referência: `producer-web/.env.example`. Variáveis `NEXT_PUBLIC_*` exigem **rebuild** após alteração.
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `NEXT_PUBLIC_API_URL` | Sim | `https://pulse-backend-production-653f.up.railway.app` |
-| `NEXT_PUBLIC_APP_URL` | Sim | URL pública **deste** app: prod `https://pulse-producer-web-production.up.railway.app`; local `http://localhost:3001`. |
-| `BETTER_AUTH_SECRET` | Sim | **Idêntico** ao `BETTER_AUTH_SECRET` do backend. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `NEXT_PUBLIC_API_URL` | Sim | all | Sim | Sim | `https://pulse-backend-production-653f.up.railway.app` |
+| `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://pulse-producer-web-production.up.railway.app`; local `http://localhost:3001`. |
+| `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | **Idêntico** ao backend. |
 
-Variáveis `NEXT_PUBLIC_*` exigem **rebuild** no Railway após alteração.
+### Sentry (producer-web)
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `NEXT_PUBLIC_SENTRY_DSN` | Recom. prod | prod | Sim | Sim | Sentry → projeto producer-web. Sem DSN = no-op. |
+| `SENTRY_DSN` | Opc. | prod | Sim | Sim | Fallback server-side (mesmo DSN). |
+| `NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE` | Não | prod | Sim | Sim | Default `0.1`. |
+| `SENTRY_TRACES_SAMPLE_RATE` | Não | prod | Sim | Sim | Server/edge fallback. |
+| `SENTRY_ORG` / `SENTRY_PROJECT` / `SENTRY_AUTH_TOKEN` | CI | prod | Sim | CI | Upload source maps no build Railway/CI. |
+
+### Analytics (Trilha C — GTM)
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `NEXT_PUBLIC_GTM_ID` | Opc. | prod | Sim | Sim | Google Tag Manager → Container ID (`GTM-XXXXXXX`). Sem ID = no-op. |
+| `NEXT_PUBLIC_META_PIXEL_ID` | Opc. | prod | Sim | Opc. | Referência; envio via GTM. |
+| `NEXT_PUBLIC_GA4_MEASUREMENT_ID` | Opc. | prod | Sim | Opc. | Referência; envio via GTM. |
 
 ---
 
@@ -138,17 +253,26 @@ Variáveis `NEXT_PUBLIC_*` exigem **rebuild** no Railway após alteração.
 
 Referência: `client-web/.env.example`.
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `NEXT_PUBLIC_API_URL` | Sim | `https://pulse-backend-production-653f.up.railway.app` |
-| `NEXT_PUBLIC_APP_URL` | Sim | Prod: `https://client-web-production-be7d.up.railway.app`; local `http://localhost:3000`. |
-| `BETTER_AUTH_SECRET` | Sim | **Idêntico** ao backend. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `NEXT_PUBLIC_API_URL` | Sim | all | Sim | Sim | `https://pulse-backend-production-653f.up.railway.app` |
+| `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://client-web-production-be7d.up.railway.app`; local `http://localhost:3000`. |
+| `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | **Idêntico** ao backend. |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe | all | —* | Se Stripe | Stripe Dashboard → publishable key. Usado em checkout web. *Adicionar ao `.env.example` se ainda ausente. |
+
+Sentry e GTM: mesmas variáveis que producer-web (`NEXT_PUBLIC_SENTRY_*`, `SENTRY_*`, `NEXT_PUBLIC_GTM_ID`, etc.) — ver seção acima.
 
 ---
 
 ## pulse-landing-page (Railway)
 
-Site estático; em geral **não** chama API autenticada. Se passar a chamar o backend a partir do browser, a origem deve constar em `CORS_ORIGINS` no backend (já incluída a URL Railway de produção).
+Site **estático** (HTML). **Não possui** `.env` nem variáveis de runtime.
+
+| Item | Notas |
+|------|-------|
+| Deploy | Railway serve arquivos estáticos de `landing-page/`. |
+| CORS | Se passar a chamar API autenticada, incluir origem em `CORS_ORIGINS` no backend (já incluída URL Railway prod). |
+| Analytics | GTM/Meta/GA4 embutidos no HTML ou via tag manager externo — não via env vars. |
 
 Domínio prod: `https://pulse-landing-page-production-e0ce.up.railway.app`.
 
@@ -156,31 +280,57 @@ Domínio prod: `https://pulse-landing-page-production-e0ce.up.railway.app`.
 
 ## app-client (EAS / `.env`)
 
-Referência: `app-client/.env.example`.
+Referência: `app-client/.env.example`. Variáveis `EXPO_PUBLIC_*` exigem **rebuild EAS** após alteração.
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `EXPO_PUBLIC_API_URL` | Sim | Prod: `https://pulse-backend-production-653f.up.railway.app`; dev: IP LAN / `10.0.2.2` / `localhost`. |
-| `EXPO_PUBLIC_PAYMENTS_ENABLED` | Não | Alinhar com `PAYMENTS_ENABLED` do backend. |
-| `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe no app | Stripe Dashboard → publishable key. |
-| `EXPO_PUBLIC_FACIAL_ENROLLMENT_V2` | Por rollout | Espelhar `FACIAL_ENROLLMENT_V2` — rebuild EAS obrigatório. |
-| `EXPO_PUBLIC_PULSE_FACE_EXTRACT` | Por rollout | Espelhar `PULSE_FACE_EXTRACT_ENABLED`. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `EXPO_PUBLIC_API_URL` | Sim | all | Sim | Sim | Prod: `https://pulse-backend-production-653f.up.railway.app`; dev: IP LAN / `10.0.2.2` / `localhost`. |
+| `EXPO_PUBLIC_PAYMENTS_ENABLED` | Não | all | Sim | Sim | Alinhar com `PAYMENTS_ENABLED` do backend. |
+| `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe | all | Sim* | Se Stripe | Stripe Dashboard → publishable key. *Comentado no example. |
+| `EXPO_PUBLIC_FACIAL_ENROLLMENT_V2` | Por rollout | all | —* | Por rollout | Espelhar `FACIAL_ENROLLMENT_V2`. *Usado no código; adicionar ao example. |
+| `EXPO_PUBLIC_PULSE_FACE_EXTRACT` | Por rollout | all | —* | Por rollout | Espelhar `PULSE_FACE_EXTRACT_ENABLED`. *Usado no código; adicionar ao example. |
 
-**Nunca** no app: `QR_SECRET`, `BIOMETRIC_ENCRYPTION_KEY`, `PULSE_FACE_SERVICE_API_KEY`, webhooks secrets.
+### Sentry (app-client)
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `EXPO_PUBLIC_SENTRY_DSN` | Recom. prod | prod | Sim | Sim | Sentry → projeto app-client. Configurar no **EAS Dashboard → Environment variables** para builds de produção. |
+| `EXPO_PUBLIC_SENTRY_TRACES_SAMPLE_RATE` | Não | prod | Sim | Sim | Default `0.1`. |
+| `EXPO_PUBLIC_SENTRY_ENVIRONMENT` | Opc. | prod | — | Opc. | Ex.: `production`, `preview`. |
+
+CI/EAS: plugin `@sentry/react-native/expo` em `app.json` — symbolication via EAS Build.
+
+**Nunca** no app: `QR_SECRET`, `BIOMETRIC_ENCRYPTION_KEY`, `PULSE_FACE_SERVICE_API_KEY`, webhook secrets, `PII_*`.
 
 ---
 
 ## app-producer (EAS / `.env`)
 
-Não há `.env.example` no repo; espelhar app-client.
+Referência: `app-producer/.env.example`.
 
-| Variável | Obrigatória | Valor / onde obter |
-|----------|-------------|-------------------|
-| `EXPO_PUBLIC_API_URL` | Sim | Mesmo backend que app-client. |
-| `EXPO_PUBLIC_PULSE_FACE_EXTRACT` | Por rollout | Espelhar backend. |
-| `EXPO_PUBLIC_PAYMENTS_ENABLED` | Não | Alinhar backend. |
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `EXPO_PUBLIC_API_URL` | Sim | all | Sim | Sim | Mesmo backend que app-client. |
+| `EXPO_PUBLIC_PULSE_FACE_EXTRACT` | Por rollout | all | —* | Por rollout | Espelhar backend. *Usado no código; adicionar ao example. |
+| `EXPO_PUBLIC_CLIENT_WEB_URL` | Opc. | all | — | Opc. | URL client-web para links. Default hardcoded: `https://client-web-production-be7d.up.railway.app`. |
+| `EXPO_PUBLIC_DEBUG_SCANNER` | Não | dev only | — | **Não** | `true` = botão simular scan (dev). |
+| `EXPO_PUBLIC_DEBUG_SCAN_QR_HASH` | Não | dev only | — | **Não** | Hash QR de ingresso ISSUED para teste de scanner. |
 
-Deep link / web cliente (hardcode opcional): `clientWebUrl.ts` usa fallback `https://client-web-production-be7d.up.railway.app`.
+Sentry: mesmas variáveis que app-client (`EXPO_PUBLIC_SENTRY_DSN`, `EXPO_PUBLIC_SENTRY_TRACES_SAMPLE_RATE`).
+
+---
+
+## EAS — variáveis por profile de build
+
+Configurar no [Expo Dashboard](https://expo.dev) → projeto → **Environment variables** (ou `eas env:create`).
+
+| Profile | Variáveis típicas |
+|---------|-------------------|
+| `development` | `EXPO_PUBLIC_API_URL` → backend local ou staging |
+| `preview` | API staging/prod, flags faciais/pagamento para QA |
+| `production` | `EXPO_PUBLIC_API_URL`, `EXPO_PUBLIC_SENTRY_DSN`, `EXPO_PUBLIC_PAYMENTS_ENABLED`, `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY`, flags faciais |
+
+Arquivos: `app-client/eas.json`, `app-producer/eas.json` — não contêm envs inline; usar dashboard EAS.
 
 ---
 
@@ -191,6 +341,29 @@ Deep link / web cliente (hardcode opcional): `clientWebUrl.ts` usa fallback `htt
 | `BETTER_AUTH_SECRET` | backend, client-web, producer-web |
 | `PULSE_FACE_SERVICE_API_KEY` | backend ↔ pulse-face |
 | `PULSE_INTERNAL_API_KEY` | backend + cron/jobs que chamam `/internal/*` |
+| `PII_ENCRYPTION_KEY` + `PII_HASH_PEPPER` | backend prod (único; backup em vault) |
+
+---
+
+## Gaps conhecidos (auditoria 2026-05-25)
+
+Variáveis presentes em código ou Railway mas com documentação incompleta nos `.env.example` dos apps — **corrigir nos repos de app**, não neste doc:
+
+| Projeto | Variável | Status |
+|---------|----------|--------|
+| app-client | `EXPO_PUBLIC_FACIAL_ENROLLMENT_V2`, `EXPO_PUBLIC_PULSE_FACE_EXTRACT` | Código + `.env` local; faltam no `.env.example` |
+| app-producer | `EXPO_PUBLIC_PULSE_FACE_EXTRACT`, `EXPO_PUBLIC_CLIENT_WEB_URL` | Código; faltam no `.env.example` |
+| client-web | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Código (`stripe.ts`); faltam no `.env.example` |
+
+Variáveis adicionadas nesta revisão da documentação (estavam em `.env.example` do backend mas ausentes ou incompletas no doc canônico):
+
+- Observabilidade: `SENTRY_*`
+- PII: `PII_ENCRYPTION_KEY`, `PII_HASH_PEPPER`
+- Storage: `STORAGE_DRIVER`, `S3_*`, `KYC_STORAGE_DRIVER`
+- Upstash: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`
+- Convites cliente: `CLIENT_WEB_URL`, `CLIENT_APP_SCHEME`, `CLIENT_*_STORE_URL`, `CLIENT_SIGNUP_INVITE_RATE_LIMIT_*`, `RAILWAY_SERVICE_CLIENT_WEB_URL`
+- Ops: `SHUTDOWN_TIMEOUT_MS`, jobs payout/purge
+- Frontends: Sentry e GTM em client-web / producer-web; Sentry EAS nos apps
 
 ---
 
@@ -198,6 +371,7 @@ Deep link / web cliente (hardcode opcional): `clientWebUrl.ts` usa fallback `htt
 
 - [Segurança — CORS](../standards/security.md)
 - [Checklist deploy facial](../product/facial/infra-deploy-checklist.md)
+- [Plano launch readiness](./launch-readiness-plan.md) — Sentry, Upstash, R2, PII
 - `backend/.env.example`
 
-*Última atualização: 2026-05-20 — CORS produção aplicado via Railway CLI.*
+*Última atualização: 2026-05-25 — auditoria completa vs `.env.example` de todos os projetos e vars Railway recentes.*
