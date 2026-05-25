@@ -11,7 +11,7 @@ A Pulse é uma plataforma de tecnologia (marketplace de ingressos) que:
 - intermedeia venda B2C de ingressos (consumidor compra; produtor vende);
 - cobra **taxa de intermediação/conveniência** (modelo principal: adicionada ao preço, paga pelo consumidor);
 - segura valores em custódia até liberar para o produtor (D+1 após evento);
-- atua nacionalmente; sede `[CIDADE/UF]`.
+- atua nacionalmente; sede `São Paulo/SP`.
 
 O ponto crítico fiscal é: **qual é a base tributável da Pulse?**
 - **Resposta funcional**: a Pulse fatura **a taxa de intermediação** (sua receita própria), e o **valor cheio do ingresso** transita por sua custódia mas é receita do produtor.

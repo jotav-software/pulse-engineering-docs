@@ -14,7 +14,7 @@ A Pulse não tolera cambismo e adota um conjunto de medidas para combatê-lo.
 ## 2. Medidas técnicas e contratuais da Pulse
 
 ### 2.1. Limite de compra por CPF
-Cada CPF pode comprar até `[NÚMERO]` ingressos por evento. Tentativas adicionais são bloqueadas no checkout.
+Cada CPF pode comprar até `6` ingressos por evento. Tentativas adicionais são bloqueadas no checkout.
 
 ### 2.2. Transferência **limitada e rastreável**
 - Cada ingresso pode ser transferido **uma única vez** pelo app Pulse, até o início do evento.

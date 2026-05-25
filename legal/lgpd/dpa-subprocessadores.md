@@ -24,10 +24,10 @@ A lista é atualizada sempre que houver inclusão, substituição ou remoção d
 - **VIII** — consentimento específico e destacado do titular;
 - **IX** — cumprimento de obrigação legal/regulatória.
 
-1.2. **Hoje a ANPD ainda não publicou a lista do inciso I** (consulta pública concluída em 2024). Até a publicação, a Pulse adota como mecanismo principal:
+1.2. A **Resolução CD/ANPD nº 19, de 23 de agosto de 2024** aprovou as **Cláusulas-Padrão Contratuais (CPCs)** para transferência internacional de dados — disponíveis no site da ANPD. A Pulse adota:
 
-- **Cláusulas-padrão contratuais** (modelo a ser publicado pela ANPD — Resolução CD/ANPD nº 19/2024 traz minutas em consulta pública) `[VALIDAR ESTÁGIO ATUAL]`;
-- **DPA (Data Processing Agreement)** de cada subprocessador, complementado pelos SCC da UE (GDPR) onde aplicável — solução híbrida usada amplamente no mercado.
+- **Cláusulas-Padrão Contratuais** (Anexo I da Resolução CD/ANPD nº 19/2024) com cada operador internacional, sem alterações no texto-base, com preenchimento das partes;
+- **DPA (Data Processing Agreement)** próprio de cada subprocessador, complementado pelos SCC da UE (GDPR) onde aplicável — solução híbrida usada amplamente no mercado.
 
 1.3. Para cada subprocessador, indicamos: **finalidade**, **dados tratados**, **jurisdição**, **mecanismo de transferência** e **link público para o DPA**.
 

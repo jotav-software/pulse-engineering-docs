@@ -8,6 +8,8 @@ Documento mestre consolidando o que precisa estar resolvido antes do **GA** (gen
 
 O lançamento depende de **três trilhas paralelas**. Este documento detalha a **Trilha A** (hardening técnico). As trilhas B e C estão referenciadas para contexto.
 
+> **Variáveis de ambiente (canônico):** matriz completa por projeto, placeholders e onde obter valores — [environment-variables.md](./environment-variables.md).
+
 ---
 
 ## Trilhas paralelas
@@ -150,8 +152,9 @@ Adiado a pedido. `backend/.env` contém creds reais (MySQL Railway, Better-Auth,
 - **Self-service de reembolso** para cliente (hoje só admin).
 - **Cupons / códigos de desconto** — modelo `Coupon/Discount` inexistente.
 - **Push notifications** em ambos os apps mobile (`expo-notifications`).
-- **Checkout web** em `client-web` (ou decisão explícita app-only documentada).
-- **Analytics/Pixels** (GTM, GA4, Meta Pixel) em todos os frontends.
+- ✅ **Checkout web** em `client-web` — entregue 2026-05-25 (rotas `/checkout/[sessionId]/{,pix,card,success}` + `/tickets/{,[id]}`, Stripe Elements, Idempotency-Key, polling Pix 3s, GA4 ecommerce events instrumentados).
+- 🟨 **Analytics/Pixels** — GTM instalado em todos os frontends + Consent Mode v2; 7 eventos B2C instrumentados (`page_view`, `view_item_list`, `view_item`, `login`, `sign_up`, `app_download_*`) + 4 eventos checkout (`add_to_cart`, `begin_checkout`, `add_payment_info`, `purchase`). Falta: criar contas GTM/GA4/Meta + setar envs.
+- ✅ **Banner consent cookies (LGPD)** — entregue 2026-05-25 (`CookieConsentBanner` + `CookiePreferencesModal` granular, localStorage + cookie 1y, link permanente no footer, página `/cookies` shell).
 - **JSON-LD Schema.org Event** em `client-web` (rich snippets Google).
 - **NFS-e** emissão e split fiscal.
 - **3DS2 / antifraude** em pagamentos com cartão.
@@ -165,23 +168,48 @@ Adiado a pedido. `backend/.env` contém creds reais (MySQL Railway, Better-Auth,
 - 3 docs fiscais (regime tributário, plano NFS-e, retenções no repasse)
 - 2 docs compliance (PCI-DSS scoping, Lei 14.046/2020 do ingresso)
 
-**Pendente para go-live**:
-- 🔴 Revisão por advogado(a) habilitado em CDC/LGPD/ticketing
-- 🔴 Revisão por contador(a) com prática SaaS/marketplace
-- 🔴 Designar DPO (interno ou DPO-as-a-Service)
-- 🔴 Decidir e implementar provedor NFS-e (Focus NFe / Nuvem Fiscal / eNotas — proposta no plano)
-- 🔴 Preencher `[colchetes maiúsculos]` em cada doc (CNPJ, endereço, foro, percentual de taxa final)
-- Decidir pricing fechado (10% × 6,9%+R$2,49) e refletir nos docs
-- Setar provedor NFS-e (recomendação na análise: Nuvem Fiscal)
-- Avaliar antecipação de recebíveis (precisa validação BCB)
+**Polimento da sessão 2026-05-25** (após auditoria interna):
+- ✅ Substituição em massa dos placeholders de empresa (razão social, CNPJ 55.346.033/0001-80, sede Av. Paulista 1106, foro SP).
+- ✅ DPO nomeado: Jhonatan Vitor Lopes Camargo (e-mail/telefone ainda a preencher quando dedicados forem criados).
+- ✅ Decisão pricing fechada: **10% sobre preço unitário do ingresso, adicionado ao consumidor no checkout**. Aplicada no contrato.
+- ✅ Padronizações: biometria retenção = 30 dias, idade mínima = 18+ estrita, prazo notificação ANPD = 3 dias úteis (Res. ANPD 15/2024).
+- ✅ Correções factuais: CDC art. 27 (5 anos), referência CNPD-EU substituída por Guia ANPD, Lei 14.046 como piso voluntário (não obrigação direta hoje), item LC 116 alternativas atualizadas (1.05/10.05/17.12), ANPD Res. 19/2024 publicada (não em consulta).
 
-### Trilha C — GTM/Comercial (referência)
-- Pricing fechado (10% vs 6,9%+R$2,49 — decisão pendente desde maio/2026).
-- Plano Google Ads (search + PMax).
-- Plano Meta/Instagram Ads.
-- Playbook de promoters (papel já existe no produto).
-- Tracking plan / KPIs.
-- Funil + CAC/LTV alvo.
+**Pendente para go-live** (todos detalhados em [`legal/PROXIMOS-PASSOS.md`](../legal/PROXIMOS-PASSOS.md)):
+- 🔴 Revisão por advogado(a) habilitado em CDC/LGPD/ticketing
+- 🔴 Revisão por contador(a) com prática SaaS/marketplace (regime tributário, item LC 116 final, alíquota ISS SP)
+- 🔴 Criar e-mails institucionais (`privacidade@`, `juridico@`, `suporte@`, `contato@` em `pulse.com.br`)
+- 🔴 Setar provedor NFS-e (recomendação na análise: Nuvem Fiscal); habilitar emissão real
+- 🔴 Confirmar URLs de DPA dos subprocessadores (Pagar.me, Railway, Upstash)
+- Avaliar antecipação de recebíveis (precisa validação BCB) ou remover do brand-kit
+- Alinhar bundle ID `com.jotav.pulse.producer` vs `com.pulse.producer` no EULA mobile
+
+### Trilha C — GTM/Comercial — ✅ docs prontos + GTM instalado
+
+**Drafts em [`commercial/gtm/`](../commercial/gtm/README.md)**:
+- ✅ Go-to-Market plan: ICP, 4 fases de rollout, métricas-chave por fase, riscos
+- ✅ Pricing público (taxa 10% fechada, tabela publicável)
+- ✅ Piloto produtoras: critérios, shortlist template, templates de outbound (DM + email), funil
+- ✅ Plano Google Ads completo: keywords, headlines, budgets por fase (R$ 50/dia → R$ 3k/dia), Performance Max, KPIs
+- ✅ Plano Meta Ads completo: públicos (B2C 12M + B2B 80k), criativos, CBO, Conversions API
+- ✅ Tracking plan: 38 eventos mapeados, dataLayer schema, integração GTM/GA4/Meta Pixel
+- ✅ Playbook promoters: estrutura de comissão, fluxo, KPIs, anti-fraude
+- 🟨 Programa indicação B2B (outline — falta decisão de modelo flat vs recorrente)
+
+**Instalação técnica (entregue)**:
+- `client-web/src/components/analytics/GtmScript.tsx` + `lib/analytics.ts` (helper `track()`)
+- `producer-web/src/components/analytics/GtmScript.tsx` + `lib/analytics.ts`
+- Wire em ambos `app/layout.tsx` (Consent Mode v2 default = denied, LGPD-friendly)
+- Snippet GTM no `<head>` de `landing-page/index.html`
+- Env vars `NEXT_PUBLIC_GTM_ID` documentadas nos 2 `.env.example`
+
+**Pendente para go-live**:
+- 🔴 Criar GTM container + GA4 property + Meta BM (5–10 min cada) e popular envs no Vercel/Railway
+- 🔴 Implementar `track()` calls nos pontos críticos do código (purchase, view_item, begin_checkout, producer_signup)
+- 🔴 Conversions API server-side (`MetaConversionsApi.ts` + `GA4MeasurementProtocol.ts` no backend — backlog)
+- 🔴 Banner de consent cookies (LGPD)
+- Outbound piloto: lista de 20 produtoras + templates já estão prontos em `piloto-produtoras.md`
+- Decisão flat vs recorrente do programa de indicação
 - Programa de indicação.
 - Press kit / comunicação de lançamento.
 

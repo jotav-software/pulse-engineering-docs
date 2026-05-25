@@ -11,9 +11,9 @@
 
 | Item | Valor |
 |---|---|
-| Razão social | `[RAZÃO SOCIAL PULSE]` |
-| CNPJ | `[CNPJ]` |
-| Endereço | `[ENDEREÇO COMPLETO]` |
+| Razão social | `Jhonatan Vitor Lopes Camargo Consultoria em Tecnologia da Informação LTDA` |
+| CNPJ | `55.346.033/0001-80` |
+| Endereço | `Av. Paulista, 1106, Sala 01, Andar 16, Bela Vista, São Paulo/SP, CEP 01310-914` |
 | Encarregado (DPO) | `[NOME / EMPRESA] — dpo@pulse.com.br` |
 | Site / canal | `https://pulse.com.br/privacidade` |
 

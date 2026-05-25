@@ -11,7 +11,7 @@ Este documento complementa o [`ROPA.md`](./ROPA.md) e justifica, por seção, a 
 
 ## 1. RAZÕES METODOLÓGICAS
 
-1.1. A LGPD lista **10 (dez)** hipóteses para dados pessoais comuns (Art. 7º) e **8 (oito)** para dados pessoais sensíveis (Art. 11). A escolha da base **não é arbitrária**: cada tratamento deve eleger **uma única base principal** suficiente para sustentá-lo, sob pena de invalidade (Enunciado 25 do CNPD-EU análogo na ANPD).
+1.1. A LGPD lista **10 (dez)** hipóteses para dados pessoais comuns (Art. 7º) e **8 (oito)** para dados pessoais sensíveis (Art. 11). A escolha da base **não é arbitrária**: cada tratamento deve eleger **uma única base principal** suficiente para sustentá-lo, sob pena de invalidade — entendimento consolidado pela ANPD em seu Guia Orientativo de Bases Legais.
 
 1.2. Hierarquia interna seguida pela Pulse:
 

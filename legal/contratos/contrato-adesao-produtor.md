@@ -9,7 +9,7 @@
 
 ## PARTES
 
-**CONTRATADA**: `[RAZÃO SOCIAL PULSE]`, inscrita no CNPJ sob nº `[CNPJ]`, com sede em `[ENDEREÇO COMPLETO]`, doravante denominada **"PULSE"**.
+**CONTRATADA**: `Jhonatan Vitor Lopes Camargo Consultoria em Tecnologia da Informação LTDA`, inscrita no CNPJ sob nº `55.346.033/0001-80`, com sede em `Av. Paulista, 1106, Sala 01, Andar 16, Bela Vista, São Paulo/SP, CEP 01310-914`, doravante denominada **"PULSE"**.
 
 **CONTRATANTE**: o(a) produtor(a), pessoa física ou jurídica, qualificado(a) no formulário eletrônico de adesão integrado a este Contrato, doravante denominado(a) **"PRODUTOR"**.
 
@@ -64,7 +64,7 @@ As PARTES celebram este Contrato, que se regerá pelas seguintes cláusulas.
 
    **Modelo de cobrança principal**: a taxa de intermediação é **adicionada ao preço unitário do ingresso** e paga pelo CONSUMIDOR FINAL no checkout. O PRODUTOR recebe **o valor cheio do ingresso ofertado, sem desconto**, exceto as deduções previstas neste Contrato (Cláusula 4).
 
-   **Percentual atual da taxa**: `[DEFINIR — 10% OU 6,9% + R$ 2,49 — VER ROADMAP architecture/payments/especificacao.md §10]`.
+   **Percentual atual da taxa**: **10% (dez por cento)** sobre o preço unitário do ingresso ofertado pelo PRODUTOR, calculado e exibido ao CONSUMIDOR FINAL no momento do checkout.
 
 3.2. A PULSE poderá oferecer **plano alternativo** em que a taxa é descontada do repasse ao PRODUTOR (taxa absorvida pelo PRODUTOR), mediante condições específicas pactuadas no portal.
 
@@ -72,7 +72,7 @@ As PARTES celebram este Contrato, que se regerá pelas seguintes cláusulas.
 
 3.4. **Outras taxas operacionais**:
    - **Estornos / chargebacks**: o custo do estorno (taxa cobrada pelo gateway de pagamento, atualmente entre R$ 2,00 e R$ 25,00 por operação a depender da bandeira) será debitado do saldo do PRODUTOR;
-   - **Saque manual antecipado** (caso ofertado): taxa de `[VALOR]`;
+   - **Saque manual antecipado** (caso ofertado): taxa flat de **R$ 4,90** por solicitação adicional ao saque automático D+1 já incluso na taxa de intermediação;
    - **Antecipação de recebíveis** (se ofertada): condições específicas serão informadas no momento da solicitação. `[BLOQUEADO ATÉ VALIDAÇÃO REGULATÓRIA BCB]`.
 
 ---
@@ -126,7 +126,7 @@ As PARTES celebram este Contrato, que se regerá pelas seguintes cláusulas.
 ## CLÁUSULA 6ª — OBRIGAÇÕES E DIREITOS DA PULSE
 
 6.1. Cabe à PULSE:
-   - (a) manter a Plataforma operacional, com SLA-alvo de **99% mensal** (medido em janelas de 5 minutos sobre rota crítica de checkout) — incidentes serão comunicados via status page (`[ENDEREÇO]`);
+   - (a) manter a Plataforma operacional, com SLA-alvo de **99% mensal** (medido em janelas de 5 minutos sobre rota crítica de checkout) — incidentes serão comunicados via status page (`Av. Paulista, 1106, Sala 01, Andar 16, Bela Vista, São Paulo/SP, CEP 01310-914`);
    - (b) repassar valores ao PRODUTOR nos termos da Cláusula 4;
    - (c) prestar suporte técnico ao PRODUTOR pelos canais oficiais — e-mail `suporte@pulse.com.br` e chat in-app — em horário comercial dias úteis;
    - (d) preservar a segurança dos dados pessoais (conforme [Política de Privacidade](../politicas/politica-privacidade.md));
@@ -246,7 +246,7 @@ As PARTES celebram este Contrato, que se regerá pelas seguintes cláusulas.
 
 15.1. Este Contrato é regido pelas leis da **República Federativa do Brasil**.
 
-15.2. Fica eleito o foro da Comarca de `[CIDADE/UF DA SEDE DA PULSE]` para dirimir quaisquer controvérsias.
+15.2. Fica eleito o foro da Comarca de `São Paulo/SP` para dirimir quaisquer controvérsias.
 
 ---
 

@@ -7,9 +7,9 @@
 
 ## 1. Sumário
 
-A **Lei 14.046/2020** dispõe sobre as medidas emergenciais para o setor de **eventos e turismo** afetadas pela pandemia de COVID-19 — mas sua aplicação foi estendida via Lei 14.186/2021 e MPs subsequentes para regular **cancelamento, adiamento e reembolso** em eventos coletivos. Embora editada em contexto emergencial, **algumas regras passaram a balizar a prática do setor** e continuam relevantes.
+A **Lei 14.046/2020** dispõe sobre as medidas emergenciais para o setor de **eventos e turismo** afetadas pela pandemia de COVID-19. Sua vigência plena se ligou à duração do estado de calamidade pública (encerrado em 31/12/2022, Decreto Legislativo nº 6/2020). **Não regula obrigatoriamente eventos cancelados fora de contexto pandêmico.**
 
-A Pulse adota suas previsões como **piso mínimo** de proteção ao consumidor.
+A Pulse adota suas previsões como **piso voluntário de proteção ao consumidor**, fundamentando o efetivo direito de reembolso no **art. 35 do CDC** (descumprimento da oferta) e art. 6º, VI (efetiva prevenção e reparação de danos). Em caso de força maior superveniente (epidemia, ato de autoridade, calamidade declarada), a Lei 14.046/2020 e/ou regras setoriais correspondentes voltam a ser invocadas como base direta.
 
 ## 2. Aplicabilidade
 

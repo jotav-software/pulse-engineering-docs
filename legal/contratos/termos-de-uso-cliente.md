@@ -11,7 +11,7 @@
 
 A **Pulse** é uma plataforma de tecnologia que conecta você (consumidor) a produtores de eventos para que você possa **descobrir, comprar ingressos e entrar** em festas, shows e eventos no Brasil.
 
-A Pulse é operada por `[RAZÃO SOCIAL]`, CNPJ `[CNPJ]`, com sede em `[ENDEREÇO]` (doravante "Pulse", "nós").
+A Pulse é operada por `Jhonatan Vitor Lopes Camargo Consultoria em Tecnologia da Informação LTDA`, CNPJ `55.346.033/0001-80`, com sede em `Av. Paulista, 1106, Sala 01, Andar 16, Bela Vista, São Paulo/SP, CEP 01310-914` (doravante "Pulse", "nós").
 
 **Importante**: A Pulse **intermedia** a venda do ingresso. **Quem organiza o evento é o produtor**. Quando você compra um ingresso, está fechando uma relação com o produtor (responsável pelo evento), e usando a Pulse como ferramenta de pagamento, entrega do ingresso, identificação na portaria, etc.
 
@@ -55,7 +55,7 @@ Estes Termos regulam o uso da Plataforma. Ao **criar uma conta, comprar um ingre
    - Paga via **Pix** ou **cartão de crédito** (parcelamento em até 4x sem juros, conforme oferta do produtor).
    - Recebe confirmação por e-mail e visualiza o ingresso no app.
 
-4.2. **Limite de compra**: a Pulse aplica um limite de até `[NÚMERO]` ingressos por evento por CPF, para coibir cambismo.
+4.2. **Limite de compra**: a Pulse aplica um limite de até `6` ingressos por evento por CPF, para coibir cambismo.
 
 4.3. **Preço total** mostrado no checkout inclui o valor cobrado pelo produtor + a **Taxa de Conveniência Pulse**. A taxa cobre a operação da Plataforma (servidores, gateway de pagamento, segurança, atendimento).
 
@@ -77,7 +77,7 @@ Estes Termos regulam o uso da Plataforma. Ao **criar uma conta, comprar um ingre
    - É **opcional**. Quem não quiser usa o QR.
    - Mediante seu consentimento expresso e específico, a Pulse coleta uma foto e gera um **embedding** (vetor matemático, criptografado em repouso — AES-256-GCM).
    - Uso exclusivo: identificação 1:N na portaria do evento para o qual você comprou.
-   - Retenção: a galeria biométrica é **automaticamente apagada** após `[X DIAS]` do término do evento.
+   - Retenção: a galeria biométrica é **automaticamente apagada** após `30 dias` do término do evento.
    - Detalhes técnicos e medidas de segurança: [LGPD Biometria](../../product/facial/lgpd-security.md).
    - Você pode **revogar o consentimento** e solicitar exclusão antecipada a qualquer momento.
 
@@ -158,7 +158,7 @@ Todas as regras de reembolso estão na **[Política de Reembolso](../politicas/p
 
 ## 11. Propriedade intelectual
 
-11.1. A Pulse, o nome, o logotipo, o design, o código e os textos da Plataforma são **propriedade exclusiva** de `[RAZÃO SOCIAL]`.
+11.1. A Pulse, o nome, o logotipo, o design, o código e os textos da Plataforma são **propriedade exclusiva** de `Jhonatan Vitor Lopes Camargo Consultoria em Tecnologia da Informação LTDA`.
 
 11.2. O conteúdo dos eventos (banners, descrições) é dos **produtores**, e licenciado à Pulse apenas para divulgação.
 
@@ -210,7 +210,7 @@ Todas as regras de reembolso estão na **[Política de Reembolso](../politicas/p
 
 16.1. **Lei aplicável**: Brasil.
 
-16.2. **Foro**: nas relações com consumidor, prevalece o domicílio do consumidor (CDC); subsidiariamente, foro de `[CIDADE/UF DA SEDE]`.
+16.2. **Foro**: nas relações com consumidor, prevalece o domicílio do consumidor (CDC); subsidiariamente, foro de `São Paulo/SP`.
 
 16.3. **Comunicação oficial**: e-mail `contato@pulse.com.br` e o portal `[URL]`.
 

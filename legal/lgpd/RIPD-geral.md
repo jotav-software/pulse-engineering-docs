@@ -21,7 +21,7 @@ Este documento avalia os **riscos à proteção de dados pessoais** decorrentes 
 
 | Item | Descrição |
 |---|---|
-| Controlador | Pulse (`[RAZÃO SOCIAL]`) |
+| Controlador | Pulse (`Jhonatan Vitor Lopes Camargo Consultoria em Tecnologia da Informação LTDA`) |
 | Atividade avaliada | Operação integral da Plataforma Pulse (cadastro, ingressos, biometria, pagamentos, comunicação, suporte) |
 | Categorias de dados | Identificação, contato, financeiros, biométricos sensíveis, logs técnicos |
 | Volume estimado | `[ESTIMATIVA — ex: 100k-500k titulares no primeiro ano]` |
@@ -169,7 +169,7 @@ Em caso de incidente que possa acarretar **risco ou dano relevante**:
 1. **Detecção** (Sentry, logs, denúncia, ouvinte externo).
 2. **Contenção imediata** (rotacionar creds, isolar serviço).
 3. **Avaliação** (escopo, dados afetados, número de titulares).
-4. **Comunicação à ANPD** em prazo razoável (jurisprudência aceita ≤72h, alinhar com GDPR).
+4. **Comunicação à ANPD** em até **3 (três) dias úteis** contados do conhecimento do incidente, conforme **Resolução CD/ANPD nº 15/2024**, art. 5º.
 5. **Comunicação aos titulares afetados** com:
    - descrição do incidente;
    - dados envolvidos;

@@ -12,7 +12,7 @@ Em cumprimento ao **Art. 41 da LGPD**, a Pulse designa formalmente um Encarregad
 **Modelo escolhido**: `[INTERNO | TERCEIRIZADO]`
 
 - **Opção A — DPO interno**: `[NOME COMPLETO]`, `[CARGO]`, registrado pela Pulse para esta função.
-- **Opção B — DPO terceirizado**: `[RAZÃO SOCIAL DA EMPRESA]`, CNPJ `[CNPJ]`, contratada para prestar o serviço de DPO-as-a-Service.
+- **Opção B — DPO terceirizado**: `[RAZÃO SOCIAL DA EMPRESA]`, CNPJ `55.346.033/0001-80`, contratada para prestar o serviço de DPO-as-a-Service.
 
 A escolha deve ser registrada no contrato social ou em ato formal interno, e divulgada publicamente.
 
@@ -22,7 +22,7 @@ Conforme exige a LGPD (Art. 41, §1º), o contato do DPO é **público e acessí
 
 - **E-mail**: `dpo@pulse.com.br`
 - **Formulário web**: `[URL]/dpo` (com captcha para evitar spam)
-- **Endereço para correspondência**: `[ENDEREÇO COMPLETO]` — A/C "Encarregado pelo Tratamento de Dados"
+- **Endereço para correspondência**: `Av. Paulista, 1106, Sala 01, Andar 16, Bela Vista, São Paulo/SP, CEP 01310-914` — A/C "Encarregado pelo Tratamento de Dados"
 
 O contato consta:
 - na [Política de Privacidade](../politicas/politica-privacidade.md);

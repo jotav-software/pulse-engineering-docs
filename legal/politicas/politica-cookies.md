@@ -144,7 +144,7 @@ Em apps Pulse Cliente e Pulse Produtor (Expo / React Native), tecnologias equiva
 
 ## 7. DADOS DE MENORES
 
-7.1. A Plataforma é destinada a maiores de 18 anos (ou maiores de 16 emancipados, conforme [Termos de Uso](../contratos/termos-de-uso-cliente.md)).
+7.1. A Plataforma é destinada exclusivamente a **maiores de 18 anos**, conforme [Termos de Uso](../contratos/termos-de-uso-cliente.md).
 
 7.2. **Não direcionamos publicidade ou rastreamento a crianças** (Art. 14 LGPD). Nenhum cookie de marketing é ativado para usuários identificados como menores.
 

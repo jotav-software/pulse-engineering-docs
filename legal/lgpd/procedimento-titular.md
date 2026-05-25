@@ -45,7 +45,7 @@ E ainda:
 ### 2.2. Canais secundários (aceitos mas redirecionados)
 
 - Telefone / chat de suporte: o atendente registra o pedido no sistema interno e encaminha ao Encarregado em até 1 dia útil.
-- Carta física para a sede `[ENDEREÇO COMPLETO]`: digitalizada e tratada como qualquer outro pedido.
+- Carta física para a sede `Av. Paulista, 1106, Sala 01, Andar 16, Bela Vista, São Paulo/SP, CEP 01310-914`: digitalizada e tratada como qualquer outro pedido.
 
 ### 2.3. Identificação do canal nos documentos
 
@@ -272,7 +272,7 @@ Os canais devem aparecer **expressamente** em:
 
 9.1. Em caso de petição do titular à ANPD, o DPO responde formalmente em **até 10 dias úteis** após a notificação.
 
-9.2. Em caso de **incidente** com dados pessoais (Art. 48 LGPD), o procedimento próprio está em `[RIPD-geral.md / incidente-resposta.md — A CRIAR]`. A comunicação à ANPD é feita em **prazo razoável** (sugestão ANPD: até **2 dias úteis** após a tomada de ciência).
+9.2. Em caso de **incidente** com dados pessoais (Art. 48 LGPD), o procedimento próprio está em [`RIPD-geral.md`](RIPD-geral.md) §6 ("Resposta a Incidentes"). A comunicação à ANPD é feita em até **3 (três) dias úteis** após a tomada de ciência, conforme **Resolução CD/ANPD nº 15/2024**, art. 5º.
 
 ---
 

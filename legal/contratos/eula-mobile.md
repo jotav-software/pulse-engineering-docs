@@ -59,7 +59,7 @@ Você pode parar de usar o app a qualquer momento desinstalando. A Pulse pode **
 
 ## 10. Lei aplicável
 
-Brasil. Foro do domicílio do consumidor (CDC) ou de `[CIDADE/UF DA SEDE PULSE]` para relações B2B (produtor).
+Brasil. Foro do domicílio do consumidor (CDC) ou de `São Paulo/SP` para relações B2B (produtor).
 
 ---
 

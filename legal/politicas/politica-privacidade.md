@@ -11,7 +11,7 @@ A Pulse leva sua privacidade muito a sério. Esta Política explica, em linguage
 
 ## 1. Quem somos
 
-**Controlador dos dados**: `[RAZÃO SOCIAL]`, CNPJ `[CNPJ]`, com sede em `[ENDEREÇO]`.
+**Controlador dos dados**: `Jhonatan Vitor Lopes Camargo Consultoria em Tecnologia da Informação LTDA`, CNPJ `55.346.033/0001-80`, com sede em `Av. Paulista, 1106, Sala 01, Andar 16, Bela Vista, São Paulo/SP, CEP 01310-914`.
 
 **Encarregado pelo Tratamento de Dados Pessoais (DPO)**: `[NOME OU "Função DPO terceirizada por <empresa>"]` — contato: `dpo@pulse.com.br` e formulário em `[URL]`.
 
@@ -32,7 +32,7 @@ A Pulse pode atuar como **controladora** (define finalidades e meios — caso da
 ### 2.3. Quando você opta por biometria facial (Art. 11 LGPD — dado pessoal sensível)
 - **Foto e embedding facial** (vetor matemático de 512 dimensões), coletado mediante **consentimento expresso e específico**. Detalhes técnicos e medidas de segurança em [LGPD Biometria](../../product/facial/lgpd-security.md).
 - Uso exclusivo: identificação na portaria do evento para o qual o consentimento foi dado.
-- **Retenção máxima**: até `[X DIAS]` após o término do evento — daí é **apagado automaticamente** por job recorrente.
+- **Retenção máxima**: até `30 dias` após o término do evento — daí é **apagado automaticamente** por job recorrente.
 
 ### 2.4. Coletados automaticamente
 - **Logs técnicos**: IP, navegador/SO, identificadores do dispositivo, timestamps de acesso, rotas acessadas — base legal: cumprimento de obrigação legal (Marco Civil da Internet, Lei 12.965/2014: 6 meses para apps de internet) e legítimo interesse (segurança).
@@ -110,9 +110,9 @@ Detalhes: [DPA Subprocessadores](../lgpd/dpa-subprocessadores.md).
 | Logs de acesso e operações | 6 meses (Marco Civil) — depois anonimizados ou apagados |
 | Transações financeiras / fiscais | 5 anos (CTN art. 173) |
 | KYC de produtor (após encerramento de relação) | 5 anos (combate à fraude / obrigação BC) |
-| Biometria facial | Até `[X DIAS]` após término do evento (purga automática) |
+| Biometria facial | Até `30 dias` após término do evento (purga automática) |
 | Audit logs | Conforme política interna — mínimo 12 meses |
-| Suporte ao cliente | 3 anos (CDC art. 27) |
+| Suporte ao cliente | 5 anos (prescrição CDC art. 27) |
 
 ## 7. Seus direitos (Art. 18 LGPD)
 
@@ -174,7 +174,7 @@ A versão anterior fica disponível em `[URL HISTÓRICO]`.
 
 - **DPO / Privacidade**: `dpo@pulse.com.br`
 - **Suporte geral**: `suporte@pulse.com.br`
-- **Endereço para correspondência formal**: `[ENDEREÇO]`
+- **Endereço para correspondência formal**: `Av. Paulista, 1106, Sala 01, Andar 16, Bela Vista, São Paulo/SP, CEP 01310-914`
 - **Autoridade Nacional de Proteção de Dados (ANPD)**: https://www.gov.br/anpd — se você não estiver satisfeito com nossa resposta.
 
 ---

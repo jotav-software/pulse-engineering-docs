@@ -43,8 +43,12 @@ Há, portanto, **2 (duas) operações fiscais distintas**:
 
 - **Responsabilidade**: **PULSE**.
 - **Tipo de nota**: **NFS-e** (Nota Fiscal de Serviço Eletrônica) — serviço de intermediação tecnológica.
-- **Item de serviço (LC 116/2003)**: `1.04` (elaboração de programas de computadores) ou `1.07` (suporte técnico) ou `10.02` (agenciamento, corretagem ou intermediação) — `[VALIDAR COM CONTADOR — O MAIS ALINHADO PARECE 10.02 OU 1.05 (LICENCIAMENTO DE PROGRAMAS)]`.
-- **ISS**: alíquota varia por município (geralmente 2% a 5%). A sede da Pulse define o município competente. `[INFORMAR MUNICÍPIO DA SEDE]`.
+- **Item de serviço (LC 116/2003)** — opções a validar com contador, em ordem de aderência ao modelo de negócio:
+  - **`1.05` (licenciamento ou cessão de direito de uso de programas de computação)** — viável se o produtor enxergar a Pulse como SaaS licenciado;
+  - **`17.12` (administração em geral, inclusive de bens e negócios de terceiros)** — viável como prestação de serviço de gestão da venda;
+  - **`10.05` (agenciamento, corretagem ou intermediação de bens móveis ou imóveis, não abrangidos em outros itens ou subitens, inclusive aqueles realizados no âmbito de Bolsas de Mercadorias e Futuros, por quaisquer meios)** — interpretação mais antiga; subitem 10.02 é específico para *títulos e valores mobiliários* e **não se aplica** ao caso da Pulse.
+  - **Recomendação técnica preliminar**: `1.05` para a parcela SaaS (licença) + `10.05` ou `17.12` para a parcela de intermediação. Combo emite NFS-e com itens distintos. `[CONFIRMAR COM CONTADOR]`.
+- **ISS — Município de São Paulo/SP** (sede): alíquota geral 5%, com possibilidade de **2,9% a 2,5%** para serviços de TI/software conforme Lei Municipal 13.701/2003 e regulamentação SP (Decreto 50.896/2009). **Validar enquadramento exato com contador**.
 - **Periodicidade**: **uma NFS-e por movimentação de repasse** (modelo simples) ou **resumo mensal por produtor** (modelo agregado). Recomendação técnica: **por movimentação**, alinhada ao `ProducerPayoutMovement`.
 
 ### 2.3. Operação C — Taxa de conveniência adicionada ao consumidor
