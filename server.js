@@ -81,12 +81,12 @@ function requireInternalAuth(req, res, next) {
 }
 
 function legacyDocsRedirect(req, res, next) {
-  const pathname = req.path.split('?')[0];
+  const pathname = req.originalUrl.split('?')[0];
   for (const [from, to] of DOC_REDIRECTS) {
     if (pathname === from || pathname.startsWith(`${from}/`)) {
       const suffix = pathname.slice(from.length);
-      const target = `${to}${suffix}${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`;
-      return res.redirect(301, target);
+      const query = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
+      return res.redirect(301, `${to}${suffix}${query}`);
     }
   }
   return next();
