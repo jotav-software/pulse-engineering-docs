@@ -36,7 +36,7 @@ Sem credenciais configuradas, rotas protegidas retornam **503**.
 
 | Variável | Descrição |
 |---|---|
-| `PULSE_API_URL` | URL do backend (ex.: `https://api.pulse.jotav.com.br`) |
+| `PULSE_API_URL` | URL do backend — prod: `https://api.pulse.jotav.com.br` (configurado no Railway) |
 
 Se configurada, o servidor aceita `Authorization: Bearer <token>` de sessão **PULSE_ADMIN** (validado via `GET /api/admin/v1/auth/me`). Basic Auth continua como fallback.
 
@@ -104,15 +104,41 @@ cd pulse-engineering-docs
 NEXT_PUBLIC_BRAND_CDN_URL=https://pulse-brand-assets-production.up.railway.app
 ```
 
-## Deploy
+## Deploy e GitHub (auto-deploy)
+
+| Item | Valor |
+|------|-------|
+| Repositório | `jotav-software/pulse-engineering-docs` |
+| Branch | `main` |
+| Root directory | `/` (raiz do repo) |
+| Trigger | Push na branch `main` dispara build/deploy no Railway |
+
+Conectar o serviço ao GitHub (uma vez): Railway → **pulse-brand-assets** → **Settings** → **Connect GitHub repo**, ou via API `serviceConnect` com `repo` + `branch`.
+
+Fallback manual (sem Git ou emergência):
 
 ```bash
 railway link -p Pulse -e production -s pulse-brand-assets
-railway variables --set 'BRAND_KIT_USER=<usuario>'
-railway variables --set 'BRAND_KIT_PASSWORD=<senha>'
-railway variables --set 'PULSE_API_URL=https://api.pulse.jotav.com.br'  # opcional
-railway up -s pulse-brand-assets -d
+railway up -d
 ```
+
+### Variáveis Railway (production)
+
+| Variável | Obrig. | Valor em prod | Notas |
+|----------|--------|---------------|-------|
+| `BRAND_KIT_USER` | Sim | `pulse-brand` | Basic Auth para rotas internas |
+| `BRAND_KIT_PASSWORD` | Sim | *(segredo no Railway)* | Não versionar; rotacionar com `openssl rand -base64 24` |
+| `PULSE_API_URL` | Recom. | `https://api.pulse.jotav.com.br` | Bearer admin opcional; Basic Auth permanece fallback |
+| `PORT` | Sim | *(injetado)* | Railway define automaticamente |
+
+```bash
+railway link -p Pulse -e production -s pulse-brand-assets
+railway variables --set 'BRAND_KIT_USER=pulse-brand'
+railway variables --set 'BRAND_KIT_PASSWORD=<openssl rand -base64 24>'
+railway variables --set 'PULSE_API_URL=https://api.pulse.jotav.com.br'
+```
+
+Alterações de variável reiniciam o serviço; não exigem novo commit.
 
 O `.railwayignore` exclui binários pesados; sobem `brand/`, pastas de docs, `lib/`, `server.js`, `package.json`, `railway.toml`, `README.md`.
 

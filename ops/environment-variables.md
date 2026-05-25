@@ -12,6 +12,7 @@ Documento **canônico** de configuração por sistema. Valores secretos **nunca*
 | client-web | `https://pulse.jotav.com.br` | `https://client-web-production-be7d.up.railway.app` |
 | pulse-producer-web (admin) | `https://admin.pulse.jotav.com.br` | `https://pulse-producer-web-production.up.railway.app` |
 | pulse-face | `https://face.jotav.com.br` | `https://pulse-face-production.up.railway.app` |
+| pulse-brand-assets (CDN + docs) | — | `https://pulse-brand-assets-production.up.railway.app` |
 | pulse-landing-page | — | `https://pulse-landing-page-production-e0ce.up.railway.app` |
 
 Frontends e apps mobile devem usar **`NEXT_PUBLIC_API_URL` / `EXPO_PUBLIC_API_URL` = `https://api.pulse.jotav.com.br`** (com `https://`).
@@ -280,33 +281,38 @@ Domínio prod: `https://pulse-landing-page-production-e0ce.up.railway.app`.
 
 ---
 
-## pulse-brand-assets (Railway — CDN estático)
+## pulse-brand-assets (Railway — CDN + docs)
 
-Repositório **pulse-engineering-docs**. Serve `brand/` com split público/protegido via `server.js`.
+Repositório **pulse-engineering-docs** (`jotav-software/pulse-engineering-docs`). Runtime: `node server.js` (Express + marked).
 
 | Item | Valor |
 |------|-------|
-| Deploy | `railway up -s pulse-brand-assets` em `pulse-engineering-docs/` |
+| Projeto / serviço | **Pulse** → **pulse-brand-assets** (production) |
+| GitHub | `jotav-software/pulse-engineering-docs`, branch **`main`**, root **`/`** |
+| Deploy | **Auto-deploy** em push para `main`; fallback manual: `railway up -d` |
 | URL prod | `https://pulse-brand-assets-production.up.railway.app` |
-| Health | `/assets/svg/logo-mark.svg` (público) |
-| Docs | [ops/brand-cdn.md](./brand-cdn.md) |
+| Health | `/assets/svg/logo-mark.svg` (público; ver `railway.toml`) |
+| Docs detalhadas | [ops/brand-cdn.md](./brand-cdn.md) |
 
 | Variável | Obrig. | Ambiente | example | prod | Notas |
 |----------|--------|----------|---------|------|-------|
-| `BRAND_KIT_USER` | **Sim** | prod | — | Sim | Usuário HTTP Basic Auth para `/kit/**` e brief |
-| `BRAND_KIT_PASSWORD` | **Sim** | prod | — | Sim | Senha HTTP Basic Auth — gerar com `openssl rand -base64 24` |
-| `PORT` | Sim | all | — | Sim (inj.) | Railway injeta automaticamente |
+| `BRAND_KIT_USER` | **Sim** | prod | — | **Sim** | HTTP Basic Auth (`/kit/**`, `/docs/**`, brief). Prod: usuário `pulse-brand` (Railway). |
+| `BRAND_KIT_PASSWORD` | **Sim** | prod | — | **Sim** | Segredo **somente no Railway** — gerar com `openssl rand -base64 24`; nunca commitar. |
+| `PULSE_API_URL` | Recom. | prod | — | **Sim** | `https://api.pulse.jotav.com.br` — valida `Authorization: Bearer` de sessão **PULSE_ADMIN** via `GET /api/admin/v1/auth/me`. Basic Auth continua como fallback. |
+| `PORT` | Sim | all | — | Sim (inj.) | Railway injeta; local default `8080`. |
 
-Rotas **públicas** (sem auth): `/assets/**` — usadas por apps via `NEXT_PUBLIC_BRAND_CDN_URL`.
+Rotas **públicas** (sem auth): `/assets/**` — consumo via `NEXT_PUBLIC_BRAND_CDN_URL`.
 
-Rotas **protegidas**: `/kit/**`, `/brand-kit-brief.md`.
+Rotas **protegidas** (Basic Auth e/ou Bearer admin): `/kit/**`, `/brand-kit-brief.md`, `/docs/**`.
 
-Variável opcional nos frontends web: `NEXT_PUBLIC_BRAND_CDN_URL` apontando para a URL acima (só `/assets/`).
+Sem `BRAND_KIT_*` **e** sem Bearer admin válido, rotas protegidas retornam **503**.
 
 ```bash
 railway link -p Pulse -e production -s pulse-brand-assets
 railway variables --set 'BRAND_KIT_USER=pulse-brand'
 railway variables --set 'BRAND_KIT_PASSWORD=<openssl rand -base64 24>'
+railway variables --set 'PULSE_API_URL=https://api.pulse.jotav.com.br'
+# GitHub: Settings → Connect repo (ou GraphQL serviceConnect) — branch main
 ```
 
 ---
@@ -407,4 +413,4 @@ Variáveis adicionadas nesta revisão da documentação (estavam em `.env.exampl
 - [Plano launch readiness](./launch-readiness-plan.md) — Sentry, Upstash, R2, PII
 - `backend/.env.example`
 
-*Última atualização: 2026-05-25 — auditoria completa vs `.env.example` de todos os projetos e vars Railway recentes.*
+*Última atualização: 2026-05-25 — pulse-brand-assets: GitHub auto-deploy + envs Railway documentadas.*
