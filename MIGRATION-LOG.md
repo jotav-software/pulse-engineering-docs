@@ -53,7 +53,7 @@
 |---|---|
 | `docs/BRAND-KIT-BRIEF.md` | `brand/brand-kit-brief.md` |
 | `docs/Pulse/pulse-kit/*` (HTMLs + assets) | `brand/kit/` |
-| `docs/Pulse/uploads/logo-pulse-*.{svg,png}` + `app-icon-pulse-*.png` | `brand/assets/` |
+| `docs/Pulse/uploads/logo-pulse-*.{svg,png}` + `app-icon-pulse-*.png` + `pulse-brand-kit-ultima-versao/` | `brand/assets/` *(consolidado 2026-05-25)* |
 | `docs/apresentacao/pagamentos-pulse-cliente.html` | `commercial/commercial-payments-client.html` |
 | `app-client/docs/app-store-connect-api.md` | `ops/app-store-connect-api.md` |
 | `docs/scripts/*.py` | `scripts/` |
@@ -207,4 +207,18 @@ product/
 - `scripts/build_especificacao_funcional_md.py`, `scripts/update_especificacao_funcional.py`
 
 **Nota:** entradas históricas acima desta seção mantêm caminhos da migração inicial (20/mai); use os caminhos desta tabela como canônicos atuais.
+
+## Consolidação brand kit (2026-05-25)
+
+| Origem | Destino |
+|---|---|
+| `pulse-brand-kit/` | removido (duplicata idêntica) |
+| `pulse-brand-kit-ultima-versao/` | `brand/assets/` (01-logo … 08-cores + svg/) |
+| `pulse-brand-kit-ultima-versao.zip` | removido |
+| `brand/assets/` legado (SVG rasterizado Canva) | removido — substituído pelo kit exportado |
+| `brand/kit/assets/logo-*.svg` | removidos — vetores canônicos em `brand/assets/svg/` |
+
+**CDN:** serviço Railway `pulse-brand-assets` — ver `ops/brand-cdn.md`.
+
+**Sync local:** `./scripts/sync-brand-assets.sh` propaga SVGs/PNGs para landing-page, client-web, producer-web, app-client, app-producer.
 

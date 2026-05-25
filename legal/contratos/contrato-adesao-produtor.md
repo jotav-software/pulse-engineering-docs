@@ -81,7 +81,7 @@ As PARTES celebram este Contrato, que se regerá pelas seguintes cláusulas.
 
 4.1. Os valores arrecadados nas vendas ficam **em custódia** com a PULSE até o repasse.
 
-4.2. **Janela de liberação (RETAINED → AVAILABLE)**: o valor de cada venda fica retido até **D+1 (um dia útil) após a data de término do evento**. A regra técnica está em [`product/policies/repasse.md`](../../product/policies/repasse.md).
+4.2. **Janela de liberação (RETAINED → AVAILABLE)**: o valor de cada venda fica retido até **D+1 (um dia útil) após a data de término do evento**. A regra técnica está em [`product/policies/payout-policies.md`](../../product/policies/payout-policies.md).
 
 4.3. **Razões da retenção**:
    - (a) cobertura de chargebacks (até 180 dias após a venda, conforme regras das bandeiras);

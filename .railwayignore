@@ -1,0 +1,10 @@
+# Deploy slim: brand + docs (sem binários pesados)
+prototypes/
+brand/screenshots/
+node_modules/
+scripts/
+*.mp4
+*.dmg
+*.zip
+.DS_Store
+.git/

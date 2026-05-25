@@ -280,6 +280,37 @@ Domínio prod: `https://pulse-landing-page-production-e0ce.up.railway.app`.
 
 ---
 
+## pulse-brand-assets (Railway — CDN estático)
+
+Repositório **pulse-engineering-docs**. Serve `brand/` com split público/protegido via `server.js`.
+
+| Item | Valor |
+|------|-------|
+| Deploy | `railway up -s pulse-brand-assets` em `pulse-engineering-docs/` |
+| URL prod | `https://pulse-brand-assets-production.up.railway.app` |
+| Health | `/assets/svg/logo-mark.svg` (público) |
+| Docs | [ops/brand-cdn.md](./brand-cdn.md) |
+
+| Variável | Obrig. | Ambiente | example | prod | Notas |
+|----------|--------|----------|---------|------|-------|
+| `BRAND_KIT_USER` | **Sim** | prod | — | Sim | Usuário HTTP Basic Auth para `/kit/**` e brief |
+| `BRAND_KIT_PASSWORD` | **Sim** | prod | — | Sim | Senha HTTP Basic Auth — gerar com `openssl rand -base64 24` |
+| `PORT` | Sim | all | — | Sim (inj.) | Railway injeta automaticamente |
+
+Rotas **públicas** (sem auth): `/assets/**` — usadas por apps via `NEXT_PUBLIC_BRAND_CDN_URL`.
+
+Rotas **protegidas**: `/kit/**`, `/brand-kit-brief.md`.
+
+Variável opcional nos frontends web: `NEXT_PUBLIC_BRAND_CDN_URL` apontando para a URL acima (só `/assets/`).
+
+```bash
+railway link -p Pulse -e production -s pulse-brand-assets
+railway variables --set 'BRAND_KIT_USER=pulse-brand'
+railway variables --set 'BRAND_KIT_PASSWORD=<openssl rand -base64 24>'
+```
+
+---
+
 ## app-client (EAS / `.env`)
 
 Referência: `app-client/.env.example`. Variáveis `EXPO_PUBLIC_*` exigem **rebuild EAS** após alteração.

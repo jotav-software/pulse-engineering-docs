@@ -23,7 +23,7 @@ pulse-engineering-docs/
 ├── standards/     Padrões transversais (API, backend, frontend, testes, segurança, comentários, Prisma)
 ├── product/       Produto: specs, políticas, acesso, facial, dev
 ├── backlog/       Roadmaps e épicos técnicos
-├── brand/         Brand kit, logos, pitch
+├── brand/         Brand kit: assets canônicos (`assets/`), HTML kits (`kit/`), screenshots
 ├── commercial/    Materiais de apresentação para cliente (HTMLs)
 ├── prototypes/    Índice central de mocks HTML (ver README)
 ├── ops/           Credenciais de deploy (App Store API, etc) — sem segredos
@@ -81,12 +81,14 @@ pulse-engineering-docs/
 
 ### Brand & Commercial
 - [Brand kit brief](./brand/brand-kit-brief.md)
-- Brand kit (HTML/assets): `brand/kit/` · `brand/assets/`
+- Brand kit (HTML): `brand/kit/` · Assets canônicos: `brand/assets/` · sync: `scripts/sync-brand-assets.sh` · CDN: `ops/brand-cdn.md`
+- **Documentação no CDN:** `/docs/` (preview Markdown, auth) — ver [ops/brand-cdn.md](./ops/brand-cdn.md)
 - Apresentações para cliente: `commercial/`
 - **Índice de mocks HTML:** [prototypes/README.md](./prototypes/README.md)
 
 ### Ops
 - [Variáveis de ambiente (por sistema)](./ops/environment-variables.md)
+- [Brand CDN (Railway)](./ops/brand-cdn.md)
 - [App Store Connect API (metadata, sem `.p8`)](./ops/app-store-connect-api.md) — chaves privadas em `~/workspace/keys/`
 
 ## Convivência com os repositórios

@@ -85,26 +85,35 @@ linear-gradient(90deg, #e0aaff → #00f5d4)
 
 ## 4. Logotipo
 
-### Arquivo principal
-**Caminho:** `/pulse/client-web/prototypes/landing-page/assets/logo-pulse-roxo.svg`
-*(Mesma versão disponível em `/pulse/app-producer/assets/images/logo-pulse-roxo.svg`)*
+### Fonte canônica
+**Caminho:** `pulse-engineering-docs/brand/assets/`
 
-**Dimensões originais:** 165×51px (horizontal, landscape)
-**Formato:** SVG com imagem rasterizada embutida (exportado do Canva)
-
-### Variantes existentes
+Vetores preferidos (web e apps):
 | Variante | Arquivo |
 |---|---|
-| Roxo (principal) | `logo-pulse-roxo.svg` |
-| Branco (fundo escuro) | `logo-pulse-branco.png` (referenciado no app icon) |
-| Preto | implícito — não encontrado como arquivo separado |
+| Horizontal (cor via CSS) | `assets/svg/logo-horizontal.svg` |
+| Horizontal branco (fundo escuro) | `assets/svg/logo-horizontal-white.svg` |
+| Mark / ícone | `assets/svg/logo-mark.svg` |
+| Empilhado (splash/login) | `assets/svg/logo-stacked.svg` |
 
-### App Icon (SVG limpo, vetorial)
-**Caminho:** `/pulse/app-producer/assets/images/app-icon-pulse-produtor.svg`
-- 1024×1024px
-- Fundo: `#0f172a`
-- Logo centralizada, branca
-- Label "PRODUTOR" em `#94a3b8`, tracking largo, fonte sistema arredondada
+Exportações PNG (Canva, redes, app stores):
+| Variante | Arquivo |
+|---|---|
+| Logo vertical roxo | `assets/01-logo/pulse-logo-vertical-roxo.png` |
+| Wordmark branco | `assets/03-wordmark/pulse-wordmark-branco.png` |
+| App icon (cliente) | `assets/06-app-icon-preenchido/pulse-app-icon-1024.png` |
+
+### Sincronização para repos de código
+```bash
+cd pulse-engineering-docs && ./scripts/sync-brand-assets.sh
+```
+
+Copia SVGs e PNGs essenciais para `landing-page`, `client-web`, `producer-web`, `app-client` e `app-producer`.
+
+### App Icon (produtor)
+**Caminho:** `app-producer/assets/images/app-icon-pulse-produtor.svg`
+- 1024×1024px, fundo `#0f172a`, logo branca, label "PRODUTOR"
+- PNG dedicado: `app-icon-pulse-produtor.png` (não incluído no kit genérico)
 
 ### Instruções de uso
 - Sempre respeitar área de respiro mínima equivalente à altura da letra "P"
@@ -229,8 +238,8 @@ Dark mode:
 ## 8. Assets para Claude Design
 
 ### Logo a usar
-📁 Arquivo: `/pulse/client-web/prototypes/landing-page/assets/logo-pulse-roxo.svg`
-*(Faça upload deste arquivo no Claude Design para reutilizar o logotipo existente)*
+📁 Vetor: `pulse-engineering-docs/brand/assets/svg/logo-horizontal.svg`
+📁 PNG vertical: `pulse-engineering-docs/brand/assets/01-logo/pulse-logo-vertical-roxo.png`
 
 ### Referência de app icon
 📁 Arquivo: `/pulse/app-producer/assets/images/app-icon-pulse-produtor.svg`

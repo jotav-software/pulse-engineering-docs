@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-label="Pulse logo">
+  <defs>
+    <mask id="pulse-cutout-h-white">
+      <rect width="200" height="200" fill="white"></rect>
+      <path d="M 0 105 L 44 105 L 55 86 L 67 131 L 86 60 L 106 141 L 125 105 L 200 105" stroke="black" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+    </mask>
+  </defs>
+  <g fill="#ffffff">
+    <g mask="url(#pulse-cutout-h-white)">
+      <rect x="40" y="25" width="35" height="150" rx="8"></rect>
+      <path d="M 75 25 H 119 a 44 44 0 0 1 0 88 H 75 Z"></path>
+    </g>
+    <path d="M 0 105 L 44 105 L 55 86 L 67 131 L 86 60 L 106 141 L 125 105 L 200 105" stroke="#ffffff" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+  </g>
+  <g font-family="Outfit, Inter, sans-serif" font-weight="800" font-style="italic" font-size="128" letter-spacing="-6">
+    <text x="218" y="142" fill="#ffffff">PULSE</text>
+    <text x="585" y="142" fill="#7b2cbf">!</text>
+  </g>
+</svg>

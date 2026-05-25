@@ -3,3 +3,7 @@
 *.pem
 .env
 .env.*
+*.mp4
+*.dmg
+*.zip
+node_modules/

@@ -120,4 +120,4 @@
 - [ ] Criar Meta Business Manager + Pixel
 - [ ] Criar Google Ads (pode aguardar fase 2)
 - [ ] Outbound: lista de 20 produtoras conhecidas + roteiro DM (template em `piloto-produtoras.md`)
-- [ ] Press kit base: 1 deck + 1 release + 5 screenshots (já existem em `pulse-brand-kit/`)
+- [ ] Press kit base: 1 deck + 1 release + 5 screenshots (assets em `brand/assets/` · kits HTML em `brand/kit/`)

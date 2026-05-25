@@ -1,0 +1,7 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+healthcheckPath = "/assets/svg/logo-mark.svg"
+healthcheckTimeout = 120
+restartPolicyType = "on_failure"

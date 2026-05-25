@@ -214,7 +214,7 @@ ISS recolhido sobre as taxas Pulse (operação B):
 5. Definir **modelo Prisma `Invoice`** + migrações + use cases (§4.2).
 6. Definir **painel** no Pulse Pro para o produtor baixar suas NFS-e.
 7. Decidir **periodicidade** (por movimentação vs. mensal agregada).
-8. Atualizar [`product/policies/repasse.md`](../../product/policies/repasse.md) com o ponto de emissão de NFS-e dentro do fluxo de payout.
+8. Atualizar [`product/policies/payout-policies.md`](../../product/policies/payout-policies.md) com o ponto de emissão de NFS-e dentro do fluxo de payout.
 
 ---
 
@@ -225,7 +225,7 @@ ISS recolhido sobre as taxas Pulse (operação B):
 | [Contrato de Adesão — Cl. 5.1, "d"](../contratos/contrato-adesao-produtor.md) | Obrigação do produtor de emitir NF ao consumidor |
 | [`regime-tributario-recomendado.md`](./regime-tributario-recomendado.md) | Análise de regime (Simples / LP / Lucro Real) |
 | [`retencoes-no-repasse.md`](./retencoes-no-repasse.md) | ISS retido, INSS, IRRF, PIS, COFINS sobre repasse |
-| [`product/policies/repasse.md`](../../product/policies/repasse.md) | Ciclo `RETAINED` → `AVAILABLE` → `PAID_OUT` |
+| [`product/policies/payout-policies.md`](../../product/policies/payout-policies.md) | Ciclo `RETAINED` → `AVAILABLE` → `PAID_OUT` |
 | [`architecture/payments/especificacao.md`](../../architecture/payments/especificacao.md) | Modelo de checkout e taxas |
 
 ---
