@@ -98,10 +98,17 @@ cd pulse-engineering-docs
 ./scripts/sync-brand-assets.sh
 ```
 
-### Variável de ambiente sugerida
+### Variáveis de ambiente por consumer
+
+| Repo | Variável | Helper |
+|------|----------|--------|
+| client-web, producer-web | `NEXT_PUBLIC_BRAND_CDN_URL` | `src/lib/brand-cdn.ts` → `getBrandCdnUrl()`, `brandCdnAsset()` |
+| app-client, app-producer | `EXPO_PUBLIC_BRAND_CDN_URL` | `src/shared/config/brand-cdn.ts` → `getBrandCdnUrl()`, `brandCdnAsset()` |
+| landing-page | `BRAND_CDN_URL` (deploy) | `scripts/apply-brand-cdn-url.sh`; default em HTML + `assets/brand-cdn.js` |
 
 ```
 NEXT_PUBLIC_BRAND_CDN_URL=https://pulse-brand-assets-production.up.railway.app
+EXPO_PUBLIC_BRAND_CDN_URL=https://pulse-brand-assets-production.up.railway.app
 ```
 
 ## Deploy e GitHub (auto-deploy)

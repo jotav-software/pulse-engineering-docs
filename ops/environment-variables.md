@@ -2,7 +2,7 @@
 
 Documento **canônico** de configuração por sistema. Valores secretos **nunca** entram neste repositório — use placeholders e a coluna **Onde obter**.
 
-**Referências locais:** `backend/.env.example`, `client-web/.env.example`, `producer-web/.env.example`, `app-client/.env.example`, `app-producer/.env.example`, `pulse-face/.env.example`.
+**Referências locais:** `backend/.env.example`, `client-web/.env.example`, `producer-web/.env.example`, `app-client/.env.example`, `app-producer/.env.example`, `landing-page/.env.example`, `pulse-face/.env.example`.
 
 **URLs públicas (produção, maio/2026)**
 
@@ -231,6 +231,7 @@ Referência: `producer-web/.env.example`. Variáveis `NEXT_PUBLIC_*` exigem **re
 | `NEXT_PUBLIC_API_URL` | Sim | all | Sim | Sim | `https://api.pulse.jotav.com.br` (com ou sem `https://`; o app normaliza hostname Railway) |
 | `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://admin.pulse.jotav.com.br`; local `http://localhost:3001`. |
 | `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | **Idêntico** ao backend. |
+| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN de logos/ícones. Prod: `https://pulse-brand-assets-production.up.railway.app`. Sem env = fallback local (`public/`). Helper: `src/lib/brand-cdn.ts`. |
 
 ### Sentry (producer-web)
 
@@ -262,6 +263,7 @@ Referência: `client-web/.env.example`.
 | `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://pulse.jotav.com.br`; local `http://localhost:3000`. |
 | `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | **Idêntico** ao backend. |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe | all | —* | Se Stripe | Stripe Dashboard → publishable key. Usado em checkout web. *Adicionar ao `.env.example` se ainda ausente. |
+| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN de logos/ícones. Prod: `https://pulse-brand-assets-production.up.railway.app`. Sem env = fallback local (`public/`). Helper: `src/lib/brand-cdn.ts`. |
 
 Sentry e GTM: mesmas variáveis que producer-web (`NEXT_PUBLIC_SENTRY_*`, `SENTRY_*`, `NEXT_PUBLIC_GTM_ID`, etc.) — ver seção acima.
 
@@ -269,11 +271,17 @@ Sentry e GTM: mesmas variáveis que producer-web (`NEXT_PUBLIC_SENTRY_*`, `SENTR
 
 ## pulse-landing-page (Railway)
 
-Site **estático** (HTML). **Não possui** `.env` nem variáveis de runtime.
+Site **estático** (HTML). Variável de build/deploy para logos em `<img>`.
+
+| Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
+|----------|--------|----------|---------|------|----------------------|
+| `BRAND_CDN_URL` | Opc. | prod | Sim | Sim | Default: `https://pulse-brand-assets-production.up.railway.app`. HTML já aponta para este host; override via `landing-page/scripts/apply-brand-cdn-url.sh` antes do deploy. |
 
 | Item | Notas |
 |------|-------|
 | Deploy | Railway serve arquivos estáticos de `landing-page/`. |
+| Logos runtime | `<img>` → CDN (`/assets/svg/logo-horizontal-white.svg`). Cópias locais em `assets/` mantidas para offline/`file://`. |
+| Screenshots | `images/app-cliente-*.png` permanecem locais (não estão no CDN). |
 | CORS | Se passar a chamar API autenticada, incluir origem em `CORS_ORIGINS` no backend (já incluída URL Railway prod). |
 | Analytics | GTM/Meta/GA4 embutidos no HTML ou via tag manager externo — não via env vars. |
 
@@ -328,6 +336,7 @@ Referência: `app-client/.env.example`. Variáveis `EXPO_PUBLIC_*` exigem **rebu
 | `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe | all | Sim* | Se Stripe | Stripe Dashboard → publishable key. *Comentado no example. |
 | `EXPO_PUBLIC_FACIAL_ENROLLMENT_V2` | Por rollout | all | —* | Por rollout | Espelhar `FACIAL_ENROLLMENT_V2`. *Usado no código; adicionar ao example. |
 | `EXPO_PUBLIC_PULSE_FACE_EXTRACT` | Por rollout | all | —* | Por rollout | Espelhar `PULSE_FACE_EXTRACT_ENABLED`. *Usado no código; adicionar ao example. |
+| `EXPO_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN para imagens runtime (ex.: `AuthLogo`). Prod: `https://pulse-brand-assets-production.up.railway.app`. Sem env = PNGs locais em `assets/images/`. **Splash, app icon e adaptive icon** em `app.json`/`app.config.js` permanecem bundled. Helper: `src/shared/config/brand-cdn.ts`. |
 
 ### Sentry (app-client)
 
@@ -354,6 +363,7 @@ Referência: `app-producer/.env.example`.
 | `EXPO_PUBLIC_CLIENT_WEB_URL` | Opc. | all | — | Opc. | URL client-web para links. Default hardcoded: `https://pulse.jotav.com.br`. |
 | `EXPO_PUBLIC_DEBUG_SCANNER` | Não | dev only | — | **Não** | `true` = botão simular scan (dev). |
 | `EXPO_PUBLIC_DEBUG_SCAN_QR_HASH` | Não | dev only | — | **Não** | Hash QR de ingresso ISSUED para teste de scanner. |
+| `EXPO_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN para imagens runtime quando aplicável. Prod: `https://pulse-brand-assets-production.up.railway.app`. Logos inline SVG (`PulseLogo`) e splash/icon bundled permanecem locais. Helper: `src/shared/config/brand-cdn.ts`. |
 
 Sentry: mesmas variáveis que app-client (`EXPO_PUBLIC_SENTRY_DSN`, `EXPO_PUBLIC_SENTRY_TRACES_SAMPLE_RATE`).
 
@@ -367,7 +377,7 @@ Configurar no [Expo Dashboard](https://expo.dev) → projeto → **Environment v
 |---------|-------------------|
 | `development` | `EXPO_PUBLIC_API_URL` → backend local ou staging |
 | `preview` | API staging/prod, flags faciais/pagamento para QA |
-| `production` | `EXPO_PUBLIC_API_URL`, `EXPO_PUBLIC_SENTRY_DSN`, `EXPO_PUBLIC_PAYMENTS_ENABLED`, `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY`, flags faciais |
+| `production` | `EXPO_PUBLIC_API_URL`, `EXPO_PUBLIC_SENTRY_DSN`, `EXPO_PUBLIC_PAYMENTS_ENABLED`, `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `EXPO_PUBLIC_BRAND_CDN_URL`, flags faciais |
 
 Arquivos: `app-client/eas.json`, `app-producer/eas.json` — não contêm envs inline; usar dashboard EAS.
 
@@ -413,4 +423,4 @@ Variáveis adicionadas nesta revisão da documentação (estavam em `.env.exampl
 - [Plano launch readiness](./launch-readiness-plan.md) — Sentry, Upstash, R2, PII
 - `backend/.env.example`
 
-*Última atualização: 2026-05-25 — pulse-brand-assets: GitHub auto-deploy + envs Railway documentadas.*
+*Última atualização: 2026-05-25 — CDN brand assets: `NEXT_PUBLIC_BRAND_CDN_URL` / `EXPO_PUBLIC_BRAND_CDN_URL` / `BRAND_CDN_URL` nos consumer repos.*
