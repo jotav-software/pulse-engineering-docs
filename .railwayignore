@@ -1,8 +1,6 @@
-# Deploy slim: brand + docs (sem binários pesados)
-prototypes/
-brand/screenshots/
+# Deploy slim: marca + docs (sem binários pesados)
+_apenas-git/
 node_modules/
-scripts/
 *.mp4
 *.dmg
 *.zip

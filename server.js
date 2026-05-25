@@ -6,7 +6,7 @@ const { createDocsRouter } = require('./lib/docs');
 const app = express();
 const PORT = process.env.PORT || 8080;
 const REPO_ROOT = __dirname;
-const BRAND_ROOT = path.join(REPO_ROOT, 'brand');
+const MARCA_ROOT = path.join(REPO_ROOT, 'marca');
 
 const kitUser = process.env.BRAND_KIT_USER;
 const kitPassword = process.env.BRAND_KIT_PASSWORD;
@@ -19,6 +19,26 @@ const kitAuth = basicAuth({
   realm: 'Pulse Internal Docs',
   unauthorizedResponse: () => 'Autenticação necessária para documentação interna.',
 });
+
+/** Prefix redirects for legacy CDN doc paths (301). Longest match first. */
+const DOC_REDIRECTS = [
+  ['/docs/produto/regras-negocio', '/docs/produto/regras-negocio'],
+  ['/docs/produto/acesso', '/docs/produto/acesso'],
+  ['/docs/produto/biometria', '/docs/produto/biometria'],
+  ['/docs/produto/qa', '/docs/produto/qa'],
+  ['/docs/produto/especificacao-funcional', '/docs/produto/especificacao-funcional'],
+  ['/docs/juridico/politicas-publicas', '/docs/juridico/politicas-publicas'],
+  ['/docs/juridico/conformidade', '/docs/juridico/conformidade'],
+  ['/docs/comercial/lancamento', '/docs/comercial/lancamento'],
+  ['/docs/adr', '/docs/engenharia/decisoes'],
+  ['/docs/architecture', '/docs/engenharia/arquitetura'],
+  ['/docs/standards', '/docs/engenharia/padroes'],
+  ['/docs/backlog', '/docs/engenharia/backlog'],
+  ['/docs/product', '/docs/produto'],
+  ['/docs/legal', '/docs/juridico'],
+  ['/docs/commercial', '/docs/comercial'],
+  ['/docs/ops', '/docs/operacoes'],
+];
 
 async function validateAdminBearer(req) {
   if (!pulseApiUrl) return false;
@@ -60,22 +80,35 @@ function requireInternalAuth(req, res, next) {
     .catch(next);
 }
 
+function legacyDocsRedirect(req, res, next) {
+  const pathname = req.path.split('?')[0];
+  for (const [from, to] of DOC_REDIRECTS) {
+    if (pathname === from || pathname.startsWith(`${from}/`)) {
+      const suffix = pathname.slice(from.length);
+      const target = `${to}${suffix}${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`;
+      return res.redirect(301, target);
+    }
+  }
+  return next();
+}
+
 const staticOptions = {
   index: false,
   extensions: ['html'],
 };
 
 // Public CDN — logos, icons, patterns for apps
-app.use('/assets', express.static(path.join(BRAND_ROOT, 'assets'), staticOptions));
+app.use('/assets', express.static(path.join(MARCA_ROOT, 'assets'), staticOptions));
 
 // Protected — HTML kits, tokens.css, brief
-app.use('/kit', requireInternalAuth, express.static(path.join(BRAND_ROOT, 'kit'), staticOptions));
+app.use('/kit', requireInternalAuth, express.static(path.join(MARCA_ROOT, 'kits'), staticOptions));
 
 app.get('/brand-kit-brief.md', requireInternalAuth, (_req, res) => {
-  res.sendFile(path.join(BRAND_ROOT, 'brand-kit-brief.md'));
+  res.sendFile(path.join(MARCA_ROOT, 'brand-kit-brief.md'));
 });
 
-// Protected — engineering docs with Markdown preview
+// Legacy doc path redirects, then protected docs
+app.use('/docs', legacyDocsRedirect);
 app.use('/docs', requireInternalAuth, createDocsRouter());
 
 app.get('/', (_req, res) => {
@@ -101,11 +134,11 @@ app.get('/', (_req, res) => {
 <body>
   <main>
     <h1>Pulse CDN & Docs</h1>
-    <p>Serviço Railway <code>pulse-brand-assets</code></p>
+    <p>Serviço Railway <code>pulse-brand-assets</code> (docs + marca)</p>
     <ul>
       <li><a href="/assets/">/assets/</a> — logos e ícones públicos</li>
       <li><a href="/kit/">/kit/</a> — brand kits HTML (auth)</li>
-      <li><a href="/docs/">/docs/</a> — documentação de engenharia (auth)</li>
+      <li><a href="/docs/">/docs/</a> — documentação interna (auth)</li>
     </ul>
   </main>
 </body>

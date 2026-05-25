@@ -1,6 +1,8 @@
-# Pulse — Documentação de Engenharia
+# Pulse — Documentação Central
 
-Repositório central de **arquitetura, padrões, segurança, produto e backlog técnico** do ecossistema **Pulse** (JV / jotav-software). Fonte canônica — os repositórios de código mantêm apenas READMEs e documentação técnica local.
+Repositório canônico de **marca, engenharia, produto, jurídico, comercial e operações** do ecossistema **Pulse** (JV / jotav-software). Também serve como **CDN** (logos públicos + docs internos protegidos).
+
+Os repositórios de código mantêm apenas READMEs locais e documentação estritamente técnica de pasta.
 
 ## Repositórios de código
 
@@ -12,98 +14,124 @@ Repositório central de **arquitetura, padrões, segurança, produto e backlog t
 | [pulse-app-client](https://github.com/jotav-software/pulse-app-client) | App cliente (Expo) |
 | [pulse-app-producer](https://github.com/jotav-software/pulse-app-producer) | App organizador (Expo) |
 | [pulse-face](https://github.com/jotav-software/pulse-face) | Microserviço biometria (FastAPI) |
-| ~~[pulse-landing-page](https://github.com/jotav-software/pulse-landing-page)~~ | **Descontinuado** — migrado para client-web |
 
-## Estrutura
+## Estrutura — 6 domínios
 
 ```
 pulse-engineering-docs/
-├── adr/           Architectural Decision Records (1, 2, 3...)
-├── architecture/  Visão técnica, princípios, golden rules, pagamentos, jobs
-├── standards/     Padrões transversais (API, backend, frontend, testes, segurança, comentários, Prisma)
-├── product/       Produto: specs, políticas, acesso, facial, dev
-├── backlog/       Roadmaps e épicos técnicos
-├── brand/         Brand kit: assets canônicos (`assets/`), HTML kits (`kit/`), screenshots
-├── commercial/    Materiais de apresentação para cliente (HTMLs)
-├── prototypes/    Índice central de mocks HTML (ver README)
-├── ops/           Credenciais de deploy (App Store API, etc) — sem segredos
-└── scripts/       Automação dos docs (Python)
+├── marca/                  CDN: /assets (público) + /kit (protegido)
+│   ├── assets/             Logos, ícones, splash, cores
+│   ├── kits/               Brand kits HTML interativos
+│   └── brand-kit-brief.md
+│
+├── engenharia/             Docs técnicos → /docs/engenharia/**
+│   ├── decisoes/           Decisões de arquitetura (ADR)
+│   ├── arquitetura/        Visão técnica, pagamentos, jobs
+│   ├── padroes/            Padrões de código (API, backend, frontend…)
+│   └── backlog/            Roadmaps e épicos técnicos
+│
+├── produto/                Spec e regras → /docs/produto/**
+│   ├── especificacao-funcional/
+│   ├── regras-negocio/     Regras INTERNAS (alinhadas ao código)
+│   ├── acesso/             RBAC e matriz de papéis
+│   ├── biometria/          Domínio facial
+│   └── qa/                 Contas de teste
+│
+├── juridico/               Legal → /docs/juridico/**
+│   ├── contratos/
+│   ├── politicas-publicas/ Textos para USUÁRIO FINAL (drafts)
+│   ├── lgpd/
+│   ├── fiscal/
+│   └── conformidade/
+│
+├── comercial/              Marketing → /docs/comercial/**
+│   ├── lancamento/         Go-to-market, ads, pricing
+│   └── apresentacoes/      Decks HTML para clientes
+│
+├── operacoes/              Infra → /docs/operacoes/**
+│   ├── variaveis-ambiente.md
+│   ├── cdn-e-docs.md
+│   └── plano-lancamento-tecnico.md
+│
+├── _apenas-git/            Nunca vai pro Railway
+│   ├── prototipos/         Mocks HTML + PNG (referência)
+│   ├── capturas-marca/     Screenshots App Store
+│   ├── scripts/            Automação Python/shell
+│   ├── midia/              Vídeos locais
+│   └── historico/          Logs de migração
+│
+├── server.js, lib/         Runtime CDN (Railway)
+└── README.md               Este arquivo
 ```
 
-## Índice
+## Glossário
 
-### Architectural Decision Records (ADR)
-- [ADR-001 — Backend stack](./adr/ADR-001-backend-stack.md)
-- [ADR-002 — Authentication strategy](./adr/ADR-002-authentication-strategy.md)
-- [ADR-003 — Implementation rules](./adr/ADR-003-implementation-rules.md)
+| Termo | Significado |
+|-------|-------------|
+| **ADR** | *Architecture Decision Record* — registro de decisão técnica importante |
+| **GTM** | *Go-to-Market* — estratégia de lançamento comercial |
+| **RBAC** | Controle de acesso por papéis (admin, produtor, staff…) |
+| **KYC** | Verificação de identidade do produtor |
+| **LGPD** | Lei Geral de Proteção de Dados (Lei 13.709/2018) |
+| **Regras de negócio** | `produto/regras-negocio/` — regras internas para engenharia/PO |
+| **Políticas públicas** | `juridico/politicas-publicas/` — textos legais para usuário final |
 
-### Arquitetura
-- [Visão geral](./architecture/overview.md)
-- [Princípios](./architecture/principles.md)
-- [Golden rules](./architecture/golden-rules.md)
-- [Job de repasse (RETAINED → AVAILABLE)](./architecture/job-repasse.md)
-- [Pagamentos — especificação técnica](./architecture/payments/especificacao.md)
-- [Pagamentos — checkout flows](./architecture/payments/checkout-flows.md)
+## CDN (Railway — serviço `pulse-brand-assets`)
 
-### Padrões
-- [API e contratos](./standards/api.md)
-- [Backend](./standards/backend.md)
-- [Frontend](./standards/frontend.md)
-- [Tratamento de erros](./standards/errors.md)
-- [Testes](./standards/testing.md)
-- [Segurança](./standards/security.md)
-- [Regras técnicas (consolidado)](./standards/technical-rules.md)
-- [Prisma workflow](./standards/prisma-workflow.md)
-- [Backend comments](./standards/backend-comments.md) · [roadmap](./standards/backend-comments-roadmap.md)
-- [Tipagem OpenAPI](./standards/openapi-typing.md)
+| Rota | Auth | Conteúdo |
+|------|------|----------|
+| `/assets/**` | Nenhuma | Logos e ícones (apps consomem via `*_BRAND_CDN_URL`) |
+| `/kit/**` | Interna | Brand kits HTML |
+| `/docs/**` | Interna | Preview Markdown de todos os domínios |
+
+Detalhes: [operacoes/cdn-e-docs.md](./operacoes/cdn-e-docs.md)
+
+## Índice rápido
+
+### Engenharia — Decisões (ADR)
+- [ADR-001 — Backend stack](./engenharia/decisoes/ADR-001-backend-stack.md)
+- [ADR-002 — Authentication strategy](./engenharia/decisoes/ADR-002-authentication-strategy.md)
+- [ADR-003 — Implementation rules](./engenharia/decisoes/ADR-003-implementation-rules.md)
+
+### Engenharia — Arquitetura
+- [Visão geral](./engenharia/arquitetura/overview.md) · [Princípios](./engenharia/arquitetura/principles.md) · [Golden rules](./engenharia/arquitetura/golden-rules.md)
+- [Job de repasse](./engenharia/arquitetura/job-repasse.md)
+- [Pagamentos](./engenharia/arquitetura/payments/especificacao.md) · [Checkout flows](./engenharia/arquitetura/payments/checkout-flows.md)
+
+### Engenharia — Padrões
+- [API](./engenharia/padroes/api.md) · [Backend](./engenharia/padroes/backend.md) · [Frontend](./engenharia/padroes/frontend.md)
+- [Segurança](./engenharia/padroes/security.md) · [Testes](./engenharia/padroes/testing.md)
+- [Regras técnicas](./engenharia/padroes/technical-rules.md) · [Prisma](./engenharia/padroes/prisma-workflow.md)
 
 ### Produto
-- [Índice produto](./product/README.md)
-- [Especificação funcional (por sistema)](./product/especificacao-funcional/README.md)
-  - [Pulse Admin](./product/especificacao-funcional/pulse-admin.md)
-  - [App Produtor](./product/especificacao-funcional/app-produtor.md)
-  - [Producer Web](./product/especificacao-funcional/producer-web.md)
-  - [App Cliente](./product/especificacao-funcional/app-client.md)
-  - [Client Web](./product/especificacao-funcional/client-web.md)
-  - [Arquitetura (visão funcional)](./product/especificacao-funcional/arquitetura.md)
-  - [Endpoints](./product/especificacao-funcional/api-endpoints.md)
-  - [Fluxos detalhados](./product/especificacao-funcional/fluxos/README.md)
-- Acesso — [RBAC](./product/access/rbac.md) · [Role matrix](./product/access/role-matrix.md)
-- Políticas — [Regras globais](./product/policies/global-business-rules.md) · [Repasse](./product/policies/payout-policies.md) · [KYC](./product/policies/kyc-blocking-matrix.md) · [Checkout compliance (HU06)](./product/policies/checkout-compliance.md)
-- Dev — [Test users](./product/dev/test-users.md)
-- Biometria facial — [como funciona](./product/facial/como-funciona-biometria-facial.md) · [LGPD](./product/facial/lgpd-security.md) · [enrollment MVP](./product/facial/enrollment-mvp.md) · [infra deploy](./product/facial/infra-deploy-checklist.md) · [épico self-hosted](./product/facial/epic-self-hosted.md)
+- [Índice produto](./produto/README.md)
+- [Especificação funcional](./produto/especificacao-funcional/README.md)
+- [Regras globais](./produto/regras-negocio/global-business-rules.md) · [Repasse](./produto/regras-negocio/payout-policies.md) · [KYC](./produto/regras-negocio/kyc-blocking-matrix.md)
+- [RBAC](./produto/acesso/rbac.md) · [Biometria](./produto/biometria/como-funciona-biometria-facial.md)
 
-### Backlog
-- [Épico — melhorias técnicas](./backlog/epic-technical-improvements.md)
-- [Roadmap Producer Web](./backlog/roadmap-producer-web.md)
-- [Plano events & ticketing](./backlog/events-ticketing-plan.md)
-- [Membership VIP](./backlog/membership-vip.md) — [PENDENTE]
+### Jurídico
+- [Índice jurídico](./juridico/README.md)
+- [Contrato produtor](./juridico/contratos/contrato-adesao-produtor.md) · [Termos B2C](./juridico/contratos/termos-de-uso-cliente.md)
+- [Privacidade](./juridico/politicas-publicas/politica-privacidade.md) · [Reembolso](./juridico/politicas-publicas/politica-reembolso.md)
 
-### Brand & Commercial
-- [Brand kit brief](./brand/brand-kit-brief.md)
-- Brand kit (HTML): `brand/kit/` · Assets canônicos: `brand/assets/` · sync: `scripts/sync-brand-assets.sh` · CDN: `ops/brand-cdn.md`
-- **Documentação no CDN:** `/docs/` (preview Markdown, auth) — ver [ops/brand-cdn.md](./ops/brand-cdn.md)
-- Apresentações para cliente: `commercial/`
-- **Índice de mocks HTML:** [prototypes/README.md](./prototypes/README.md)
+### Comercial
+- [Go-to-market](./comercial/lancamento/go-to-market-plan.md) · [Pricing](./comercial/lancamento/pricing-publico.md)
 
-### Ops
-- [Variáveis de ambiente (por sistema)](./ops/environment-variables.md)
-- [Brand CDN (Railway)](./ops/brand-cdn.md)
-- [App Store Connect API (metadata, sem `.p8`)](./ops/app-store-connect-api.md) — chaves privadas em `~/workspace/keys/`
+### Backlog técnico
+- [Épico melhorias](./engenharia/backlog/epic-technical-improvements.md) · [Roadmap Producer Web](./engenharia/backlog/roadmap-producer-web.md)
 
-## Convivência com os repositórios
-
-Cada repo de código mantém:
-
-- `README.md` — visão geral, setup, scripts
-- `CHANGELOG.md` — histórico de versões (onde aplicável)
-- `CLAUDE.md` — instruções para assistentes IA (somente backend)
-- Documentação técnica **estritamente local** (ex.: `src/lib/auth/README.md`) que descreve uma pasta específica do código
-
-Tudo mais é centralizado aqui.
+### Marca & Operações
+- [Brand kit brief](./marca/brand-kit-brief.md) · Sync: `./_apenas-git/scripts/sync-brand-assets.sh`
+- [Variáveis de ambiente](./operacoes/variaveis-ambiente.md) · [CDN](./operacoes/cdn-e-docs.md)
+- [Protótipos (índice)](./_apenas-git/prototipos/README.md)
 
 ## Como contribuir
 
 1. Alteração de padrão/produto/ADR: PR neste repositório.
-2. Implementação: PR no repositório de código, referenciando a issue do épico.
+2. Implementação: PR no repositório de código, referenciando o épico.
 3. Nunca commitar segredos (`.env`, chaves `.p8`, tokens).
+
+## Histórico de reorganizações
+
+- [MIGRATION-LOG.md](./_apenas-git/historico/MIGRATION-LOG.md) — consolidação inicial (2026-05-20)
+- [REORGANIZACAO-2026-05-25.md](./_apenas-git/historico/REORGANIZACAO-2026-05-25.md) — estrutura 6 domínios
