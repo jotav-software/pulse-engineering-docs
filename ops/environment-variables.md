@@ -4,15 +4,17 @@ Documento **canônico** de configuração por sistema. Valores secretos **nunca*
 
 **Referências locais:** `backend/.env.example`, `client-web/.env.example`, `producer-web/.env.example`, `app-client/.env.example`, `app-producer/.env.example`, `pulse-face/.env.example`.
 
-**URLs públicas Railway (produção, maio/2026)**
+**URLs públicas (produção, maio/2026)**
 
-| Sistema | Domínio |
-|---------|---------|
-| pulse-backend | `https://pulse-backend-production-653f.up.railway.app` |
-| client-web | `https://client-web-production-be7d.up.railway.app` |
-| pulse-producer-web | `https://pulse-producer-web-production.up.railway.app` |
-| pulse-face | `https://pulse-face-production.up.railway.app` |
-| pulse-landing-page | `https://pulse-landing-page-production-e0ce.up.railway.app` |
+| Sistema | Domínio canônico (jotav) | Domínio Railway (legado) |
+|---------|--------------------------|---------------------------|
+| pulse-backend (API) | `https://api.pulse.jotav.com.br` | `https://api.pulse.jotav.com.br` |
+| client-web | `https://pulse.jotav.com.br` | `https://client-web-production-be7d.up.railway.app` |
+| pulse-producer-web (admin) | `https://admin.pulse.jotav.com.br` | `https://pulse-producer-web-production.up.railway.app` |
+| pulse-face | `https://face.jotav.com.br` | `https://pulse-face-production.up.railway.app` |
+| pulse-landing-page | — | `https://pulse-landing-page-production-e0ce.up.railway.app` |
+
+Frontends e apps mobile devem usar **`NEXT_PUBLIC_API_URL` / `EXPO_PUBLIC_API_URL` = `https://api.pulse.jotav.com.br`** (com `https://`).
 
 Descobrir domínios atualizados: Railway → projeto **Pulse** → serviço → **Settings → Networking**, ou na pasta do serviço linkado: `railway variables -k | grep RAILWAY_SERVICE`.
 
@@ -46,7 +48,7 @@ Deploy: serviço **pulse-backend**, branch acordada (`develop`).
 
 | Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
 |----------|--------|----------|---------|------|----------------------|
-| `CORS_ORIGINS` | **Sim prod** | prod | Sim | Sim | Lista vírgula, **sem espaços**. Prod: `https://client-web-production-be7d.up.railway.app,https://pulse-producer-web-production.up.railway.app,https://pulse-landing-page-production-e0ce.up.railway.app,https://pulse.app,https://www.pulse.app,https://admin.pulse.app,https://app.pulse.app`. Dev: incluir `http://localhost:3000`, `http://localhost:3001`, `http://localhost:8081`. |
+| `CORS_ORIGINS` | **Sim prod** | prod | Sim | Sim | Lista vírgula, **sem espaços**. Prod: incluir `https://pulse.jotav.com.br`, `https://admin.pulse.jotav.com.br` e hosts Railway/legado conforme necessário (ex.: `https://client-web-production-be7d.up.railway.app`, `https://pulse-producer-web-production.up.railway.app`, `https://pulse-landing-page-production-e0ce.up.railway.app`, `https://pulse.app`, `https://www.pulse.app`, `https://admin.pulse.app`, `https://app.pulse.app`). Dev: incluir `http://localhost:3000`, `http://localhost:3001`, `http://localhost:8081`. |
 | `QR_SECRET` | **Sim prod** | prod | Sim | Sim | HMAC do QR dinâmico. `openssl rand -base64 32`. |
 | `WEBHOOK_ALLOW_UNSIGNED` | Não | dev only | Sim | **Não** | `true` só dev local. Ignorado em `NODE_ENV=production`. |
 | `SWAGGER_ENABLED` | Não | staging | Sim | Não | Em prod OpenAPI desligado salvo `true`. |
@@ -59,7 +61,7 @@ Deploy: serviço **pulse-backend**, branch acordada (`develop`).
 | Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
 |----------|--------|----------|---------|------|----------------------|
 | `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | Segredo longo aleatório; **mesmo valor** em client-web e producer-web. |
-| `BETTER_AUTH_URL` | Sim | all | Sim | Sim | URL pública do backend, ex.: `https://pulse-backend-production-653f.up.railway.app` (sem `/` final). |
+| `BETTER_AUTH_URL` | Sim | all | Sim | Sim | URL pública do backend, ex.: `https://api.pulse.jotav.com.br` (sem `/` final). |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Opc. | all | Sim | Opc. | Google Cloud Console → OAuth client. |
 | `APPLE_CLIENT_ID` / `APPLE_CLIENT_SECRET` | Opc. | all | Sim | Opc. | Apple Developer → Sign in with Apple. |
 | `APPLE_APP_BUNDLE_IDENTIFIER` | Opc. | all | — | Opc. | Default `com.pulse.fan`. Bundle do app cliente iOS. |
@@ -94,8 +96,8 @@ Deploy: serviço **pulse-backend**, branch acordada (`develop`).
 | `BREVO_SENDER_EMAIL` / `BREVO_SENDER_NAME` | Se Brevo | all | Sim | Sim | Remetente verificado. Ex.: `"Pulse Eventos"`. |
 | `MAIL_DELIVERY_SYNC` | Não | dev/test | Sim | Não | `true` = entrega síncrona (testes). |
 | `MAIL_LOG_OTP_IN_DEV` | Não | dev only | Sim | **Não** | `true` = loga OTP no console (fallback mail). |
-| `PRODUCER_WEB_URL` | Recom. prod | prod | Sim | Sim | Links nos e-mails produtor. Ex.: `https://pulse-producer-web-production.up.railway.app` ou `https://app.pulse.app`. Alias: `PRODUCER_PORTAL_URL`. |
-| `CLIENT_WEB_URL` | Recom. prod | prod | Sim | Sim | Fallback web nos convites de cadastro cliente. Ex.: `https://client-web-production-be7d.up.railway.app` ou `https://pulse.app`. Alias: `CLIENT_PORTAL_URL`. |
+| `PRODUCER_WEB_URL` | Recom. prod | prod | Sim | Sim | Links nos e-mails produtor. Ex.: `https://admin.pulse.jotav.com.br` ou `https://app.pulse.app`. Alias: `PRODUCER_PORTAL_URL`. |
+| `CLIENT_WEB_URL` | Recom. prod | prod | Sim | Sim | Fallback web nos convites de cadastro cliente. Ex.: `https://pulse.jotav.com.br` ou `https://pulse.app`. Alias: `CLIENT_PORTAL_URL`. |
 | `RAILWAY_SERVICE_CLIENT_WEB_URL` | Não | prod | — | Auto | Railway injeta host do serviço client-web quando linkado no mesmo projeto — usado como fallback de `CLIENT_WEB_URL`. |
 | `CLIENT_APP_SCHEME` | Não | all | Sim | Sim | Deeplink Expo nos convites. Default `pulse-client`. Alias: `EXPO_PUBLIC_APP_SCHEME`. |
 | `CLIENT_IOS_STORE_URL` | Opc. | prod | Sim | Opc. | `https://apps.apple.com/app/idXXXXXXXX` |
@@ -192,7 +194,7 @@ Detalhes de rollout: [Checklist deploy facial](../product/facial/infra-deploy-ch
 cd backend   # ou repo pulse-backend linkado
 railway link   # projeto Pulse, serviço pulse-backend, environment production
 railway variables -k
-railway variables --set 'CORS_ORIGINS=https://client-web-production-be7d.up.railway.app,...'
+railway variables --set 'CORS_ORIGINS=https://pulse.jotav.com.br,https://admin.pulse.jotav.com.br,...'
 railway variables --set 'PII_ENCRYPTION_KEY=<openssl rand -hex 32>'
 railway variables --set 'UPSTASH_REDIS_REST_URL=https://<id>.upstash.io'
 ```
@@ -225,8 +227,8 @@ Referência: `producer-web/.env.example`. Variáveis `NEXT_PUBLIC_*` exigem **re
 
 | Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
 |----------|--------|----------|---------|------|----------------------|
-| `NEXT_PUBLIC_API_URL` | Sim | all | Sim | Sim | `https://pulse-backend-production-653f.up.railway.app` |
-| `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://pulse-producer-web-production.up.railway.app`; local `http://localhost:3001`. |
+| `NEXT_PUBLIC_API_URL` | Sim | all | Sim | Sim | `https://api.pulse.jotav.com.br` (com ou sem `https://`; o app normaliza hostname Railway) |
+| `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://admin.pulse.jotav.com.br`; local `http://localhost:3001`. |
 | `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | **Idêntico** ao backend. |
 
 ### Sentry (producer-web)
@@ -255,8 +257,8 @@ Referência: `client-web/.env.example`.
 
 | Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
 |----------|--------|----------|---------|------|----------------------|
-| `NEXT_PUBLIC_API_URL` | Sim | all | Sim | Sim | `https://pulse-backend-production-653f.up.railway.app` |
-| `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://client-web-production-be7d.up.railway.app`; local `http://localhost:3000`. |
+| `NEXT_PUBLIC_API_URL` | Sim | all | Sim | Sim | `https://api.pulse.jotav.com.br` |
+| `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://pulse.jotav.com.br`; local `http://localhost:3000`. |
 | `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | **Idêntico** ao backend. |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe | all | —* | Se Stripe | Stripe Dashboard → publishable key. Usado em checkout web. *Adicionar ao `.env.example` se ainda ausente. |
 
@@ -284,7 +286,7 @@ Referência: `app-client/.env.example`. Variáveis `EXPO_PUBLIC_*` exigem **rebu
 
 | Variável | Obrig. | Ambiente | example | prod | Onde obter / exemplo |
 |----------|--------|----------|---------|------|----------------------|
-| `EXPO_PUBLIC_API_URL` | Sim | all | Sim | Sim | Prod: `https://pulse-backend-production-653f.up.railway.app`; dev: IP LAN / `10.0.2.2` / `localhost`. |
+| `EXPO_PUBLIC_API_URL` | Sim | all | Sim | Sim | Prod: `https://api.pulse.jotav.com.br`; dev: IP LAN / `10.0.2.2` / `localhost`. |
 | `EXPO_PUBLIC_PAYMENTS_ENABLED` | Não | all | Sim | Sim | Alinhar com `PAYMENTS_ENABLED` do backend. |
 | `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe | all | Sim* | Se Stripe | Stripe Dashboard → publishable key. *Comentado no example. |
 | `EXPO_PUBLIC_FACIAL_ENROLLMENT_V2` | Por rollout | all | —* | Por rollout | Espelhar `FACIAL_ENROLLMENT_V2`. *Usado no código; adicionar ao example. |
@@ -312,7 +314,7 @@ Referência: `app-producer/.env.example`.
 |----------|--------|----------|---------|------|----------------------|
 | `EXPO_PUBLIC_API_URL` | Sim | all | Sim | Sim | Mesmo backend que app-client. |
 | `EXPO_PUBLIC_PULSE_FACE_EXTRACT` | Por rollout | all | —* | Por rollout | Espelhar backend. *Usado no código; adicionar ao example. |
-| `EXPO_PUBLIC_CLIENT_WEB_URL` | Opc. | all | — | Opc. | URL client-web para links. Default hardcoded: `https://client-web-production-be7d.up.railway.app`. |
+| `EXPO_PUBLIC_CLIENT_WEB_URL` | Opc. | all | — | Opc. | URL client-web para links. Default hardcoded: `https://pulse.jotav.com.br`. |
 | `EXPO_PUBLIC_DEBUG_SCANNER` | Não | dev only | — | **Não** | `true` = botão simular scan (dev). |
 | `EXPO_PUBLIC_DEBUG_SCAN_QR_HASH` | Não | dev only | — | **Não** | Hash QR de ingresso ISSUED para teste de scanner. |
 
