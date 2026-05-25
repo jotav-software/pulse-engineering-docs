@@ -22,14 +22,14 @@ const kitAuth = basicAuth({
 
 /** Prefix redirects for legacy CDN doc paths (301). Longest match first. */
 const DOC_REDIRECTS = [
-  ['/docs/produto/regras-negocio', '/docs/produto/regras-negocio'],
-  ['/docs/produto/acesso', '/docs/produto/acesso'],
-  ['/docs/produto/biometria', '/docs/produto/biometria'],
-  ['/docs/produto/qa', '/docs/produto/qa'],
-  ['/docs/produto/especificacao-funcional', '/docs/produto/especificacao-funcional'],
-  ['/docs/juridico/politicas-publicas', '/docs/juridico/politicas-publicas'],
-  ['/docs/juridico/conformidade', '/docs/juridico/conformidade'],
-  ['/docs/comercial/lancamento', '/docs/comercial/lancamento'],
+  ['/docs/product/policies', '/docs/produto/regras-negocio'],
+  ['/docs/product/access', '/docs/produto/acesso'],
+  ['/docs/product/facial', '/docs/produto/biometria'],
+  ['/docs/product/dev', '/docs/produto/qa'],
+  ['/docs/product/especificacao-funcional', '/docs/produto/especificacao-funcional'],
+  ['/docs/legal/politicas', '/docs/juridico/politicas-publicas'],
+  ['/docs/legal/compliance', '/docs/juridico/conformidade'],
+  ['/docs/commercial/gtm', '/docs/comercial/lancamento'],
   ['/docs/adr', '/docs/engenharia/decisoes'],
   ['/docs/architecture', '/docs/engenharia/arquitetura'],
   ['/docs/standards', '/docs/engenharia/padroes'],
