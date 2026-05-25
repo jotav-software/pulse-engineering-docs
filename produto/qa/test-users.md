@@ -65,6 +65,8 @@ Scripts para recriar senha ou renomear contas: `backend/_apenas-git/scripts/setu
 | **producer-web / app-producer** (gestor Ross) | `jotav.pulse+gestor-ross@gmail.com` |
 | **producer-web / app-producer** (staff Ross) | `jotav.pulse+jhonatan-staff@gmail.com` |
 | **producer-web** (Pulse Admin) | `jotav.pulse+pulse-admin@gmail.com` |
+| **Docs internos** (SSO) | Mesmo admin → sidebar **Documentação** ou `/admin/docs/` |
+| **Docs internos** (Basic Auth CDN) | Usuário `pulse-brand` — senha em Railway `BRAND_KIT_PASSWORD` (ver `operacoes/cdn-e-docs.md`) |
 
 ---
 

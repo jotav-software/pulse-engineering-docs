@@ -150,16 +150,81 @@ Alterações de variável reiniciam o serviço; não exigem novo commit.
 
 O `.railwayignore` exclui binários pesados; sobem `marca/`, pastas de docs, `lib/`, `server.js`, `package.json`, `railway.toml`, `README.md`.
 
-## Auth via producer-web — caminho de migração
+## Acesso admin via producer-web (SSO)
+
+**Sim, é possível** acessar toda a documentação interna estando logado como `PULSE_ADMIN` no producer-web — sem popup de Basic Auth.
+
+### Como funciona
+
+| Caminho | Quem | Como |
+|---|---|---|
+| **`/admin/docs/**` no producer-web** | Admin logado no painel | Proxy Next.js valida cookie `pulse_producer_token` + role `PULSE_ADMIN`, repassa `Authorization: Bearer` ao CDN |
+| **`/docs/**` direto na CDN** | Ops / CI / link externo | Basic Auth (`BRAND_KIT_USER` / `BRAND_KIT_PASSWORD`) **ou** header `Authorization: Bearer <token PULSE_ADMIN>` |
+| **`/assets/**` na CDN** | Apps, landing | Público, sem auth |
+
+O painel admin inclui o item **Documentação** na sidebar → abre `https://<producer-web>/admin/docs/` (índice completo).
+
+### Seções disponíveis em `/docs/` (pós-reorg 2026-05-25)
+
+| Seção | URL (CDN) | URL (proxy admin) | Conteúdo |
+|---|---|---|---|
+| Índice | `/docs/` | `/admin/docs/` | Todas as áreas |
+| Engenharia | `/docs/engenharia/` | `/admin/docs/engenharia/` | ADRs, arquitetura, padrões, **backlog** |
+| Decisões (ADRs) | `/docs/engenharia/decisoes/` | `/admin/docs/engenharia/decisoes/` | ADR-001… |
+| Backlog | `/docs/engenharia/backlog/` | `/admin/docs/engenharia/backlog/` | Roadmaps, épicos |
+| Produto | `/docs/produto/` | `/admin/docs/produto/` | Specs, fluxos |
+| Regras de negócio | `/docs/produto/regras-negocio/` | `/admin/docs/produto/regras-negocio/` | KYC, checkout, payouts |
+| Jurídico | `/docs/juridico/` | `/admin/docs/juridico/` | LGPD, contratos |
+| Comercial | `/docs/comercial/` | `/admin/docs/comercial/` | GTM, pricing |
+| Operações | `/docs/operacoes/` | `/admin/docs/operacoes/` | Deploy, variáveis, este doc |
+
+Redirects legados (`/docs/backlog` → `/docs/engenharia/backlog`, `/docs/product/policies` → `/docs/produto/regras-negocio`, etc.) continuam ativos na CDN.
+
+### Requisitos do proxy (producer-web)
+
+| Variável | Obrig. | Valor |
+|---|---|---|
+| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. | `https://pulse-brand-assets-production.up.railway.app` |
+| `NEXT_PUBLIC_API_URL` | Sim | Backend para login admin (`/api/admin/v1/auth/*`) |
+
+Na CDN (Railway), `PULSE_API_URL=https://api.pulse.jotav.com.br` deve estar configurado para o Bearer admin funcionar no proxy.
+
+Implementação: `producer-web/src/app/(admin)/admin/docs/[[...path]]/route.ts`.
+
+### Outras abordagens (referência)
 
 | Abordagem | Prós | Contras |
 |---|---|---|
-| **Basic Auth (atual)** | Simples, funciona cross-domain, zero dependência | Credenciais separadas, popup do browser, sem RBAC |
-| **Bearer via PULSE_API_URL (implementado)** | Reutiliza sessão admin real, RBAC PULSE_ADMIN | Token não vai automaticamente cross-domain; precisa enviar header |
-| **Proxy no producer-web (`/internal/docs/*`)** | SSO transparente, mesma origem, UX integrada | Mais código no Next.js, latência proxy |
-| **Cookie `Domain=.pulse.app` + CDN em subdomínio** | SSO potencial no domínio prod | Requer CDN em `docs.pulse.app`, cookies HttpOnly, refator auth |
+| **Basic Auth na CDN** | Simples, cross-domain | Credenciais separadas, popup do browser |
+| **Bearer direto na CDN** | RBAC real | Token não vai automaticamente no browser cross-domain |
+| **Proxy `/admin/docs/*` (implementado)** | SSO transparente com login admin | Latência mínima de proxy |
+| **Cookie compartilhado + subdomínio** | SSO no domínio prod | Requer `docs.pulse.app`, refator auth |
 
-**Recomendação:** manter Basic Auth no curto prazo; adicionar link "Documentação" no painel admin apontando para `/docs/` (usuário já autenticado via Basic ou via proxy futuro). Próximo passo ideal: rota proxy `admin.pulse.jotav.com.br/docs/*` que valida sessão local e repassa ao CDN upstream.
+### Testar Bearer manualmente (curl)
+
+Com token de sessão admin válido (retornado em `POST /api/admin/v1/auth/login/verify-otp`):
+
+```bash
+curl -H "Authorization: Bearer <token>" \
+  "https://pulse-brand-assets-production.up.railway.app/docs/produto/regras-negocio/"
+```
+
+### URLs de acesso (prod)
+
+| Destino | URL | Auth |
+|---|---|---|
+| Docs (CDN direto) | `https://pulse-brand-assets-production.up.railway.app/docs/` | Basic: usuário `pulse-brand` + senha em `BRAND_KIT_PASSWORD` (Railway) |
+| Docs (SSO admin) | `https://<producer-web>/admin/docs/` | Login `PULSE_ADMIN` no painel (ex.: `jotav.pulse+pulse-admin@gmail.com`) |
+| Brand kit | `https://pulse-brand-assets-production.up.railway.app/kit/brand-kit.html` | Mesmo Basic Auth |
+
+Obter/rotacionar senha Basic Auth:
+
+```bash
+railway link -p Pulse -e production -s pulse-brand-assets
+railway variables --set "BRAND_KIT_PASSWORD=$(openssl rand -base64 24)"
+```
+
+**Diagnóstico:** `401` = credencial incorreta; `503` = `BRAND_KIT_*` ou `PULSE_API_URL` ausentes no Railway; redirect para `/login` no proxy = sessão admin expirada ou role ≠ `PULSE_ADMIN`.
 
 ## Fonte canônica (git)
 

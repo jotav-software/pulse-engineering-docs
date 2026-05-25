@@ -40,6 +40,15 @@ if [[ -d "$proto" ]]; then
   copy "$ASSETS/svg/logo-horizontal.svg" "$proto/logo-horizontal.svg"
 fi
 
+echo "Sincronizando favicons (web)..."
+for repo in client-web/public producer-web/public; do
+  target="$ROOT/$repo"
+  [[ -d "$target" ]] || continue
+  copy "$ASSETS/06-app-icon-preenchido/pulse-app-icon-48.png" "$target/icon.png"
+  copy "$ASSETS/06-app-icon-preenchido/pulse-app-icon-512.png" "$target/favicon-512.png"
+  copy "$ASSETS/06-app-icon-preenchido/pulse-app-icon-1024.png" "$target/apple-icon.png"
+done
+
 echo "Sincronizando PNGs essenciais..."
 for app_dir in app-client/assets/images app-producer/assets/images; do
   target="$ROOT/$app_dir"
