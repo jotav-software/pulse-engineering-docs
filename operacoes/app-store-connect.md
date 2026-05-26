@@ -58,6 +58,8 @@ Configure manualmente em [developer.apple.com](https://developer.apple.com/accou
 | App ID | `com.pulse.fan` |
 | Services ID (`APPLE_CLIENT_ID`) | `com.pulse.fan.signin` |
 | Key ID (Sign In with Apple) | `2UVTMTPQVA` |
+| Domains and Subdomains | `api.pulse.jotav.com.br` |
+| Return URL | `https://api.pulse.jotav.com.br/api/auth/callback/apple` |
 
 ## Onde criar / renovar
 

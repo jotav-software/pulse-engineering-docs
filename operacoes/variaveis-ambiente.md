@@ -64,8 +64,9 @@ Deploy: serviço **pulse-backend**, branch acordada (`develop`).
 |----------|--------|----------|---------|------|----------------------|
 | `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | Segredo longo aleatório; **mesmo valor** em client-web e producer-web. |
 | `BETTER_AUTH_URL` | Sim | all | Sim | Sim | URL pública do backend, ex.: `https://api.pulse.jotav.com.br` (sem `/` final). |
+| `BETTER_AUTH_TRUSTED_ORIGINS` | Não | dev/staging | Sim | Não | Origens extras para callbacks Better Auth. O backend já inclui `pulse-client://`, `pulse-producer://` e `https://appleid.apple.com`; use `exp://,exp://**` só em backend local/dev. |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Opc. | all | Sim | Opc. | Google Cloud Console → OAuth client. |
-| `APPLE_CLIENT_ID` / `APPLE_CLIENT_SECRET` | Opc. | all | Sim | Opc. | Apple Developer → Sign in with Apple. |
+| `APPLE_CLIENT_ID` / `APPLE_CLIENT_SECRET` | Opc. | all | Sim | Opc. | Apple Developer → Sign in with Apple. Return URL: `https://api.pulse.jotav.com.br/api/auth/callback/apple`. |
 | `APPLE_APP_BUNDLE_IDENTIFIER` | Opc. | all | — | Opc. | Default `com.pulse.fan`. Bundle do app cliente iOS. |
 
 ### Banco de dados
