@@ -1,6 +1,6 @@
 # Pulse Admin (backoffice)
 
-> Escopo: operação interna Pulse | Público: `PULSE_ADMIN` | Plataforma: Producer Web `/admin/*` + API `/api/admin/v1` | Última revisão: 2026-05-20
+> Escopo: operação interna Pulse | Público: `PULSE_ADMIN` | Plataforma: Producer Web `/admin/*` + API `/api/admin/v1` | Última revisão: 2026-05-26
 
 ## Legenda de status
 
@@ -39,9 +39,21 @@ MUST: usuário sem role PULSE_ADMIN não acessa `/admin/*` nem API admin (403). 
 
 ### 3.2 Produtoras e KYC (HU02) — [IMPLEMENTADO]
 
-Tela /admin/produtoras: listagem com GMV 30d, busca, drawer criar produtora (CNPJ, taxa pulseFeeBps), reset de senha, drawer detalhe (HU02b). API: GET/POST /producers, GET /producers/:id, POST /producers/:id/reset-password. Subfluxo KYC titular: /admin/compliance/kyc — fila, aprovar, rejeitar, download documento. API KYC: GET /kyc/queue, GET /kyc/documents/:id, approve, reject, download.
+Tela /admin/produtoras: listagem com GMV 30d, busca, drawer criar produtora (CNPJ, taxa pulseFeeBps), reset de senha, drawer detalhe seguro (HU02b). API: GET/POST /producers, GET /producers/:id, POST /producers/:id/reset-password. Subfluxo KYC titular: /admin/compliance/kyc — fila, aprovar, rejeitar, download documento. API KYC: GET /kyc/queue, GET /kyc/documents/:id, approve, reject, download.
 
 **Efeito no produtor:** aprovação KYC desbloqueia publicação de eventos (`KYC_APPROVED`). Matriz: [kyc-blocking-matrix.md](../regras-negocio/kyc-blocking-matrix.md).
+
+#### HU02b — detalhe seguro da produtora (Fase 0)
+
+**Escopo entregue:** `GET /api/admin/v1/producers/:id` alimenta o drawer de detalhe da produtora para suporte operacional sem exigir que o operador abra o portal da produtora. O DTO agrega dados básicos, status operacional, KYC agregado, aceite de termos, resumo de contrato comercial, métricas, estornos, congelamentos e eventos recentes.
+
+**Contrato resumido:** resposta 200 traz `producer`, `operationalStatus`, `kyc`, `terms`, `commercialContract`, `metrics`, `refunds`, `payoutFreezes` e `recentEvents`. O endpoint retorna 404 quando o `id` não pertence a uma produtora e 403 para qualquer usuário sem `PULSE_ADMIN`.
+
+**Semântica de status:** `PENDING` significa primeira senha pendente (`mustChangePassword=true`). KYC é independente em `kyc.status`: `NOT_STARTED`, `KYC_PENDING`, `KYC_APPROVED` ou `KYC_REJECTED`. Estados `SUSPENDED` e `BLOCKED` estão preparados no frontend, mas dependem de fases futuras para ação operacional persistida.
+
+**Restrição de segurança:** o detalhe não retorna arquivos KYC, URLs de download, `storageKey`, nomes de arquivo nem metadados sensíveis de documentos. Downloads e metadados documentais continuam restritos ao fluxo dedicado de KYC, que registra auditoria própria.
+
+**Próximas fases:** não há issue canônica vinculada neste repositório de docs. Fase 1: ações persistidas para suspender/bloquear com motivo e auditoria. Fase 2: atalhos auditáveis para contratos/documentos sem expor arquivo no DTO do detalhe. Fase 3: timeline operacional consolidada e alertas de risco/SLA.
 
 ### 3.3 Visão e saúde do checkout (HU03) — [IMPLEMENTADO]
 
@@ -69,7 +81,7 @@ Tela /admin/compliance: seção *Contratos comerciais por produtora* (abas Vigen
 | --- | --- | --- | --- |
 | HU01 | Auth 2FA + isolamento /admin | /admin/*, /api/admin/v1/auth/* | [IMPLEMENTADO] |
 | HU02 | Produtoras + KYC titular | /admin/produtoras, /admin/compliance/kyc | [IMPLEMENTADO] |
-| HU02b | Detalhe produtora / ações menu | producers-table | [IMPLEMENTADO] |
+| HU02b | Detalhe seguro produtora / ações menu | producers-table, GET /producers/:id | [IMPLEMENTADO] |
 | HU03 | Visão checkout 24h | /admin/visao | [IMPLEMENTADO] |
 | HU03b | Histórico métricas persistido | metrics/history | [IMPLEMENTADO] |
 | HU04 | Repasses + freeze | /admin/financeiro | [IMPLEMENTADO] |

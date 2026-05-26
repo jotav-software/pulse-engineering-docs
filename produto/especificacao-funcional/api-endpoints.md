@@ -1,6 +1,6 @@
 # Catálogo de endpoints API
 
-> Escopo: contrato HTTP consolidado | Público: engenharia | Plataforma: backend Elysia | Última revisão: 2026-05-19
+> Escopo: contrato HTTP consolidado | Público: engenharia | Plataforma: backend Elysia | Última revisão: 2026-05-26
 
 ## Legenda de status
 
@@ -41,6 +41,7 @@ Ver [app-client.md](./app-client.md) e [client-web.md](./client-web.md).
 | Admin v1 | POST | /api/admin/v1/auth/logout | Logout admin |
 | Admin v1 | GET | /api/admin/v1/auth/me | Sessão admin |
 | Admin v1 | GET | /api/admin/v1/producers | Listar produtoras + GMV |
+| Admin v1 | GET | /api/admin/v1/producers/:id | Detalhe seguro da produtora (HU02b; sem arquivos/URLs KYC) |
 | Admin v1 | POST | /api/admin/v1/producers | Criar produtora (HU02) |
 | Admin v1 | POST | /api/admin/v1/producers/:id/reset-password | Reset senha produtor |
 | Admin v1 | GET | /api/admin/v1/metrics/health | Métricas checkout (HU03) |

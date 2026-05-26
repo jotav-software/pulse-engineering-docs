@@ -396,7 +396,8 @@ def pulse_admin_blocks() -> list[tuple[str, str]]:
         (
             "normal",
             "Tela /admin/produtoras: listagem com GMV 30d, busca, drawer criar produtora (CNPJ, taxa pulseFeeBps), "
-            "reset de senha. API: GET/POST /producers, POST /producers/:id/reset-password. "
+            "reset de senha, drawer detalhe seguro (HU02b). API: GET/POST /producers, GET /producers/:id, "
+            "POST /producers/:id/reset-password. "
             "Subfluxo KYC titular: /admin/compliance/kyc — fila, aprovar, rejeitar, download documento. "
             "API KYC: GET /kyc/queue, GET /kyc/documents/:id, approve, reject, download.",
         ),
@@ -444,7 +445,7 @@ def pulse_admin_hu_table_rows() -> list[list[str]]:
     return [
         ("HU01", "Auth 2FA + isolamento /admin", "/admin/*, /api/admin/v1/auth/*", "[IMPLEMENTADO]"),
         ("HU02", "Produtoras + KYC titular", "/admin/produtoras, /admin/compliance/kyc", "[IMPLEMENTADO]"),
-        ("HU02b", "Detalhe produtora / ações menu", "producers-table", "[PARCIAL] em breve"),
+        ("HU02b", "Detalhe seguro produtora / ações menu", "producers-table, GET /producers/:id", "[IMPLEMENTADO]"),
         ("HU03", "Visão checkout 24h", "/admin/visao", "[IMPLEMENTADO]"),
         ("HU03b", "Histórico métricas persistido", "metrics", "[PENDENTE]"),
         ("HU04", "Repasses + freeze", "/admin/financeiro", "[IMPLEMENTADO]"),
@@ -572,6 +573,7 @@ API_ENDPOINT_ROWS: list[list[str]] = [
     ("Admin v1", "POST", "/api/admin/v1/auth/logout", "Logout admin"),
     ("Admin v1", "GET", "/api/admin/v1/auth/me", "Sessão admin"),
     ("Admin v1", "GET", "/api/admin/v1/producers", "Listar produtoras + GMV"),
+    ("Admin v1", "GET", "/api/admin/v1/producers/:id", "Detalhe seguro da produtora (HU02b; sem arquivos/URLs KYC)"),
     ("Admin v1", "POST", "/api/admin/v1/producers", "Criar produtora (HU02)"),
     ("Admin v1", "POST", "/api/admin/v1/producers/:id/reset-password", "Reset senha produtor"),
     ("Admin v1", "GET", "/api/admin/v1/metrics/health", "Métricas checkout (HU03)"),

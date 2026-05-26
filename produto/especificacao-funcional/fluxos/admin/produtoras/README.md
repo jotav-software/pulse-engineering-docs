@@ -1,6 +1,8 @@
 # Produtoras — listagem, criação e detalhe (HU02, HU02b)
 
-Onboarding manual de produtoras pelo operador Pulse e ações de suporte (reset de senha, detalhe).
+Onboarding manual de produtoras pelo operador Pulse e ações de suporte (reset de senha, detalhe seguro).
+
+**Fase 0 entregue:** o detalhe usa `GET /api/admin/v1/producers/:id` para exibir visão operacional consolidada sem expor arquivos KYC, URLs de download, `storageKey`, nomes de arquivo ou metadados sensíveis. O fluxo documental completo continua em [KYC — aprovação documental](../kyc-aprovacao/).
 
 | Parte | Arquivo |
 | --- | --- |

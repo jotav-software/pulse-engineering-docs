@@ -25,3 +25,4 @@ flowchart TD
 
 - UI: `producer-web/src/app/(admin)/admin/produtoras/`
 - API listagem: `GET /api/admin/v1/producers` (`status`, `search`, `sortBy`, `sortDir`)
+- API detalhe seguro: `GET /api/admin/v1/producers/:id` (HU02b)

@@ -432,7 +432,7 @@ Ver tabela completa em [api-endpoints.md](./api-endpoints.md#recursos) e `backen
         OUT / "api-endpoints.md",
         f"""# Catálogo de endpoints API
 
-> Escopo: contrato HTTP consolidado | Público: engenharia | Plataforma: backend Elysia | Última revisão: 2026-05-19
+> Escopo: contrato HTTP consolidado | Público: engenharia | Plataforma: backend Elysia | Última revisão: 2026-05-26
 
 ## Legenda de status
 
@@ -513,7 +513,7 @@ Infra mínima: processo Node (backend), MySQL, opcional `pulse-face`, deploys SS
         OUT / "pulse-admin.md",
         f"""# Pulse Admin (backoffice)
 
-> Escopo: operação interna Pulse | Público: `PULSE_ADMIN` | Plataforma: Producer Web `/admin/*` + API `/api/admin/v1` | Última revisão: 2026-05-19
+> Escopo: operação interna Pulse | Público: `PULSE_ADMIN` | Plataforma: Producer Web `/admin/*` + API `/api/admin/v1` | Última revisão: 2026-05-26
 
 ## Legenda de status
 
@@ -562,7 +562,7 @@ Matriz completa: [RBAC.md](../RBAC.md).
 | Item | Status |
 | --- | --- |
 | Histórico métricas persistido (HU03b) | [PENDENTE] |
-| Detalhe produtora / menu ações (HU02b) | [PARCIAL] |
+| Detalhe produtora / menu ações (HU02b) | [IMPLEMENTADO] |
 | Export extrato admin (HU04b) | [PARCIAL] |
 | Detalhe linha estorno (HU05b) | [PARCIAL] |
 | Moderação/suspender evento global | [PENDENTE] |
