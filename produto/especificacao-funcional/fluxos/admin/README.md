@@ -11,5 +11,6 @@ Diagramas em [Mermaid](https://mermaid.js.org/) — mesmo padrão dos [fluxos do
 | [Financeiro — repasses e freeze](financeiro-repasse/) | HU04, HU04b | [IMPLEMENTADO] |
 | [Estornos — central admin](estornos/) | HU05, HU05b | [IMPLEMENTADO] / antifraude [PARCIAL] |
 | [Compliance — termos legais](compliance-termos/) | HU06 | [IMPLEMENTADO] |
+| [Contratos comerciais por produtora](contratos-comerciais/) | HU07 | [PARCIAL] |
 
 **Fora desta pasta (resumo em pulse-admin.md):** autenticação 2FA (HU01), visão checkout 24h (HU03), moderação global de evento (`POST /events/:id/suspend`).

@@ -59,7 +59,11 @@ Mesma tela financeiro: listagem estornos, busca pedido, validação e processame
 
 Tela /admin/compliance: documentos versionados, publicar nova versão com forceAcceptance. API: GET /compliance, POST /compliance/documents. Produtor e cliente bloqueados por TermsComplianceMiddleware até aceitar; PULSE_ADMIN isento. Ver [CHECKOUT_COMPLIANCE.md](../CHECKOUT_COMPLIANCE.md).
 
-### 3.7 Mapa HU × rota × status
+### 3.7 Contratos comerciais por produtora (HU07) — [PARCIAL]
+
+Tela /admin/compliance: seção *Contratos comerciais por produtora* (abas Vigentes / Próx. vencimento / Vencidos), tabela com vigência, taxa negociada, PDF, status operacional (termos + KYC). API: `/api/admin/v1/commercial-contracts`. Especificação: [contratos-comerciais/](./fluxos/admin/contratos-comerciais/). Mock: seção Compliance em admin-dashboard-mock.html.
+
+### 3.8 Mapa HU × rota × status
 
 | HU | Fluxo | Rota/UI | Status |
 | --- | --- | --- | --- |
@@ -73,6 +77,7 @@ Tela /admin/compliance: documentos versionados, publicar nova versão com forceA
 | HU05 | Estornos centralizados | /admin/financeiro | [IMPLEMENTADO] |
 | HU05b | Detalhe estorno linha | refunds-table | [IMPLEMENTADO] |
 | HU06 | Compliance / termos | /admin/compliance | [IMPLEMENTADO] |
+| HU07 | Contratos comerciais produtora | /admin/compliance (seção contratos) | [PARCIAL] |
 | — | Moderação/suspender evento global | events/:id/suspend | [IMPLEMENTADO] |
 | — | Antifraude/chargeback automático | auto-freeze threshold | [PARCIAL] |
 
@@ -116,6 +121,7 @@ Cada módulo abaixo segue o padrão **parte 1 (entrada)** · **parte 2 (validaç
 | Financeiro repasse | [fluxos/admin/financeiro-repasse/](./fluxos/admin/financeiro-repasse/) | HU04, HU04b |
 | Estornos | [fluxos/admin/estornos/](./fluxos/admin/estornos/) | HU05, HU05b |
 | Compliance termos | [fluxos/admin/compliance-termos/](./fluxos/admin/compliance-termos/) | HU06 |
+| Contratos comerciais | [fluxos/admin/contratos-comerciais/](./fluxos/admin/contratos-comerciais/) | HU07 |
 
 Índice completo + mock: [fluxos/admin/README.md](./fluxos/admin/README.md) · [fluxos/README.md](./fluxos/README.md)
 
