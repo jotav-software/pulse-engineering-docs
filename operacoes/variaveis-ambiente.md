@@ -12,7 +12,7 @@ Documento **canônico** de configuração por sistema. Valores secretos **nunca*
 | client-web | `https://pulse.jotav.com.br` | `https://client-web-production-be7d.up.railway.app` |
 | pulse-producer-web (admin) | `https://admin.pulse.jotav.com.br` | `https://pulse-producer-web-production.up.railway.app` |
 | pulse-face | `https://face.jotav.com.br` | `https://pulse-face-production.up.railway.app` |
-| pulse-brand-assets (CDN + docs) | — | `https://pulse-brand-assets-production.up.railway.app` |
+| pulse-brand-assets (CDN + docs) | — | `https://cdn.pulse.jotav.com.br` |
 
 > **Nota (mai/2026):** O serviço `pulse-landing-page` foi **descontinuado**. Landing, páginas legais e catálogo de eventos são servidos pelo **client-web** em `https://pulse.jotav.com.br` (`/` = marketing, `/eventos` = catálogo).
 
@@ -232,7 +232,7 @@ Referência: `producer-web/.env.example`. Variáveis `NEXT_PUBLIC_*` exigem **re
 | `NEXT_PUBLIC_API_URL` | Sim | all | Sim | Sim | `https://api.pulse.jotav.com.br` (com ou sem `https://`; o app normaliza hostname Railway) |
 | `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://admin.pulse.jotav.com.br`; local `http://localhost:3001`. |
 | `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | **Idêntico** ao backend. |
-| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN de logos/ícones. Prod: `https://pulse-brand-assets-production.up.railway.app`. Sem env = fallback local (`public/`). Helper: `src/lib/brand-cdn.ts`. |
+| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN de logos/ícones. Prod: `https://cdn.pulse.jotav.com.br`. Sem env = fallback local (`public/`). Helper: `src/lib/brand-cdn.ts`. |
 
 ### Sentry (producer-web)
 
@@ -264,7 +264,7 @@ Referência: `client-web/.env.example`.
 | `NEXT_PUBLIC_APP_URL` | Sim | all | Sim | Sim | Prod: `https://pulse.jotav.com.br`; local `http://localhost:3000`. |
 | `BETTER_AUTH_SECRET` | Sim | all | Sim | Sim | **Idêntico** ao backend. |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe | all | —* | Se Stripe | Stripe Dashboard → publishable key. Usado em checkout web. *Adicionar ao `.env.example` se ainda ausente. |
-| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN de logos/ícones. Prod: `https://pulse-brand-assets-production.up.railway.app`. Sem env = fallback local (`public/`). Helper: `src/lib/brand-cdn.ts`. |
+| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN de logos/ícones. Prod: `https://cdn.pulse.jotav.com.br`. Sem env = fallback local (`public/`). Helper: `src/lib/brand-cdn.ts`. |
 
 Sentry e GTM: mesmas variáveis que producer-web (`NEXT_PUBLIC_SENTRY_*`, `SENTRY_*`, `NEXT_PUBLIC_GTM_ID`, etc.) — ver seção acima.
 
@@ -299,7 +299,7 @@ Repositório **pulse-engineering-docs** (`jotav-software/pulse-engineering-docs`
 | Projeto / serviço | **Pulse** → **pulse-brand-assets** (production) |
 | GitHub | `jotav-software/pulse-engineering-docs`, branch **`main`**, root **`/`** |
 | Deploy | **Auto-deploy** em push para `main`; fallback manual: `railway up -d` |
-| URL prod | `https://pulse-brand-assets-production.up.railway.app` |
+| URL prod | `https://cdn.pulse.jotav.com.br` |
 | Health | `/assets/svg/logo-mark.svg` (público; ver `railway.toml`) |
 | Docs detalhadas | [operacoes/cdn-e-docs.md](./cdn-e-docs.md) |
 
@@ -337,7 +337,7 @@ Referência: `app-client/.env.example`. Variáveis `EXPO_PUBLIC_*` exigem **rebu
 | `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Se Stripe | all | Sim* | Se Stripe | Stripe Dashboard → publishable key. *Comentado no example. |
 | `EXPO_PUBLIC_FACIAL_ENROLLMENT_V2` | Por rollout | all | —* | Por rollout | Espelhar `FACIAL_ENROLLMENT_V2`. *Usado no código; adicionar ao example. |
 | `EXPO_PUBLIC_PULSE_FACE_EXTRACT` | Por rollout | all | —* | Por rollout | Espelhar `PULSE_FACE_EXTRACT_ENABLED`. *Usado no código; adicionar ao example. |
-| `EXPO_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN para imagens runtime (ex.: `AuthLogo`). Prod: `https://pulse-brand-assets-production.up.railway.app`. Sem env = PNGs locais em `assets/images/`. **Splash, app icon e adaptive icon** em `app.json`/`app.config.js` permanecem bundled. Helper: `src/shared/config/brand-cdn.ts`. |
+| `EXPO_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN para imagens runtime (ex.: `AuthLogo`). Prod: `https://cdn.pulse.jotav.com.br`. Sem env = PNGs locais em `assets/images/`. **Splash, app icon e adaptive icon** em `app.json`/`app.config.js` permanecem bundled. Helper: `src/shared/config/brand-cdn.ts`. |
 
 ### Sentry (app-client)
 
@@ -364,7 +364,7 @@ Referência: `app-producer/.env.example`.
 | `EXPO_PUBLIC_CLIENT_WEB_URL` | Opc. | all | — | Opc. | URL client-web para links. Default hardcoded: `https://pulse.jotav.com.br`. |
 | `EXPO_PUBLIC_DEBUG_SCANNER` | Não | dev only | — | **Não** | `true` = botão simular scan (dev). |
 | `EXPO_PUBLIC_DEBUG_SCAN_QR_HASH` | Não | dev only | — | **Não** | Hash QR de ingresso ISSUED para teste de scanner. |
-| `EXPO_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN para imagens runtime quando aplicável. Prod: `https://pulse-brand-assets-production.up.railway.app`. Logos inline SVG (`PulseLogo`) e splash/icon bundled permanecem locais. Helper: `src/shared/config/brand-cdn.ts`. |
+| `EXPO_PUBLIC_BRAND_CDN_URL` | Recom. prod | prod | Sim | Sim | CDN para imagens runtime quando aplicável. Prod: `https://cdn.pulse.jotav.com.br`. Logos inline SVG (`PulseLogo`) e splash/icon bundled permanecem locais. Helper: `src/shared/config/brand-cdn.ts`. |
 
 Sentry: mesmas variáveis que app-client (`EXPO_PUBLIC_SENTRY_DSN`, `EXPO_PUBLIC_SENTRY_TRACES_SAMPLE_RATE`).
 

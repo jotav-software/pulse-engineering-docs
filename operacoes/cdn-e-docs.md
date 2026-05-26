@@ -15,7 +15,7 @@ Serviço estático que publica **brand assets** e **documentação interna** do 
 |---|---|
 | Projeto Railway | **Pulse** |
 | Serviço | **`pulse-brand-assets`** *(alias desejado: `pulse-docs` — renomear manualmente no dashboard)* |
-| URL pública | `https://pulse-brand-assets-production.up.railway.app` |
+| URL pública | `https://cdn.pulse.jotav.com.br` |
 | Health check | `/assets/svg/logo-mark.svg` |
 | Runtime | `node server.js` (Express + marked, Nixpacks) |
 
@@ -64,7 +64,7 @@ Markdown bruto: acrescentar `?format=raw` (ex.: `/docs/engenharia/decisoes/ADR-0
 
 ## Brand assets (`/assets/`)
 
-Base: `https://pulse-brand-assets-production.up.railway.app`
+Base: `https://cdn.pulse.jotav.com.br`
 
 | Asset | URL |
 |---|---|
@@ -77,7 +77,7 @@ Base: `https://pulse-brand-assets-production.up.railway.app`
 
 ## Brand kits (`/kit/`)
 
-1. Abrir `https://pulse-brand-assets-production.up.railway.app/kit/brand-kit.html`
+1. Abrir `https://cdn.pulse.jotav.com.br/kit/brand-kit.html`
 2. Informar credenciais quando solicitado
 3. Outros kits: `/kit/brand-pitch-producers.html`, `/kit/brand-instagram-kit.html`, etc.
 
@@ -86,7 +86,7 @@ Base: `https://pulse-brand-assets-production.up.railway.app`
 ### Web (landing, client-web, producer-web)
 
 ```html
-<img src="https://pulse-brand-assets-production.up.railway.app/assets/svg/logo-horizontal-white.svg" alt="Pulse!" />
+<img src="https://cdn.pulse.jotav.com.br/assets/svg/logo-horizontal-white.svg" alt="Pulse!" />
 ```
 
 ### Apps mobile (Expo)
@@ -108,8 +108,8 @@ cd pulse-engineering-docs
 | ~~landing-page~~ | *(descontinuado — migrado para client-web)* | — |
 
 ```
-NEXT_PUBLIC_BRAND_CDN_URL=https://pulse-brand-assets-production.up.railway.app
-EXPO_PUBLIC_BRAND_CDN_URL=https://pulse-brand-assets-production.up.railway.app
+NEXT_PUBLIC_BRAND_CDN_URL=https://cdn.pulse.jotav.com.br
+EXPO_PUBLIC_BRAND_CDN_URL=https://cdn.pulse.jotav.com.br
 ```
 
 ## Deploy e GitHub (auto-deploy)
@@ -184,7 +184,7 @@ Redirects legados (`/docs/backlog` → `/docs/engenharia/backlog`, `/docs/produc
 
 | Variável | Obrig. | Valor |
 |---|---|---|
-| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. | `https://pulse-brand-assets-production.up.railway.app` |
+| `NEXT_PUBLIC_BRAND_CDN_URL` | Recom. | `https://cdn.pulse.jotav.com.br` |
 | `NEXT_PUBLIC_API_URL` | Sim | Backend para login admin (`/api/admin/v1/auth/*`) |
 
 Na CDN (Railway), `PULSE_API_URL=https://api.pulse.jotav.com.br` deve estar configurado para o Bearer admin funcionar no proxy.
@@ -206,16 +206,16 @@ Com token de sessão admin válido (retornado em `POST /api/admin/v1/auth/login/
 
 ```bash
 curl -H "Authorization: Bearer <token>" \
-  "https://pulse-brand-assets-production.up.railway.app/docs/produto/regras-negocio/"
+  "https://cdn.pulse.jotav.com.br/docs/produto/regras-negocio/"
 ```
 
 ### URLs de acesso (prod)
 
 | Destino | URL | Auth |
 |---|---|---|
-| Docs (CDN direto) | `https://pulse-brand-assets-production.up.railway.app/docs/` | Basic: usuário `pulse-brand` + senha em `BRAND_KIT_PASSWORD` (Railway) |
+| Docs (CDN direto) | `https://cdn.pulse.jotav.com.br/docs/` | Basic: usuário `pulse-brand` + senha em `BRAND_KIT_PASSWORD` (Railway) |
 | Docs (SSO admin) | `https://<producer-web>/admin/docs/` | Login `PULSE_ADMIN` no painel (ex.: `jotav.pulse+pulse-admin@gmail.com`) |
-| Brand kit | `https://pulse-brand-assets-production.up.railway.app/kit/brand-kit.html` | Mesmo Basic Auth |
+| Brand kit | `https://cdn.pulse.jotav.com.br/kit/brand-kit.html` | Mesmo Basic Auth |
 
 Obter/rotacionar senha Basic Auth:
 

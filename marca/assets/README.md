@@ -48,7 +48,7 @@ assets/
 
 Assets publicados em produção via serviço `pulse-docs` no projeto Railway **Pulse**.
 
-Base URL produção: `https://pulse-brand-assets-production.up.railway.app` — detalhes em `operacoes/cdn-e-docs.md`.
+Base URL produção: `https://cdn.pulse.jotav.com.br` — detalhes em `operacoes/cdn-e-docs.md`.
 
 Exemplo:
 ```
