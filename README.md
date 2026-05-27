@@ -106,7 +106,7 @@ Detalhes: [operacoes/cdn-e-docs.md](./operacoes/cdn-e-docs.md)
 ### Produto
 - [Índice produto](./produto/README.md)
 - [Especificação funcional](./produto/especificacao-funcional/README.md)
-- [Regras globais](./produto/regras-negocio/global-business-rules.md) · [Repasse](./produto/regras-negocio/payout-policies.md) · [KYC](./produto/regras-negocio/kyc-blocking-matrix.md)
+- [Regras globais](./produto/regras-negocio/global-business-rules.md) · [Aceite legal](./produto/regras-negocio/checkout-compliance.md) · [Repasse](./produto/regras-negocio/payout-policies.md) · [KYC](./produto/regras-negocio/kyc-blocking-matrix.md)
 - [RBAC](./produto/acesso/rbac.md) · [Biometria](./produto/biometria/como-funciona-biometria-facial.md)
 
 ### Jurídico

@@ -3,7 +3,7 @@
 > **Fonte de verdade** para regras de negócio, fluxos, permissões e backlog por plataforma.  
 > Migrado de `docs/especificacao_funcional.docx` (conteúdo riscado ignorado). Arquivos `.docx` permanecem como arquivo histórico.
 
-**Última revisão:** 2026-05-20
+**Última revisão:** 2026-05-27
 
 ---
 
@@ -56,7 +56,7 @@ Consulte [global-business-rules.md](../regras-negocio/global-business-rules.md) 
 | Pix | 5% de desconto sobre a taxa de conveniência |
 | Cartão | Até **4x**; PSP `pagarme` ou `stripe` (`PAYMENT_PROVIDER`) |
 | Limite compra | Máx. **4 ingressos por evento** por CPF/conta |
-| Checkout | Reserva **10 min**; máx. **3 tentativas** de pagamento por pedido |
+| Checkout | Reserva **10 min**; máx. **3 tentativas** de pagamento por pedido; exige aceite contextual de `REFUND_POLICY` por sessão |
 | Cancelamento comprador | Até **24h antes** do início; ingresso **USED** não reembolsa |
 | Repasse produtor | `RETAINED` → job D+1 após término → `AVAILABLE` ([payout-policies.md](../regras-negocio/payout-policies.md)) |
 | KYC titular | Publicar evento bloqueado até `KYC_APPROVED` ([kyc-blocking-matrix.md](../regras-negocio/kyc-blocking-matrix.md)) |
@@ -92,7 +92,7 @@ Detalhes por sistema nos arquivos linkados acima.
 ## Referências canônicas
 
 - [RBAC.md](../acesso/rbac.md) — papéis e matriz por app
-- [CHECKOUT_COMPLIANCE.md](../regras-negocio/checkout-compliance.md) — gate de termos B2C/produtor
+- [checkout-compliance.md](../regras-negocio/checkout-compliance.md) — aceite legal, reaceite por versão e `REFUND_POLICY` no checkout
 - [global-business-rules.md](../regras-negocio/global-business-rules.md) · [payout-policies.md](../regras-negocio/payout-policies.md)
 - [engenharia/arquitetura/payments/especificacao.md](../../engenharia/arquitetura/payments/especificacao.md) — checkout e gateways
 - OpenAPI: `GET /swagger` no backend

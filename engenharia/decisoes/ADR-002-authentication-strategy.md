@@ -1,16 +1,25 @@
 # ADR-002: Authentication & RBAC Strategy
 
 ## Status
-Proposed
+Accepted — implementado. Ver o detalhamento operacional em
+[arquitetura/autenticacao.md](../arquitetura/autenticacao.md).
 
 ## Context
 The Pulse! platform needs a secure way to manage different user types (CLIENT, PRODUCER, ADMIN) and ensure that sensitive routes are only accessible to authenticated and authorized users.
 
 ## Decisions
 
+### 0. Single source of truth para resolução de sessão
+Sessões vivem em **Redis (`secondaryStorage`, caminho quente) + MySQL
+(`storeSessionInDatabase`, fonte durável e fallback)**. Existe **um único helper
+de resolução** — `resolveSession` (wrapper de `auth.api.getSession`) — usado por
+todos os middlewares, e **uma única forma de revogar** (`revokeSessionByToken` /
+`revokeAllUserSessions`), que limpa os dois stores. Nenhum middleware consulta
+`prisma.session` diretamente.
+
 ### 1. Unified Auth Middleware
 We will implement a custom Elysia middleware that wraps `better-auth`. This middleware will:
-- Check for a valid session token in the `Authorization` header or cookies.
+- Check for a valid session token in the `Authorization` header or cookies (via `resolveSession`).
 - Populate the `user` and `session` objects into the Elysia context.
 - **Fail Fast:** If no session is found on a protected route, it will immediately return a `401 Unauthorized` response.
 

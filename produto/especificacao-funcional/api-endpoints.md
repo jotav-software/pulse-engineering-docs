@@ -55,8 +55,11 @@ Ver [app-client.md](./app-client.md) e [client-web.md](./client-web.md).
 | Admin v1 | GET | /api/admin/v1/refunds/search-orders | Buscar pedido |
 | Admin v1 | POST | /api/admin/v1/refunds/validate | Validar estorno |
 | Admin v1 | POST | /api/admin/v1/refunds | Processar estorno (HU05) |
-| Admin v1 | GET | /api/admin/v1/compliance | Documentos legais |
-| Admin v1 | POST | /api/admin/v1/compliance/documents | Publicar termo (HU06) |
+| Admin v1 | GET | /api/admin/v1/compliance | Documentos legais + KPIs |
+| Admin v1 | GET | /api/admin/v1/compliance/documents/:id | Detalhe de documento legal |
+| Admin v1 | POST | /api/admin/v1/compliance/documents | Publicar documento legal (HU06) |
+| Admin v1 | GET | /api/admin/v1/compliance/acceptance-logs | Logs de aceite legal |
+| Admin v1 | GET | /api/admin/v1/compliance/acceptance-logs/export | Export CSV/JSON de aceites |
 | Admin v1 | GET | /api/admin/v1/kyc/queue | Fila KYC |
 | Admin v1 | GET | /api/admin/v1/kyc/documents/:id | Detalhe KYC |
 | Admin v1 | GET | /api/admin/v1/kyc/documents/:id/download | Download documento |
@@ -75,7 +78,7 @@ Ver [app-client.md](./app-client.md) e [client-web.md](./client-web.md).
 | Client v1 | POST | /api/client/v1/auth/* | Cadastro/login B2C |
 | Client v1 | GET | /api/client/v1/events/* | Catálogo e detalhe |
 | Client v1 | GET|POST | /api/client/v1/tickets/* | Carteira, transfer, cancel |
-| Client v1 | GET|POST | /api/client/v1/checkout/* | Sessão de compra |
+| Client v1 | GET|POST | /api/client/v1/checkout/* | Sessão de compra + aceite de reembolso por sessão |
 | Client v1 | GET|POST|DELETE | /api/client/v1/payment/* | Cartões e Pix/cartão |
 | Client v1 | GET|POST|DELETE | /api/client/v1/biometry/* | Facial enrollment |
 | Client v1 | GET|POST | /api/client/v1/compliance/* | Termos B2C |

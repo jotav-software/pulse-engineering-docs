@@ -23,7 +23,7 @@ Especificação resumida: [pulse-admin.md](../pulse-admin.md) · Índice dos flu
 | [Produtoras](admin/produtoras/) | Listagem → formulário → persistência |
 | [Financeiro — repasse](admin/financeiro-repasse/) | Abas/KPIs → freeze/unfreeze → export CSV |
 | [Estornos](admin/estornos/) | Listagem/wizard → validate → gateway |
-| [Compliance — termos](admin/compliance-termos/) | Cards → publicar → `forceAcceptance` |
+| [Compliance — documentos legais](admin/compliance-termos/) | Cards → publicar → `forceAcceptance` → logs/exportação |
 
 ## Lockfiles: Bun vs `package-lock.json`
 

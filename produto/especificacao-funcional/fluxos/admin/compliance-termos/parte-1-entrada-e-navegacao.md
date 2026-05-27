@@ -1,4 +1,4 @@
-# Compliance termos — Parte 1: entrada e navegação
+# Compliance documentos legais — Parte 1: entrada e navegação
 
 **Status:** [IMPLEMENTADO] · `compliance-view.tsx`.
 
@@ -8,13 +8,15 @@ flowchart TD
   B --> C[/admin/compliance<br/>ComplianceView]
 
   C --> D[GET /api/admin/v1/compliance]
-  D --> E[Cards Termos + Privacidade ativos<br/>% adoção, aceites]
+  D --> E[Cards documentos ativos<br/>% adoção, aceites]
 
   C --> F[Link: Fila KYC → /admin/compliance/kyc]
-  C --> G[Botão: Nova versão de termo]
+  C --> G[Botão: Nova versão legal]
   G --> H[Drawer publicação]
 
   E --> I[Nova versão pré-preenche tipo/título do card]
+  C --> J[GET /api/admin/v1/compliance/acceptance-logs]
+  J --> K[Tabela + filtros + export CSV/JSON]
 
   style C fill:#f9f,stroke:#333
 ```
@@ -23,3 +25,5 @@ flowchart TD
 
 - UI: `producer-web/src/app/(admin)/admin/compliance/`
 - `PULSE_ADMIN` isento de `TermsComplianceMiddleware` em `/api/admin/v1`
+- Logs granulares: `GET /api/admin/v1/compliance/acceptance-logs`
+- Exportação: `GET /api/admin/v1/compliance/acceptance-logs/export?format=csv|json`

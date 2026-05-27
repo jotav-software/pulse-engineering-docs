@@ -21,7 +21,7 @@ juridico/
 │   ├── contrato-adesao-produtor.md         🔴 B2B — produtor assina para usar
 │   ├── termos-de-uso-cliente.md            🔴 B2C — cliente aceita na conta/checkout
 │   └── eula-mobile.md                      app store / play store
-├── politicas/
+├── politicas-publicas/
 │   ├── politica-privacidade.md             🔴 LGPD geral (não só biometria)
 │   ├── politica-cookies.md                 🔴 obrigatória para web
 │   ├── politica-reembolso.md               🔴 CDC art. 49 + Lei 14.046/2020
@@ -38,7 +38,7 @@ juridico/
 │   ├── regime-tributario-recomendado.md    Simples/Lucro Presumido + análise
 │   ├── plano-NFSe.md                       🔴 emissão (Focus NFe / Nuvem Fiscal / eNotas)
 │   └── retencoes-no-repasse.md             ISS/IRRF/PIS/COFINS sobre fee de produtor
-└── compliance/
+└── conformidade/
     ├── pci-dss-scoping.md                  PCI escopo (SAQ-A com tokenização)
     └── lei-do-ingresso.md                  Lei 14.046/2020 (reembolso de eventos cancelados)
 ```
@@ -55,11 +55,11 @@ juridico/
 **Políticas**
 | Doc | Status |
 |---|---|
-| [Privacidade](politicas/politica-privacidade.md) | 🟨 Draft |
-| [Cookies](politicas/politica-cookies.md) | 🟨 Draft |
-| [Reembolso](politicas/politica-reembolso.md) | 🟨 Draft |
-| [Anti-Cambismo](politicas/politica-anti-cambismo.md) | 🟨 Draft |
-| [Meia-Entrada](politicas/politica-meia-entrada.md) | 🟨 Draft |
+| [Privacidade](politicas-publicas/politica-privacidade.md) | 🟨 Draft |
+| [Cookies](politicas-publicas/politica-cookies.md) | 🟨 Draft |
+| [Reembolso](politicas-publicas/politica-reembolso.md) | 🟨 Draft |
+| [Anti-Cambismo](politicas-publicas/politica-anti-cambismo.md) | 🟨 Draft |
+| [Meia-Entrada](politicas-publicas/politica-meia-entrada.md) | 🟨 Draft |
 
 **LGPD**
 | Doc | Status |
@@ -82,16 +82,17 @@ juridico/
 **Compliance**
 | Doc | Status |
 |---|---|
-| [PCI-DSS Scoping](compliance/pci-dss-scoping.md) | 🟨 Análise técnica |
-| [Lei do Ingresso 14.046/2020](compliance/lei-do-ingresso.md) | 🟨 Draft |
+| [PCI-DSS Scoping](conformidade/pci-dss-scoping.md) | 🟨 Análise técnica |
+| [Lei do Ingresso 14.046/2020](conformidade/lei-do-ingresso.md) | 🟨 Draft |
 
 🟨 = draft técnico • 🟢 = revisado por advogado/contador • 🔴 = publicado em produção
 
 ## Versionamento
 
 Documentos publicados (no site / no produto via HU06 — gate de termos) devem ser **versionados** com data e hash:
-- Backend já modela `policy_versions` (ver `produto/regras-negocio/checkout-compliance.md`).
-- Para cada atualização que altere obrigações materiais, exigir **novo aceite** dos usuários.
+- Backend modela versões em `LegalDocument` (ver [`produto/regras-negocio/checkout-compliance.md`](../produto/regras-negocio/checkout-compliance.md)).
+- Para cada atualização que altere obrigações materiais em Termos/Privacidade, exigir **novo aceite** dos usuários com `forceAcceptance`.
+- Para `REFUND_POLICY`, o aceite é contextual por sessão de checkout e não deve ser confundido com o gate global de login.
 
 ## Próximos passos
 

@@ -99,7 +99,7 @@ Detalhes técnicos: [`produto/biometria/lgpd-security.md`](../../produto/biometr
 | **Finalidade** | Cobrança do consumidor, repasse ao produtor, conformidade contábil e antifraude |
 | **Base legal** | Art. 7º, V (contrato); Art. 7º, II (obrigação legal — conservação contábil/fiscal); Art. 7º, IX (legítimo interesse — prevenção de fraude/chargeback) |
 | **Dados tratados** | `CheckoutSession`, `CheckoutItem`, `Transaction` (`externalId`, `status`, `pixQrCode`, `pixCopyPaste`, `attemptsCount`, `lastError`), `IdempotencyKey` |
-| **Não tratados pela Pulse** | PAN (número de cartão), CVV — tokenização ocorre no cliente, backend recebe `card_token` (escopo PCI-DSS **SAQ-A**, ver [`compliance/pci-dss-scoping.md`](../compliance/pci-dss-scoping.md)) |
+| **Não tratados pela Pulse** | PAN (número de cartão), CVV — tokenização ocorre no cliente, backend recebe `card_token` (escopo PCI-DSS **SAQ-A**, ver [`conformidade/pci-dss-scoping.md`](../conformidade/pci-dss-scoping.md)) |
 | **Titulares** | Compradores |
 | **Retenção** | 10 anos (CTN art. 173, fiscal) |
 | **Compartilhamentos** | Pagar.me (PSP default) **ou** Stripe (alternativo via `PAYMENT_PROVIDER`); BACEN/COAF quando obrigado por lei |
@@ -216,12 +216,12 @@ Detalhes técnicos: [`produto/biometria/lgpd-security.md`](../../produto/biometr
 
 | Atributo | Conteúdo |
 |---|---|
-| **Tratamento** | Registro de aceite de Termos / Privacidade / Reembolso / Cookies |
-| **Finalidade** | Prova de consentimento e prova contratual |
-| **Base legal** | Art. 7º, II (obrigação legal — Marco Civil); Art. 7º, V |
-| **Dados tratados** | `LegalDocument`, `UserTermsAcceptance`, `ProducerTermsAcceptance` (versão, IP, timestamp, hash do documento) |
+| **Tratamento** | Registro de aceite de Termos, Privacidade e Política de Reembolso |
+| **Finalidade** | Prova contratual, rastreabilidade de versão aceita, defesa em reclamações/processos e cumprimento de obrigações de transparência |
+| **Base legal** | Art. 7º, V (execução de contrato); Art. 7º, VI (exercício regular de direitos); Art. 7º, IX (legítimo interesse em segurança/auditoria). Para logs técnicos, Art. 7º, II na janela exigida pelo Marco Civil |
+| **Dados tratados** | `LegalDocument`, `UserTermsAcceptance`, `RefundPolicyAcceptance`, `ProducerTermsAcceptance` legado/snapshot (versão, hash do documento, timestamp, IP e, no checkout, user-agent e `checkoutSessionId`) |
 | **Titulares** | Todos os usuários |
-| **Retenção** | Vigência da conta + 10 anos |
+| **Retenção** | Vigência da conta + prazo necessário para defesa contratual/consumerista; confirmar prazo final com DPO/jurídico antes do go-live |
 | **Compartilhamentos** | — |
 
 ---
@@ -250,14 +250,14 @@ Resumo dos fluxos para fora do Brasil — detalhamento em [`dpa-subprocessadores
 
 ## 6. MEDIDAS DE SEGURANÇA (Art. 46 LGPD)
 
-Resumo (detalhes em [`compliance/pci-dss-scoping.md`](../compliance/pci-dss-scoping.md) e [`produto/biometria/lgpd-security.md`](../../produto/biometria/lgpd-security.md)):
+Resumo (detalhes em [`conformidade/pci-dss-scoping.md`](../conformidade/pci-dss-scoping.md) e [`produto/biometria/lgpd-security.md`](../../produto/biometria/lgpd-security.md)):
 
 - TLS em todos os endpoints públicos.
 - Biometria criptografada em repouso (AES-256-GCM).
 - Tokenização de cartão no cliente — backend não recebe PAN.
 - Controle de acesso por RBAC (`Permission`, `Role`, `RolePermission`).
 - Idempotência em operações sensíveis (`IdempotencyKey`).
-- Logs de auditoria (`AuditLog`, `BiometricAudit`, `ProducerKycDocumentAudit`).
+- Logs de auditoria (`AuditLog`, `BiometricAudit`, `ProducerKycDocumentAudit`, `UserTermsAcceptance`, `RefundPolicyAcceptance`).
 - Janela de retenção configurável por finalidade (purges automatizados).
 
 ---
@@ -276,3 +276,4 @@ Resumo (detalhes em [`compliance/pci-dss-scoping.md`](../compliance/pci-dss-scop
 | Versão | Data       | Mudança principal                                |
 |--------|------------|--------------------------------------------------|
 | 1.0    | 2026-05-24 | Draft inicial pré-lançamento (16 tratamentos)    |
+| 1.1    | 2026-05-27 | Detalha aceite legal global e reembolso por checkout |

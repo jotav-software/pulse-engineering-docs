@@ -69,6 +69,7 @@ Use cases de pagamento recebem `IPaymentGateway` por construtor (ex.: `ProcessPi
 | Reserva de estoque | **10 minutos** | `InitializeCheckoutUseCase` (`expiresAt = now + 10min`) |
 | Tentativas cartão | **3** por sessão | `MAX_CARD_PAYMENT_ATTEMPTS` em `ProcessCardPaymentUseCase.ts` |
 | Emissão de ingresso | Somente após **`Transaction` = `PAID`** | `ConfirmPaymentUseCase` |
+| Política de Reembolso | Aceite obrigatório por sessão antes de Pix, cartão ou cortesia | `RefundPolicyAcceptance`, `ensureRefundPolicyAcceptedForCheckout` |
 | Flag apps (demo) | `EXPO_PUBLIC_PAYMENTS_ENABLED=false` | `app-client/src/shared/config/flags.ts` — UI “Vendas em breve”; alinhar com backend |
 
 Fluxos detalhados: [checkout-flows.md](./checkout-flows.md).
@@ -160,6 +161,7 @@ App cliente: rebuild com `EXPO_PUBLIC_PAYMENTS_ENABLED=true` ou consumir `GET /a
 - `expiresAt`, `status` (`PENDING` | `COMPLETED` | `EXPIRED` | `FAILED`)
 - `paymentAttempts` / contagem real em `Transaction.attemptsCount` (cartão)
 - Campos financeiros: `subtotal`, `feeTotal`, `discountPix`, `installmentFee`, `total`, `paymentMethod`
+- Relação com `RefundPolicyAcceptance` para aceite contextual de `REFUND_POLICY`
 
 ### `CheckoutItem`
 
@@ -293,7 +295,7 @@ cd backend && bun test tests/unit/infrastructure/gateways/StripeGateway.test.ts 
 | [global-business-rules.md](../../produto/regras-negocio/global-business-rules.md) | Regras invioláveis transversais |
 | [app-produtor.md](../../produto/especificacao-funcional/app-produtor.md) | Financeiro e Access |
 | [job-repasse.md](../job-repasse.md) | Job RETAINED→AVAILABLE |
-| [checkout-compliance.md](../../produto/regras-negocio/checkout-compliance.md) | Gate HU06 termos |
+| [checkout-compliance.md](../../produto/regras-negocio/checkout-compliance.md) | Aceite legal e `REFUND_POLICY` no checkout |
 
 ---
 

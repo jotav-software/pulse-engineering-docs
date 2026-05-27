@@ -69,7 +69,7 @@ Mesma tela financeiro: listagem estornos, busca pedido, validação e processame
 
 ### 3.6 Compliance e termos (HU06) — [IMPLEMENTADO]
 
-Tela /admin/compliance: documentos versionados, publicar nova versão com forceAcceptance. API: GET /compliance, POST /compliance/documents. Produtor e cliente bloqueados por TermsComplianceMiddleware até aceitar; PULSE_ADMIN isento. Ver [CHECKOUT_COMPLIANCE.md](../CHECKOUT_COMPLIANCE.md).
+Tela `/admin/compliance`: documentos legais versionados (`TERMS_OF_USE`, `PRIVACY_POLICY`, `PRODUCER_TERMS_OF_USE`, `REFUND_POLICY`), publicação de nova versão e KPIs. API: `GET /compliance`, `GET /compliance/documents/:id`, `POST /compliance/documents`, `GET /compliance/acceptance-logs` e `GET /compliance/acceptance-logs/export`. Cliente/produtor são bloqueados por `TermsComplianceMiddleware` até aceitar documentos globais pendentes; `PULSE_ADMIN` é isento. Logs unem aceites globais e aceites contextuais de Política de Reembolso por sessão de checkout. Ver [checkout-compliance.md](../regras-negocio/checkout-compliance.md).
 
 ### 3.7 Contratos comerciais por produtora (HU07) — [PARCIAL]
 
@@ -107,7 +107,7 @@ Matriz completa: [RBAC.md](../RBAC.md).
 - API admin → MySQL (produtoras, payouts, refunds, compliance, KYC)
 - Brevo para OTP de login
 - Pagar.me para estornos (HU05)
-- Compliance: publicação de termos bloqueia produtor/cliente via `TermsComplianceMiddleware` ([CHECKOUT_COMPLIANCE.md](../CHECKOUT_COMPLIANCE.md)); admin isento
+- Compliance: publicação de documentos globais bloqueia produtor/cliente via `TermsComplianceMiddleware`; `REFUND_POLICY` é aceita por sessão no checkout e auditada/exportável no admin ([checkout-compliance.md](../regras-negocio/checkout-compliance.md)); admin isento
 
 ## 6. Backlog / pendências
 

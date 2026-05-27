@@ -60,4 +60,5 @@ Contrato type-safe: `export type App = typeof app` no backend + Eden Treaty nos 
 
 Conteúdo técnico de produto permanece referenciado a partir de `pulse-backend/docs/` (KYC, biometria, jobs). Este repositório consolida **padrões transversais**; detalhes de domínio específico continuam no backend com links aqui.
 
-Ver também: [ADR-001 Backend Stack](../decisoes/ADR-001-backend-stack.md).
+Ver também: [ADR-001 Backend Stack](../decisoes/ADR-001-backend-stack.md)
+· [Autenticação e sessões](./autenticacao.md).

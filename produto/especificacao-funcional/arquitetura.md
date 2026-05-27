@@ -75,7 +75,7 @@ flowchart LR
 | Tickets | Carteira, transferência, cancelamento |
 | Operation | Check-in QR, facial, lista |
 | Finance / Payouts | Ledger, repasse, freeze |
-| Compliance | Termos versionados, `forceAcceptance` |
+| Compliance | Documentos legais versionados, `forceAcceptance`, aceite de reembolso por checkout |
 | KYC | Documentos produtor (titular) |
 | Biometry | Enrollment e embeddings |
 

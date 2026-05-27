@@ -89,6 +89,12 @@ Este documento complementa o [`ROPA.md`](./ROPA.md) e justifica, por seção, a 
 
 - **Base**: Art. 7º, II — **CDC art. 49** (direito de arrependimento) e **Lei 14.046/2020** (eventos cancelados/adiados) tornam o estorno **obrigação legal**.
 
+### 4.6. Aceite da Política de Reembolso por checkout
+
+- **Base primária**: Art. 7º, V — execução de contrato, pois o aceite contextual informa condição diretamente ligada à compra.
+- **Base concorrente**: Art. 7º, VI — exercício regular de direitos, para comprovar versão, hash, data/hora e sessão em reclamações, chargebacks ou disputas.
+- **Salvaguardas**: não coletar geolocalização; restringir IP/user-agent à evidência técnica e à superfície admin; não reutilizar aceite de uma sessão em outra compra.
+
 ---
 
 ## 5. BIOMETRIA FACIAL (CONTROLE DE ACESSO AO EVENTO)
@@ -202,6 +208,7 @@ Este documento complementa o [`ROPA.md`](./ROPA.md) e justifica, por seção, a 
 | Biometria de acesso ao evento | **Art. 11, I** (consentimento) | — |
 | Emissão de ingresso | Art. 7º, V | — |
 | Pagamento | Art. 7º, V | Art. 7º, II (fiscal) |
+| Aceite legal / reembolso no checkout | Art. 7º, V | Art. 7º, VI / IX |
 | Repasse / saque | Art. 7º, V | Art. 7º, II |
 | Estorno / reembolso | Art. 7º, II (CDC, Lei 14.046) | Art. 7º, V |
 | Comunicação transacional | Art. 7º, V | — |

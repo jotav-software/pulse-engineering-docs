@@ -1,6 +1,6 @@
-# Compliance — termos e privacidade (HU06)
+# Compliance — documentos legais e aceites (HU06)
 
-Publicação de nova versão legal com `forceAcceptance` e gate para produtor/cliente.
+Publicação de documentos legais versionados, gate global por `forceAcceptance` e consulta/exportação de aceites globais ou contextuais de checkout.
 
 | Parte | Arquivo |
 | --- | --- |
@@ -8,4 +8,4 @@ Publicação de nova versão legal com `forceAcceptance` e gate para produtor/cl
 | 2 — Formulário e validação | [parte-2-formulario-e-validacao.md](parte-2-formulario-e-validacao.md) |
 | 3 — Publicação e efeitos | [parte-3-publicacao-e-efeitos.md](parte-3-publicacao-e-efeitos.md) |
 
-Política: [checkout-compliance.md](../../../regras-negocio/checkout-compliance.md).
+Regra canônica: [checkout-compliance.md](../../../regras-negocio/checkout-compliance.md).

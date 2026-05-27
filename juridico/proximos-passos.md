@@ -16,9 +16,9 @@ Levar **todos os 13 documentos da pasta `juridico/`** para revisão. Pontos crí
 |---|---|
 | `contratos/contrato-adesao-produtor.md` | Cl. 12 (limitação de responsabilidade R$ 5k/12m taxas); Cl. 3 (modelo de custódia centralizada vs split — risco regulatório BCB); Cl. 14 (rescisão e direito de informação) |
 | `contratos/termos-de-uso-cliente.md` | Teto de responsabilidade 2× valor do ingresso vs vedação CDC; idade mínima 18+ (estrita); cláusula de foro |
-| `politicas/politica-reembolso.md` | Aplicação concreta CDC art. 49 (7 dias) + Lei 14.046 como **piso voluntário** (não obrigação direta hoje); fluxo refund x estorno cartão (2 ciclos) |
-| `politicas/politica-anti-cambismo.md` | Limite de 6 ingressos/CPF + redação compatível com Lei 14.597/2023 (Lei Geral do Esporte, art. 173); proporção da pena de bloqueio |
-| `compliance/lei-do-ingresso.md` | Manter como piso voluntário, não obrigação direta — alinhar redação |
+| `politicas-publicas/politica-reembolso.md` | Aplicação concreta CDC art. 49 (7 dias) + Lei 14.046 como **piso voluntário** (não obrigação direta hoje); fluxo refund x estorno cartão (2 ciclos); validar copy exibida no aceite por sessão |
+| `politicas-publicas/politica-anti-cambismo.md` | Limite de 6 ingressos/CPF + redação compatível com Lei 14.597/2023 (Lei Geral do Esporte, art. 173); proporção da pena de bloqueio |
+| `conformidade/lei-do-ingresso.md` | Manter como piso voluntário, não obrigação direta — alinhar redação |
 | `lgpd/base-legal-por-tratamento.md` | Cada base do Art. 7º/Art. 11 mapeada corretamente |
 | `lgpd/procedimento-titular.md` | Prazos (15 dias resposta), modelo dos formulários, log de exercício de direitos |
 
@@ -30,7 +30,7 @@ Levar **todos os 13 documentos da pasta `juridico/`** para revisão. Pontos crí
 | `fiscal/plano-NFSe.md` | **Item LC 116/2003** efetivo (recomendamos `1.05` SaaS + `10.05` ou `17.12` intermediação) + alíquota ISS São Paulo (Lei Municipal 13.701/2003) |
 | `fiscal/plano-NFSe.md` | Escolha do provedor NFS-e (Focus NFe, Nuvem Fiscal, eNotas) — pegar 2 propostas comerciais com volume estimado |
 | `fiscal/retencoes-no-repasse.md` | Confirmar se a Pulse é fonte pagadora retentora ou se cada produtor cuida da própria retenção |
-| `compliance/pci-dss-scoping.md` | Validar SAQ-A (escopo mínimo com tokenização Stripe.js + Pagar.me hosted) |
+| `conformidade/pci-dss-scoping.md` | Validar SAQ-A (escopo mínimo com tokenização Stripe.js + Pagar.me hosted) |
 | Geral | Definir se receita Pulse é "valor recebido em custódia" (passa pela conta mas não é receita) ou "fee de intermediação" para fins de cálculo de tributos |
 
 ### 3. Designação formal do DPO

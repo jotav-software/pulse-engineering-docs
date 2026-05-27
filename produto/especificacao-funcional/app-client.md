@@ -1,6 +1,6 @@
 # App Cliente (mobile B2C)
 
-> Escopo: compra, carteira, facial, promoter | Público: `CLIENT`, `PROMOTER` | Plataforma: Expo `app-client/` | Última revisão: 2026-05-20
+> Escopo: compra, carteira, facial, promoter | Público: `CLIENT`, `PROMOTER` | Plataforma: Expo `app-client/` | Última revisão: 2026-05-27
 
 ## Legenda de status
 
@@ -22,10 +22,10 @@ Aplicativo mobile do comprador final: descoberta, checkout, pagamento, carteira 
 | Fluxo | Status | Regras |
 | --- | --- | --- |
 | Cadastro / login B2C | [IMPLEMENTADO] | Better Auth; papel base `CLIENT` |
-| Compliance gate (HU06) | [IMPLEMENTADO] | Rotas autenticadas bloqueadas até aceitar termos `forceAcceptance` |
+| Compliance gate (HU06) | [IMPLEMENTADO] | Busca documentos dinâmicos e bloqueia rotas autenticadas até aceitar documentos globais pendentes |
 | Promoter | [IMPLEMENTADO] | `CLIENT` + membership `PROMOTER`; rotas `/promoter` |
 
-Ver [CHECKOUT_COMPLIANCE.md](../CHECKOUT_COMPLIANCE.md).
+Ver [checkout-compliance.md](../regras-negocio/checkout-compliance.md).
 
 ## 3. Módulos / funcionalidades
 
@@ -47,6 +47,7 @@ Ver [CHECKOUT_COMPLIANCE.md](../CHECKOUT_COMPLIANCE.md).
 | Cartão | Até **4x**; token no cliente (`card_token`) |
 | PSP | `PAYMENT_PROVIDER` — Pagar.me (default) ou Stripe |
 | Flag demo | `PAYMENTS_ENABLED=false` → UI «Vendas em breve» (sem captura real) |
+| Política de Reembolso | Checkbox/gate dinâmico de `REFUND_POLICY` por sessão; Pix/cartão/cortesia bloqueiam sem aceite |
 
 Detalhe técnico: [engenharia/arquitetura/payments/especificacao.md](../../engenharia/arquitetura/payments/especificacao.md).
 
@@ -80,6 +81,7 @@ Detalhe técnico: [engenharia/arquitetura/payments/especificacao.md](../../engen
 ## 5. Integrações e dependências
 
 - Backend `/api/client/v1/*`, espelho legado raiz
+- Documentos legais dinâmicos via `/api/client/v1/compliance/*` e aceite de reembolso via `/api/client/v1/checkout/:id/refund-policy/accept`
 - Pagar.me quando `PAYMENTS_ENABLED=true`
 - pulse-face para biometria
 - Regras globais: [global-business-rules.md](../regras-negocio/global-business-rules.md)

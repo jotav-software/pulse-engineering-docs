@@ -619,7 +619,7 @@ Status do épico: [PARCIAL] Parcial — Fechar a blindagem de RBAC do ecossistem
 - 14.1 Descoberta e vitrine
 - Client Web: home, feed e detalhe público do evento [IMPLEMENTADO]. Seleção de lotes na web [IMPLEMENTADO]. Checkout integrado na web [PENDENTE] — CTA direciona para App Cliente. App Cliente: feed, busca, detalhe [IMPLEMENTADO]. MUST: vitrine pública não exige login de produtor.
 - 14.2 Checkout, pagamento e carteira (App Cliente)
-- MUST: reserva 10 min; máx. 3 tentativas cartão; ingresso só após `PAID`; taxa **10%** por ingresso no código; Pix −5% sobre taxa; cartão até 4x; `PAYMENT_PROVIDER` pagarme|stripe. App Cliente [PARCIAL] — `PAYMENTS_ENABLED=false` em demo. Client Web checkout [PENDENTE]. Gate HU06: [checkout-compliance.md](../regras-negocio/checkout-compliance.md).
+- MUST: reserva 10 min; máx. 3 tentativas cartão; ingresso só após `PAID`; taxa **10%** por ingresso no código; Pix −5% sobre taxa; cartão até 4x; `PAYMENT_PROVIDER` pagarme|stripe; aceite de `REFUND_POLICY` por sessão antes de Pix/cartão/cortesia. Gate HU06: [checkout-compliance.md](../regras-negocio/checkout-compliance.md).
 - 14.3 Ingressos, facial e cancelamento
 - Carteira / meus ingressos no App Cliente [IMPLEMENTADO]. Cadastro facial [IMPLEMENTADO] com flags (FACIAL_ENROLLMENT_V2, PULSE_FACE_EXTRACT). MUST: cancelamento pelo comprador até 24h antes do início do evento, ticket não utilizado (GetCancelEligibilityUseCase — alinhar copy do app que ainda cita 48h). QR como fallback operacional [IMPLEMENTADO]. Client Web carteira [PENDENTE].
 - 14.4 Área Promoter (App Cliente)

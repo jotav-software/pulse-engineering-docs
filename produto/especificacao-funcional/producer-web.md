@@ -36,7 +36,7 @@ Rotas: /dashboard, /events, /finance/*, /team, /settings, onboarding /onboarding
 ## 2. Autenticação e acesso
 
 - Login produtor: `POST /api/producer/v1/auth/login`
-- Compliance gate igual app ([CHECKOUT_COMPLIANCE.md](../CHECKOUT_COMPLIANCE.md))
+- Compliance gate com documentos dinâmicos e pendências de aceite ([checkout-compliance.md](../regras-negocio/checkout-compliance.md))
 - Middleware web restringe sidebar por papel (Gestor sem `/finance` global)
 
 ## 3. Módulos / funcionalidades

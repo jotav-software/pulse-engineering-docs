@@ -1,4 +1,4 @@
-# Compliance termos — Parte 3: publicação e efeitos
+# Compliance documentos legais — Parte 3: publicação e efeitos
 
 **Status:** [IMPLEMENTADO]
 
@@ -6,27 +6,33 @@
 flowchart TD
   A[POST /compliance/documents] --> B[Nova versão legal_document]
   B --> C[Versão anterior desativada isActive=false]
-  C --> D{forceAcceptance?}
-  D -->|true| E[Todos produtores/clientes sem aceite<br/>bloqueados no próximo request]
-  D -->|false| F[Novos aceites sob demanda<br/>sem reset em massa]
+  C --> D{Tipo REFUND_POLICY?}
+  D -->|Não| E{forceAcceptance?}
+  D -->|Sim| R[Aceite contextual<br/>por checkout]
+  E -->|true| F[Produtores/clientes sem aceite<br/>bloqueados no próximo request]
+  E -->|false| G[Novos aceites sob demanda<br/>sem reset em massa]
 
-  E --> G[TermsComplianceMiddleware<br/>produtor + client APIs]
-  F --> G
+  F --> H[Gates de compliance global]
+  G --> H
 
-  G --> H[Producer Web: ComplianceGate / onboarding terms]
-  G --> I[Checkout B2C: gate antes de pagar]
+  H --> I[Producer Web: ComplianceGate / onboarding terms]
+  H --> J[App/Client Web: TermsComplianceMiddleware]
+  R --> K[Checkout: checkbox reembolso]
+  K --> L[Pix/cartão/cortesia exigem aceite]
 
-  J[PULSE_ADMIN] --> K[Isento — opera /admin normalmente]
+  M[PULSE_ADMIN] --> N[Isento — opera /admin normalmente]
 
-  style E fill:#fdd,stroke:#333
+  style F fill:#fdd,stroke:#333
 ```
 
 **Efeitos de negócio**
 
-- `forceAcceptance` é a alavanca de **reconsentimento obrigatório** após mudança material (LGPD / termos).
-- Cards na UI mostram `adoptionPercent` e `acceptedCount` pós-publicação.
+- `forceAcceptance` é a alavanca de **reaceite obrigatório** após mudança material em documentos globais.
+- `REFUND_POLICY` não bloqueia login; ela é aceita por sessão antes de Pix, cartão ou cortesia.
+- Cards na UI mostram `adoptionPercent` e `acceptedCount`; para `REFUND_POLICY`, o KPI usa aceites contextuais.
+- Logs granulares ficam em `GET /api/admin/v1/compliance/acceptance-logs` e exportação em `/acceptance-logs/export`.
 
 **Referências**
 
 - `TermsComplianceMiddleware.ts` — bypass `/api/admin/v1`
-- [CHECKOUT_COMPLIANCE.md](../../../regras-negocio/checkout-compliance.md) (alias checkout-compliance)
+- [checkout-compliance.md](../../../regras-negocio/checkout-compliance.md)

@@ -2,7 +2,7 @@
 
 Índice da documentação de **regras de negócio, especificação funcional, acesso e operação** do ecossistema Pulse.
 
-**Última revisão:** 2026-05-20
+**Última revisão:** 2026-05-27
 
 ---
 
@@ -28,7 +28,7 @@ Regras transversais que valem em todas as plataformas.
 | --- | --- |
 | [global-business-rules.md](./regras-negocio/global-business-rules.md) | Regras invioláveis de negócio |
 | [payout-policies.md](./regras-negocio/payout-policies.md) | Repasse, cancelamento e elegibilidade |
-| [checkout-compliance.md](./regras-negocio/checkout-compliance.md) | Gate HU06 — termos B2C/produtor |
+| [checkout-compliance.md](./regras-negocio/checkout-compliance.md) | Aceite legal, reaceite por versão e Política de Reembolso no checkout |
 | [kyc-blocking-matrix.md](./regras-negocio/kyc-blocking-matrix.md) | Bloqueios por status KYC |
 
 ---
@@ -39,8 +39,8 @@ RBAC e matriz de permissões por app.
 
 | Documento | Descrição |
 | --- | --- |
-| [rbac.md](./access/rbac.md) | Papéis, convites e escopo por plataforma |
-| [role-matrix.md](./access/role-matrix.md) | Matriz HU3 — fronteiras e hierarquia |
+| [rbac.md](./acesso/rbac.md) | Papéis, convites e escopo por plataforma |
+| [role-matrix.md](./acesso/role-matrix.md) | Matriz HU3 — fronteiras e hierarquia |
 
 ---
 
@@ -50,11 +50,11 @@ Domínio facial (enrollment, LGPD, infra, épico self-hosted).
 
 | Documento | Descrição |
 | --- | --- |
-| [como-funciona-biometria-facial.md](./facial/como-funciona-biometria-facial.md) | Visão geral do fluxo |
-| [lgpd-security.md](./facial/lgpd-security.md) | LGPD e segurança |
-| [enrollment-mvp.md](./facial/enrollment-mvp.md) | Enrollment MVP |
-| [infra-deploy-checklist.md](./facial/infra-deploy-checklist.md) | Checklist de deploy |
-| [epic-self-hosted.md](./facial/epic-self-hosted.md) | Épico self-hosted |
+| [como-funciona-biometria-facial.md](./biometria/como-funciona-biometria-facial.md) | Visão geral do fluxo |
+| [lgpd-security.md](./biometria/lgpd-security.md) | LGPD e segurança |
+| [enrollment-mvp.md](./biometria/enrollment-mvp.md) | Enrollment MVP |
+| [infra-deploy-checklist.md](./biometria/infra-deploy-checklist.md) | Checklist de deploy |
+| [epic-self-hosted.md](./biometria/epic-self-hosted.md) | Épico self-hosted |
 
 ---
 
@@ -62,12 +62,12 @@ Domínio facial (enrollment, LGPD, infra, épico self-hosted).
 
 | Documento | Descrição |
 | --- | --- |
-| [test-users.md](./dev/test-users.md) | Contas de teste e credenciais padrão |
+| [test-users.md](./qa/test-users.md) | Contas de teste e credenciais padrão |
 
 ---
 
 ## Referências externas
 
-- Pagamentos (técnico): [engenharia/arquitetura/payments/](../arquitetura/payments/README.md)
-- Padrões de engenharia: [engenharia/padroes/](../padroes/technical-rules.md)
+- Pagamentos (técnico): [engenharia/arquitetura/payments/](../engenharia/arquitetura/payments/README.md)
+- Padrões de engenharia: [engenharia/padroes/](../engenharia/padroes/technical-rules.md)
 - Índice geral do repositório: [README.md](../README.md)

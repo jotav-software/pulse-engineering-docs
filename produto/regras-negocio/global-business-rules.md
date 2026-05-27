@@ -29,6 +29,7 @@ Decisões de negócio transversais ao ecossistema Pulse. Em conflito com requisi
 | Parcelamento | Até **4x** no cartão | `PaymentController`, `ProcessCardPaymentUseCase` |
 | Tentativas cartão | Máx. **3** por pedido/sessão | `MAX_CARD_PAYMENT_ATTEMPTS` |
 | Reserva checkout | **10 minutos** | `expiresAt` em `InitializeCheckoutUseCase` |
+| Política de Reembolso | Aceite obrigatório por sessão antes de Pix/cartão/cortesia | `RefundPolicyAcceptance` |
 | Multi-PSP | `PAYMENT_PROVIDER=pagarme\|stripe` (default `pagarme`) | `paymentProvider.ts`, gateways |
 
 ### Ingressos e limites
@@ -74,13 +75,14 @@ Decisões de negócio transversais ao ecossistema Pulse. Em conflito com requisi
 4. Máx. 3 tentativas de cartão
 5. Desconto Pix sobre a taxa
 6. Cartão até 4x
-7. Ingresso `USED` não cancela
-8. Cancelamento comprador até 24h antes
-9. Repasse: ver [payout-policies.md](./payout-policies.md) (job D+1)
-10. Evento cancelado → estorno compradores
-11. Cortesia com trilha de valor cheio
-12. Facial principal, QR contingência
-13. Painel financeiro: retido / disponível / repassado
+7. Aceite de `REFUND_POLICY` por sessão antes de concluir checkout
+8. Ingresso `USED` não cancela
+9. Cancelamento comprador até 24h antes
+10. Repasse: ver [payout-policies.md](./payout-policies.md) (job D+1)
+11. Evento cancelado → estorno compradores
+12. Cortesia com trilha de valor cheio
+13. Facial principal, QR contingência
+14. Painel financeiro: retido / disponível / repassado
 
 ---
 
