@@ -11,7 +11,7 @@ Documento **canônico** de configuração por sistema. Valores secretos **nunca*
 | pulse-backend (API) | `https://api.pulse.jotav.com.br` | `https://api.pulse.jotav.com.br` |
 | client-web | `https://pulse.jotav.com.br` | `https://client-web-production-be7d.up.railway.app` |
 | pulse-producer-web (admin) | `https://admin.pulse.jotav.com.br` | `https://pulse-producer-web-production.up.railway.app` |
-| pulse-face | `https://face.jotav.com.br` | `https://pulse-face-production.up.railway.app` |
+| pulse-face | `https://face.jotav.com.br` | `https://face.jotav.com.br` (não usar `pulse-face-production.up.railway.app` — hostname antigo) |
 | pulse-brand-assets (CDN + docs) | — | `https://cdn.pulse.jotav.com.br` |
 
 > **Nota (mai/2026):** O serviço `pulse-landing-page` foi **descontinuado**. Landing, páginas legais e catálogo de eventos são servidos pelo **client-web** em `https://pulse.jotav.com.br` (`/` = marketing, `/eventos` = catálogo).
@@ -169,7 +169,7 @@ Deploy: serviço **pulse-backend**, branch acordada (`develop`).
 | `PULSE_FACE_IDENTIFY_THRESHOLD` | Não | all | Sim | Opc. | Default `0.45`. |
 | `PULSE_FACE_VERIFY_THRESHOLD` | Não | all | Sim | Opc. | Default `0.50`. |
 | `PULSE_FACE_MIN_SCORE_GAP` | Não | all | Sim | Opc. | Default `0.05`. |
-| `PULSE_FACE_SERVICE_URL` | Extract/identify | prod | Sim | Sim | `https://pulse-face-production.up.railway.app` |
+| `PULSE_FACE_SERVICE_URL` | Extract/identify | prod | Sim | Sim | `https://face.jotav.com.br` |
 | `PULSE_FACE_SERVICE_API_KEY` | Extract/identify | prod | Sim | Sim | Segredo forte; **igual** no pulse-face (`x-api-key`). |
 | `PULSE_FACE_HEALTH_TIMEOUT_MS` | Não | all | Sim | Opc. | Default `3000`. |
 | `PULSE_FACE_IDENTIFY_TIMEOUT_MS` | Não | all | Sim | Opc. | Default `5000`. |
