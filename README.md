@@ -122,7 +122,7 @@ Detalhes: [operacoes/cdn-e-docs.md](./operacoes/cdn-e-docs.md)
 
 ### Marca & Operações
 - [Brand kit brief](./marca/brand-kit-brief.md) · Sync: `./_apenas-git/scripts/sync-brand-assets.sh`
-- [Variáveis de ambiente](./operacoes/variaveis-ambiente.md) · [CDN](./operacoes/cdn-e-docs.md)
+- [Variáveis de ambiente](./operacoes/variaveis-ambiente.md) · [CDN](./operacoes/cdn-e-docs.md) · [EAS iOS](./operacoes/eas-ios-release.md)
 - [Protótipos (índice)](./_apenas-git/prototipos/README.md)
 
 ## Como contribuir
