@@ -53,7 +53,7 @@ Adiado a pedido. `backend/.env` contém creds reais (MySQL Railway, Better-Auth,
 
 **Pendente (próxima sprint)**: integração nos clientes (app-client / app-producer) — passar UUID v4 em todo retry de checkout; tarefa Cron para purgar `expires_at < now`.
 
-### A3. Error tracking — Sentry — 🟨 backend ativo, falta frontends/mobile
+### A3. Error tracking — Sentry — ✅ projetos separados configurados
 **Backend (entregue)**:
 - `@sentry/bun` instalado.
 - `infrastructure/observability/observability.ts` com `initObservability`, `captureException`, `flushObservability`.
@@ -62,17 +62,15 @@ Adiado a pedido. `backend/.env` contém creds reais (MySQL Railway, Better-Auth,
 - Flush no graceful shutdown.
 - Filtro de PII em headers (Authorization, Cookie, Idempotency-Key redacted).
 
-**Configurado**: DSN ativo no backend local (projeto `o4511447142563840` em `ingest.de.sentry.io`). Smoke test (`bun _apenas-git/scripts/smoke-observability.ts`) confirmou envio de message + exception.
+**Configurado**: projetos Sentry separados na org `jota-v` (`pulse-backend`, `pulse-app-client`, `pulse-app-producer`, `pulse-producer-web`, `pulse-client-web`), todos na região `de.sentry.io`. DSNs ficam em Railway/EAS, nunca versionados.
 
 **Frontends e mobile (entregue)**:
 - `producer-web/` e `client-web/`: `@sentry/nextjs` instalado, `sentry.client.config.ts` / `sentry.server.config.ts` / `sentry.edge.config.ts` / `instrumentation.ts` criados; `next.config.mjs` envolto em `withSentryConfig`. DSN copiado para `.env.local`.
 - `app-client/` e `app-producer/`: `@sentry/react-native` instalado, helper `src/shared/observability/sentry.ts` importado no topo de `app/_layout.tsx`; plugin `@sentry/react-native/expo` registrado em `app.json`. DSN no `.env` via `EXPO_PUBLIC_SENTRY_DSN`.
 
 **Pendente**:
-- Setar `SENTRY_DSN` no Railway para o backend + nas plataformas de deploy de cada frontend (Vercel/Railway).
-- Configurar `SENTRY_AUTH_TOKEN` + `SENTRY_ORG` + `SENTRY_PROJECT` em CI para upload de source maps (Next.js) e symbolication mobile (EAS Build).
-- Validar visualmente no dashboard Sentry após primeiro deploy de cada um.
-- (Opcional) criar projetos separados no Sentry por app (recomendado em vez de DSN único compartilhado).
+- Configurar `SENTRY_AUTH_TOKEN` onde ainda não existir para upload de source maps/symbolication.
+- Validar visualmente no dashboard Sentry após o primeiro evento real de cada projeto.
 
 ### A4. Rate-limit distribuído — Upstash Redis — ✅
 **Entregue**:
