@@ -19,48 +19,28 @@ Os repositórios de código mantêm apenas READMEs locais e documentação estri
 
 ```
 pulse-engineering-docs/
-├── marca/                  CDN: /assets (público) + /kit (protegido)
+pulse-engineering-docs/
+├── docs/                   Docs técnicos, produto, legal, ops
+│   ├── arquitetura/        Visão técnica, decisões (ADR), pagamentos
+│   ├── produto/            Specs, regras de negócio, acesso, biometria
+│   ├── negocio/            Contratos, LGPD, fiscal, comercial, GTM
+│   ├── operacoes/          Deploy, infra, CDN, variáveis
+│   └── padroes/            Padrões de código, testes, backlog
+│
+├── public/                 CDN: /assets (público) + /kit (protegido)
 │   ├── assets/             Logos, ícones, splash, cores
-│   ├── kits/               Brand kits HTML interativos
-│   └── brand-kit-brief.md
+│   └── kits/               Brand kits HTML interativos
 │
-├── engenharia/             Docs técnicos → /docs/engenharia/**
-│   ├── decisoes/           Decisões de arquitetura (ADR)
-│   ├── arquitetura/        Visão técnica, pagamentos, jobs
-│   ├── padroes/            Padrões de código (API, backend, frontend…)
-│   └── backlog/            Roadmaps e épicos técnicos
-│
-├── produto/                Spec e regras → /docs/produto/**
-│   ├── especificacao-funcional/
-│   ├── regras-negocio/     Regras INTERNAS (alinhadas ao código)
-│   ├── acesso/             RBAC e matriz de papéis
-│   ├── biometria/          Domínio facial
-│   └── qa/                 Contas de teste
-│
-├── juridico/               Legal → /docs/juridico/**
-│   ├── contratos/
-│   ├── politicas-publicas/ Textos para USUÁRIO FINAL (drafts)
-│   ├── lgpd/
-│   ├── fiscal/
-│   └── conformidade/
-│
-├── comercial/              Marketing → /docs/comercial/**
-│   ├── lancamento/         Go-to-market, ads, pricing
-│   └── apresentacoes/      Decks HTML para clientes
-│
-├── operacoes/              Infra → /docs/operacoes/**
-│   ├── variaveis-ambiente.md
-│   ├── cdn-e-docs.md
-│   └── plano-lancamento-tecnico.md
+├── src/                    Runtime CDN (Railway)
+│   ├── server.js           Express server
+│   └── lib/docs.js         Markdown generator
 │
 ├── _apenas-git/            Nunca vai pro Railway
 │   ├── prototipos/         Mocks HTML + PNG (referência)
-│   ├── capturas-marca/     Screenshots App Store
+│   ├── exports/            Exportações brutas do Figma
 │   ├── scripts/            Automação Python/shell
 │   ├── midia/              Vídeos locais
 │   └── historico/          Logs de migração
-│
-├── server.js, lib/         Runtime CDN (Railway)
 └── README.md               Este arquivo
 ```
 
@@ -88,41 +68,30 @@ Detalhes: [operacoes/cdn-e-docs.md](./operacoes/cdn-e-docs.md)
 
 ## Índice rápido
 
-### Engenharia — Decisões (ADR)
-- [ADR-001 — Backend stack](./engenharia/decisoes/ADR-001-backend-stack.md)
-- [ADR-002 — Authentication strategy](./engenharia/decisoes/ADR-002-authentication-strategy.md)
-- [ADR-003 — Implementation rules](./engenharia/decisoes/ADR-003-implementation-rules.md)
+### Arquitetura (Antigo Engenharia)
+- [ADR-001 — Backend stack](./docs/arquitetura/ADR-001-backend-stack.md) · [ADR-002 — Auth](./docs/arquitetura/ADR-002-authentication-strategy.md)
+- [Visão geral](./docs/arquitetura/overview.md) · [Princípios](./docs/arquitetura/principles.md)
+- [Pagamentos](./docs/arquitetura/payments/especificacao.md) · [Job repasse](./docs/arquitetura/job-repasse.md)
 
-### Engenharia — Arquitetura
-- [Visão geral](./engenharia/arquitetura/overview.md) · [Princípios](./engenharia/arquitetura/principles.md) · [Golden rules](./engenharia/arquitetura/golden-rules.md)
-- [Job de repasse](./engenharia/arquitetura/job-repasse.md)
-- [Pagamentos](./engenharia/arquitetura/payments/especificacao.md) · [Checkout flows](./engenharia/arquitetura/payments/checkout-flows.md)
-
-### Engenharia — Padrões
-- [API](./engenharia/padroes/api.md) · [Backend](./engenharia/padroes/backend.md) · [Frontend](./engenharia/padroes/frontend.md)
-- [Segurança](./engenharia/padroes/security.md) · [Testes](./engenharia/padroes/testing.md)
-- [Regras técnicas](./engenharia/padroes/technical-rules.md) · [Prisma](./engenharia/padroes/prisma-workflow.md)
+### Padrões e Backlog
+- [API](./docs/padroes/api.md) · [Backend](./docs/padroes/backend.md) · [Frontend](./docs/padroes/frontend.md)
+- [Testes](./docs/padroes/testing.md) · [Prisma](./docs/padroes/prisma-workflow.md)
+- [Épico melhorias](./docs/padroes/epic-technical-improvements.md) · [Roadmap Producer Web](./docs/padroes/roadmap-producer-web.md)
 
 ### Produto
-- [Índice produto](./produto/README.md)
-- [Especificação funcional](./produto/especificacao-funcional/README.md)
-- [Regras globais](./produto/regras-negocio/global-business-rules.md) · [Aceite legal](./produto/regras-negocio/checkout-compliance.md) · [Repasse](./produto/regras-negocio/payout-policies.md) · [KYC](./produto/regras-negocio/kyc-blocking-matrix.md)
-- [RBAC](./produto/acesso/rbac.md) · [Biometria](./produto/biometria/como-funciona-biometria-facial.md)
+- [Índice produto](./docs/produto/README.md) · [Especificação funcional](./docs/produto/especificacao-funcional/README.md)
+- [Regras globais](./docs/produto/regras-negocio/global-business-rules.md) · [KYC](./docs/produto/regras-negocio/kyc-blocking-matrix.md)
+- [RBAC](./docs/produto/acesso/rbac.md) · [Biometria](./docs/produto/biometria/como-funciona-biometria-facial.md)
 
-### Jurídico
-- [Índice jurídico](./juridico/README.md)
-- [Contrato produtor](./juridico/contratos/contrato-adesao-produtor.md) · [Termos B2C](./juridico/contratos/termos-de-uso-cliente.md)
-- [Privacidade](./juridico/politicas-publicas/politica-privacidade.md) · [Reembolso](./juridico/politicas-publicas/politica-reembolso.md)
+### Negócio (Jurídico e Comercial)
+- [Índice jurídico](./docs/negocio/README.md)
+- [Contrato produtor](./docs/negocio/contratos/contrato-adesao-produtor.md) · [Termos B2C](./docs/negocio/contratos/termos-de-uso-cliente.md)
+- [Go-to-market](./docs/negocio/lancamento/go-to-market-plan.md) · [Pricing](./docs/negocio/lancamento/pricing-publico.md)
+- [Brand kit brief](./docs/negocio/brand-kit-brief.md)
 
-### Comercial
-- [Go-to-market](./comercial/lancamento/go-to-market-plan.md) · [Pricing](./comercial/lancamento/pricing-publico.md)
-
-### Backlog técnico
-- [Épico melhorias](./engenharia/backlog/epic-technical-improvements.md) · [Roadmap Producer Web](./engenharia/backlog/roadmap-producer-web.md)
-
-### Marca & Operações
-- [Brand kit brief](./marca/brand-kit-brief.md) · Sync: `./_apenas-git/scripts/sync-brand-assets.sh`
-- [Variáveis de ambiente](./operacoes/variaveis-ambiente.md) · [CDN](./operacoes/cdn-e-docs.md) · [EAS iOS](./operacoes/eas-ios-release.md)
+### Operações & Assets
+- Sync assets: `./_apenas-git/scripts/sync-brand-assets.sh`
+- [Variáveis de ambiente](./docs/operacoes/variaveis-ambiente.md) · [CDN](./docs/operacoes/cdn-e-docs.md)
 - [Protótipos (índice)](./_apenas-git/prototipos/README.md)
 
 ## Como contribuir
