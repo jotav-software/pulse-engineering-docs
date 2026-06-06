@@ -100,6 +100,8 @@ Deploy: serviço **pulse-backend**, branch acordada (`develop`).
 | `MAIL_DELIVERY_SYNC` | Não | dev/test | Sim | Não | `true` = entrega síncrona (testes). |
 | `MAIL_LOG_OTP_IN_DEV` | Não | dev only | Sim | **Não** | `true` = loga OTP no console (fallback mail). |
 | `PRODUCER_WEB_URL` | Recom. prod | prod | Sim | Sim | Links nos e-mails produtor. Ex.: `https://admin.pulse.jotav.com.br` ou `https://app.pulse.app`. Alias: `PRODUCER_PORTAL_URL`. |
+| `KYC_REVIEW_NOTIFICATION_EMAIL` | Recom. prod | prod | Sim | Sim | Destinatário da notificação interna quando uma produtora conclui o KYC (3 docs obrigatórios) e fica pronta para análise. Se ausente, a notificação é apenas logada e **não enviada**. Ex.: `jotav.pulse@gmail.com`. |
+| `ADMIN_WEB_URL` | Recom. prod | prod | Sim | Sim | Base do painel admin para o deep link da tela de análise de KYC no e-mail acima (`/admin/compliance/kyc?producerId=…`). Desacoplado do `PRODUCER_WEB_URL`. Fallback: `PRODUCER_WEB_URL` → `https://admin.pulse.jotav.com.br`. |
 | `CLIENT_WEB_URL` | Recom. prod | prod | Sim | Sim | Fallback web nos convites de cadastro cliente. Ex.: `https://pulse.jotav.com.br` ou `https://pulse.app`. Alias: `CLIENT_PORTAL_URL`. |
 | `RAILWAY_SERVICE_CLIENT_WEB_URL` | Não | prod | — | Auto | Railway injeta host do serviço client-web quando linkado no mesmo projeto — usado como fallback de `CLIENT_WEB_URL`. |
 | `CLIENT_APP_SCHEME` | Não | all | Sim | Sim | Deeplink Expo nos convites. Default `pulse-client`. Alias: `EXPO_PUBLIC_APP_SCHEME`. |
