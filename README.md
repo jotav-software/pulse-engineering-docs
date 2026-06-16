@@ -1,3 +1,11 @@
+> ⚠️ **DEPRECATED — repositório descontinuado**
+>
+> Este repositório **não é mais a fonte de verdade**. A documentação oficial do Pulse agora vive na **SSOT no Notion**: [Pulse — Fonte Única de Verdade (SSOT)](https://app.notion.com/p/37e819cc4514814cb290f6ef842f17eb).
+>
+> O conteúdo aqui é **histórico/snapshot** e **não deve ser editado**. O repositório será **arquivado (read-only)** em breve. Para qualquer atualização, use a SSOT no Notion.
+
+---
+
 # Pulse — Documentação Central
 
 Repositório canônico de **marca, engenharia, produto, jurídico, comercial e operações** do ecossistema **Pulse** (JV / jotav-software). Também serve como **CDN** (logos públicos + docs internos protegidos).
