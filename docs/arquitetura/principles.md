@@ -14,7 +14,7 @@ Este documento define as diretrizes obrigatórias de arquitetura, qualidade e co
 2.  **Framework Agnostic**: Nunca misturar regra de negócio com detalhes de infraestrutura (Elysia, Expo, etc).
 3.  **Rigor SOLID**:
     -   **SRP**: Cada classe/função tem uma única responsabilidade.
-    -   **DIP**: Depender de abstrações (interfaces), não de implementações. Uso obrigatório de DI containers (`tsyringe`).
+    -   **DIP**: Depender de abstrações (interfaces), não de implementações. **No backend**, manter inversão por interfaces de repositório/serviço. **No frontend**, DI por container (`tsyringe`) **não** é obrigatória — o padrão canônico é "módulos de serviço + React Query + Zustand"; container só quando houver troca real de implementação. Ver [ADR-004](ADR-004-frontend-composition-di.md).
     -   **OCP**: Código extensível sem necessidade de modificação no núcleo.
 4.  **Qualidade de Código**:
     -   Altamente testável (unitários para use cases e lógica de domínio).
