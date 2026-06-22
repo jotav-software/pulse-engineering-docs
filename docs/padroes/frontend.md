@@ -37,6 +37,15 @@ src/
   shared/        # DI, theme, providers
 ```
 
+## Composição / DI (padrão canônico)
+
+O padrão canônico do front Pulse! é **"módulos de serviço + hooks (React Query) +
+estado global Zustand"** (adotado em `app-producer` e `producer-web`). DI por container
+(`tsyringe`) **não** é obrigatória — só quando houver troca real de implementação.
+O **app-client** (Clean Arch + tsyringe em service-locator) é **exceção intencional /
+dívida aceita**. Detalhes e caminho de migração em
+[ADR-004](../arquitetura/ADR-004-frontend-composition-di.md).
+
 ## Data fetching
 
 - **Web:** hook → service → Eden → `unwrap()`

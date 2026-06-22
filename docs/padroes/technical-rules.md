@@ -49,7 +49,7 @@ Você é um **Arquiteto de Software Sênior especializado em Elysia e Better Aut
 | **O** — Open/Closed | Usar composição de componentes e strategy pattern para extensibilidade sem modificar código existente. |
 | **L** — Liskov Substitution | Interfaces de serviço (ex: `IPaymentGateway`) devem ser substituíveis sem quebrar o consumidor. |
 | **I** — Interface Segregation | Não forçar componentes a depender de props que não usam. Interfaces granulares. |
-| **D** — Dependency Inversion | Módulos de alto nível não dependem de implementações concretas. Usar containers de DI. |
+| **D** — Dependency Inversion | Módulos de alto nível não dependem de implementações concretas. No frontend, preferir injeção manual/hooks; container de DI só com troca real de implementação (ver [ADR-004](../arquitetura/ADR-004-frontend-composition-di.md)). |
 
 ### 2.2 Estrutura de Pastas (Gold Standard)
 
@@ -97,7 +97,13 @@ UI (Component) → Hook/ViewModel → Use Case → Repository → API/Storage
 
 ## 3. Injeção de Dependência
 
-Usar **tsyringe** como container DI:
+> **Padrão canônico do frontend Pulse! (ver [ADR-004](../arquitetura/ADR-004-frontend-composition-di.md)):**
+> "módulos de serviço + hooks (React Query) + estado global Zustand". **DI por container
+> (`tsyringe`) NÃO é obrigatória** — use-a apenas quando houver troca real de implementação.
+> O exemplo abaixo (tsyringe) descreve o **app-client**, que é uma **exceção intencional**
+> (Clean Architecture + service-locator) e está registrado como **dívida aceita** no ADR-004.
+
+Exemplo (app-client) — **tsyringe** como container DI:
 
 ```typescript
 // Exemplo: módulo auth
